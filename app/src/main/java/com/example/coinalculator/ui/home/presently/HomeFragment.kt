@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentHomeBinding
+import com.example.coinalculator.ui.home.ServiceLocator
 import com.example.coinalculator.ui.home.presently.adapter.HomeAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -22,7 +23,10 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter = HomeAdapter()
-    private val viewModel: HomeViewModel by viewModels()
+
+    private val viewModel: HomeViewModel by viewModels(
+        factoryProducer = {ServiceLocator.provideViewModel()}
+    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 

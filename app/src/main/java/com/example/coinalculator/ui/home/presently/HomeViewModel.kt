@@ -11,11 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel private constructor(
+class HomeViewModel (
     private val repository: CoinsListRepository
 ) : ViewModel() {
-
-    constructor() : this(CoinsListRepository())
 
     private val _coins = MutableStateFlow<List<String>>(emptyList())
     val coins = _coins.asStateFlow()
