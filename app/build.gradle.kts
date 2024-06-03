@@ -85,4 +85,6 @@ dependencies {
     annotationProcessor (libs.compiler)
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
 }

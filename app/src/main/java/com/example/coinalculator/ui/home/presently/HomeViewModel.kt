@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coinalculator.ui.home.data.CoinsListRepository
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,17 +25,15 @@ class HomeViewModel private constructor(
     }
 
     private fun loadCoins() {
-//        viewModelScope.launch(Dispatchers.IO){
-//            kotlin.runCatching {
-//                repository.getCoins()
-//            }.fold(
-//                onSuccess = {_coins.value = it},
-//                onFailure = { Log.d("BlankViewModel", it.message ?: "") }
-//            )
-//        }
         viewModelScope.launch {
             try {
-                _coins.value = repository.getCoins()
+                repository.getCoins()
+                    .subscribe({ data ->
+                        _coins.value = data
+                    }, { error ->
+                        Log.d("BlankViewModel", error.message ?: "")
+                    }
+                    )
             } catch (e: Exception) {
                 Log.d("BlankViewModel", e.message ?: "")
             }

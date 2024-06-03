@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ListItemBinding
+import kotlinx.coroutines.flow.StateFlow
 
 class HomeAdapter : RecyclerView.Adapter<HomeHolder>() {
     private var values: List<String> = emptyList()
