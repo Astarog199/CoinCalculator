@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.coinalculator.ui.dashboard.data.DashboardRepositoryImpl
 import com.example.coinalculator.ui.dashboard.data.SearchApi
 import com.example.coinalculator.ui.dashboard.domain.ConsumeDashboardUseCase
+import com.example.coinalculator.ui.dashboard.domain.FilterCoinsListUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ServiceLocator {
     fun provideViewModel() : ViewModelProvider.Factory{
         return ViewModelFactory(
-            consumeDashboardUseCase = provideConsumeDashboardUseCase()
+            consumeDashboardUseCase = provideConsumeDashboardUseCase(),
+            filterCoinsListUseCase =  provideFilterCoinsListUseCase()
         )
     }
 
@@ -32,5 +34,9 @@ object ServiceLocator {
 
     private fun provideConsumeDashboardUseCase(): ConsumeDashboardUseCase {
         return ConsumeDashboardUseCase(repositoryImpl = provideDataRemoteDataSource())
+    }
+
+    private fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase{
+        return FilterCoinsListUseCase(repositoryImpl = provideDataRemoteDataSource())
     }
 }

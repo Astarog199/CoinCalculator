@@ -54,8 +54,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation (libs.rxjava)
-    implementation (libs.rxandroid)
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+
 
 //    #Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
