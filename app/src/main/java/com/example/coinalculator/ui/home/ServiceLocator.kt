@@ -21,7 +21,7 @@ object ServiceLocator {
     }
     
     private fun provideRetrofit(): Retrofit {
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .client(
                 OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().also {
                     it.level = HttpLoggingInterceptor.Level.BODY
@@ -29,7 +29,6 @@ object ServiceLocator {
             .baseUrl("https://api.coingecko.com/api/v3/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-            return retrofit
     }
 
     private fun provideDataApiService(): ListCoinApi {

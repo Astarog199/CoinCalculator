@@ -80,11 +80,13 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     //Gson
     implementation(libs.gson)
-
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 }

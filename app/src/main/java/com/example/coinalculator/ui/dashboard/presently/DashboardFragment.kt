@@ -1,18 +1,29 @@
 package com.example.coinalculator.ui.dashboard.presently
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.dashboard.data.CoinModel
-import com.example.coinalculator.ui.dashboard.data.RetrofitInstance
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Callback
+import com.example.coinalculator.ui.dashboard.ServiceLocator
+import com.example.coinalculator.ui.dashboard.presently.adapter.DashboardAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class DashboardFragment : Fragment() {
@@ -20,9 +31,17 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    private val viewModel: DashboardViewModel by viewModels(
+        factoryProducer = { ServiceLocator.provideViewModel() }
+    )
+    private val scope = CoroutineScope(Dispatchers.IO)
+    private var searchJob: Job? = null
+    private val adapter = DashboardAdapter()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -31,32 +50,38 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = adapter
 
-        getCoin()
-        binding.button.setOnClickListener {
-            getCoin()
-        }
-    }
+        viewModel.coin.onEach {
+            adapter.setData(it)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-    fun getCoin(){
-        RetrofitInstance.searchCoinApi.getCoinApi("bitcoin", "usd")
-            .enqueue(object : Callback<CoinModel> {
-                override fun onResponse(
-                    call: Call<CoinModel>,
-                    response: Response<CoinModel>
-                ) {
-                    if (response.isSuccessful){
-                        val result = response.body() ?: return
-                        binding.coin.text = result.coin.usd.toString()
+        binding.search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchJob?.cancel()
+                searchJob = scope.launch {
+                    viewModel.searchCoin(binding.search.text.toString())
+                    withContext(Dispatchers.Main) {
+                        if (viewModel.filter.value.isEmpty()) {
+                            Toast.makeText(requireActivity(), "null", Toast.LENGTH_SHORT).show()
+                        } else {
+                            viewModel.filter.onEach {
+                                adapter.setData(it)
+                            }.launchIn(viewLifecycleOwner.lifecycleScope)
+                        }
                     }
                 }
-                override fun onFailure(call: Call<CoinModel>, t: Throwable) {
-                    Log.e("Network", "Something went wrong", t)
-                }
-            })
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     override fun onDestroyView() {
+        scope.cancel()
         super.onDestroyView()
         _binding = null
     }
