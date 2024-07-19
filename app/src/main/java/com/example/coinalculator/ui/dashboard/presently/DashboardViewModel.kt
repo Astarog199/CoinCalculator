@@ -1,27 +1,26 @@
 package com.example.coinalculator.ui.dashboard.presently
 
 import androidx.lifecycle.ViewModel
-import com.example.coinalculator.ui.dashboard.data.ElementList
 import com.example.coinalculator.ui.dashboard.domain.ConsumeDashboardUseCase
 import com.example.coinalculator.ui.dashboard.domain.FilterCoinsListUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class DashboardViewModel(
     private val consumeDashboardUseCase: ConsumeDashboardUseCase,
-    private val filterCoinsListUseCase: FilterCoinsListUseCase
+    private val filterCoinsListUseCase: FilterCoinsListUseCase,
+    private val coinVOMapper: CoinVOMapper
 ) : ViewModel() {
-    private var _coin = MutableStateFlow<List<ElementList>>(listOf())
-    val coin: StateFlow<List<ElementList>> = _coin.asStateFlow()
+    private var _coin = MutableStateFlow<List<CoinVO>>(listOf())
+    val coin: StateFlow<List<CoinVO>> = _coin.asStateFlow()
 
-    private var _filter = MutableStateFlow<List<ElementList>>(listOf())
-    val filter: StateFlow<List<ElementList>> = _filter.asStateFlow()
+    private var _filter = MutableStateFlow<List<CoinVO>>(listOf())
+    val filter: StateFlow<List<CoinVO>> = _filter.asStateFlow()
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -31,13 +30,18 @@ class DashboardViewModel(
 
     private fun consumeCoin() {
         scope.launch {
-            _coin.value = consumeDashboardUseCase.consumeCoin()
+//            consumeDashboardUseCase.consumeCoin().map { value ->
+//                value.map {
+//                    v->
+//                    _coin.value = listOf(coinVOMapper.toCoinVO(v))
+//                }
+//            }
         }
     }
 
     fun searchCoin(arg: String) {
         scope.launch {
-            _filter.value = filterCoinsListUseCase.searchCoin(arg)
+//            _filter.value = filterCoinsListUseCase.searchCoin(arg)
         }
     }
 }

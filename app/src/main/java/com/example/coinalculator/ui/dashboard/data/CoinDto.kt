@@ -3,20 +3,8 @@ package com.example.coinalculator.ui.dashboard.data
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-
 @JsonClass(generateAdapter = true)
-data class CoinModel (
- @Json(name = "bitcoin") val coin: Bitcoin
-)
-
-@JsonClass(generateAdapter = true)
-data class Bitcoin (
-    val name: String = "bitcoin",
-    @Json(name = "usd") val usd: Long,
-)
-
-@JsonClass(generateAdapter = true)
-data class ElementList(
+data class CoinDto(
     @Json(name = "market") val market: String?,
     @Json(name = "symbol") val symbol: String?,
     @Json(name = "index_id") val index_id: String?,

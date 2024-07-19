@@ -1,10 +1,7 @@
 package com.example.coinalculator.ui.dashboard.domain
 
-import com.example.coinalculator.ui.dashboard.data.CoinModel
-import com.example.coinalculator.ui.dashboard.data.ElementList
+import kotlinx.coroutines.flow.Flow
 
 interface DashboardRepository {
-    suspend fun getCoin(): CoinModel
-
-    suspend fun getList() : List<ElementList>
+    suspend fun consumeCoins() : Flow<List<Coin>>
 }

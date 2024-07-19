@@ -90,4 +90,12 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
+    //Room
+    implementation("androidx.room:room-rxjava2:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation("androidx.datastore:datastore:1.1.1:")
 }

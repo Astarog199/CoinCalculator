@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.dashboard.data.ElementList
+import com.example.coinalculator.ui.dashboard.presently.CoinVO
+
 
 class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {
-    private var values:List<ElementList> = emptyList()
+    private var values:List<CoinVO> = emptyList()
 
-    fun setData(data: List<ElementList>){
+    fun setData(data: List<CoinVO>){
         this.values = data
         notifyDataSetChanged()
     }
@@ -30,7 +31,7 @@ class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {
         val item = values.getOrNull(position)
         with(holder.binding){
             market.text = item?.market
-            title.text = item?.index_id
+            title.text = item?.name
             price.text = item?.price
         }
     }
