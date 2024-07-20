@@ -1,13 +1,13 @@
-package com.example.coinalculator.ui.dashboard.data
+package com.example.coinalculator.ui.dashboard.data.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-data class CoinEntity (
-    @ColumnInfo(name = "name") val name: String = "",
+@Entity(tableName = "CoinTable")
+data class CoinTable (
+    @PrimaryKey
+    @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "market") val market: String,
     @ColumnInfo(name = "price") val price: String
 )
-

@@ -13,22 +13,10 @@ class ConsumeDashboardUseCase(private val repositoryImpl: DashboardRepositoryImp
     private val scope = CoroutineScope(Dispatchers.IO)
     private lateinit var listCoin: Flow<List<Coin>>
 
-
-//    suspend fun consumeCoin() = suspendCoroutine {
-//        scope.launch {
-//            listCoin = repositoryImpl.getList()
-//                .filter { coin ->
-//                    coin.market!!.contains("Binance")
-//                }
-//            it.resume(listCoin)
-//        }
-//    }
-
     suspend fun consumeCoin() = suspendCoroutine {
         scope.launch {
             listCoin = repositoryImpl.consumeCoins()
         }
         it.resume(listCoin)
     }
-
 }
