@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.dashboard.presently.adapter
+package com.example.coinalculator.ui.CoinsList.presently.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.dashboard.presently.CoinVO
+import com.example.coinalculator.ui.CoinsList.presently.CoinVO
 
 
 class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {

@@ -1,6 +1,6 @@
-package com.example.coinalculator.ui.dashboard.presently
+package com.example.coinalculator.ui.CoinsList.presently
 
-import com.example.coinalculator.ui.dashboard.domain.Coin
+import com.example.coinalculator.ui.CoinsList.domain.Coin
 
 class CoinVOMapper() {
     fun toCoinVO(coin: Coin) : CoinVO {

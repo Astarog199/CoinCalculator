@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.dashboard.presently
+package com.example.coinalculator.ui.CoinsList.presently
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.dashboard.ServiceLocator
-import com.example.coinalculator.ui.dashboard.presently.adapter.DashboardAdapter
+import com.example.coinalculator.ui.CoinsList.ServiceLocator
+import com.example.coinalculator.ui.CoinsList.presently.adapter.DashboardAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

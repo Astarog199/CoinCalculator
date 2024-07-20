@@ -1,18 +1,13 @@
-package com.example.coinalculator.ui.dashboard.presently
+package com.example.coinalculator.ui.CoinsList.presently
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.coinalculator.ui.dashboard.domain.Coin
-import com.example.coinalculator.ui.dashboard.domain.ConsumeDashboardUseCase
-import com.example.coinalculator.ui.dashboard.domain.FilterCoinsListUseCase
+import com.example.coinalculator.ui.CoinsList.domain.ConsumeDashboardUseCase
+import com.example.coinalculator.ui.CoinsList.domain.FilterCoinsListUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class DashboardViewModel(

@@ -1,12 +1,11 @@
-package com.example.coinalculator.ui.dashboard
+package com.example.coinalculator.ui.CoinsList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.coinalculator.ui.dashboard.data.DashboardRepositoryImpl
-import com.example.coinalculator.ui.dashboard.domain.ConsumeDashboardUseCase
-import com.example.coinalculator.ui.dashboard.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.dashboard.presently.CoinVOMapper
-import com.example.coinalculator.ui.dashboard.presently.DashboardViewModel
+import com.example.coinalculator.ui.CoinsList.domain.ConsumeDashboardUseCase
+import com.example.coinalculator.ui.CoinsList.domain.FilterCoinsListUseCase
+import com.example.coinalculator.ui.CoinsList.presently.CoinVOMapper
+import com.example.coinalculator.ui.CoinsList.presently.DashboardViewModel
 
 class ViewModelFactory(
     private val consumeDashboardUseCase: ConsumeDashboardUseCase,

@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.dashboard.domain
+package com.example.coinalculator.ui.CoinsList.domain
 
 import kotlinx.coroutines.flow.Flow
 

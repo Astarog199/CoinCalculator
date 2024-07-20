@@ -1,16 +1,13 @@
-package com.example.coinalculator.ui.dashboard.domain
+package com.example.coinalculator.ui.CoinsList.domain
 
-import com.example.coinalculator.ui.dashboard.data.CoinDto
-import com.example.coinalculator.ui.dashboard.data.DashboardRepositoryImpl
+import com.example.coinalculator.ui.CoinsList.data.CoinsListDto
+import com.example.coinalculator.ui.CoinsList.data.CoinsListRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
-class FilterCoinsListUseCase(private val repositoryImpl: DashboardRepositoryImpl) {
+class FilterCoinsListUseCase(private val repositoryImpl: CoinsListRepositoryImpl) {
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var filterCoin: List<CoinDto> = mutableListOf()
+    private var filterCoin: List<CoinsListDto> = mutableListOf()
 
 //    suspend fun searchCoin(query: String) = suspendCoroutine {
 //        scope.launch {

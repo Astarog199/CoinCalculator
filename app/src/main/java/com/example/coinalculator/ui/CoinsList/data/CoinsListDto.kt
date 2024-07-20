@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.dashboard.data
+package com.example.coinalculator.ui.CoinsList.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CoinDto(
+data class CoinsListDto(
     @Json(name = "market") val market: String?,
     @Json(name = "symbol") val symbol: String?,
     @Json(name = "index_id") val index_id: String?,

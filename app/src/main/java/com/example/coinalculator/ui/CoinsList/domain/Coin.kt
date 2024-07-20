@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.dashboard.domain
+package com.example.coinalculator.ui.CoinsList.domain
 
 data class Coin(
     val name: String,

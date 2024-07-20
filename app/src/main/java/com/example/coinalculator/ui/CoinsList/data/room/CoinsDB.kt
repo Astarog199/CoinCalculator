@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.dashboard.data.room
+package com.example.coinalculator.ui.CoinsList.data.room
 
 
 import androidx.room.Database

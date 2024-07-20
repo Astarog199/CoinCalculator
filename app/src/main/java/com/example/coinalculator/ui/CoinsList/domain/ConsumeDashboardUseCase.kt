@@ -1,7 +1,6 @@
-package com.example.coinalculator.ui.dashboard.domain
+package com.example.coinalculator.ui.CoinsList.domain
 
-import com.example.coinalculator.ui.dashboard.data.CoinDto
-import com.example.coinalculator.ui.dashboard.data.DashboardRepositoryImpl
+import com.example.coinalculator.ui.CoinsList.data.CoinsListRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class ConsumeDashboardUseCase(private val repositoryImpl: DashboardRepositoryImpl) {
+class ConsumeDashboardUseCase(private val repositoryImpl: CoinsListRepositoryImpl) {
     private val scope = CoroutineScope(Dispatchers.IO)
     private lateinit var listCoin: Flow<List<Coin>>
 
