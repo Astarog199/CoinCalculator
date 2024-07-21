@@ -1,6 +1,6 @@
-package com.example.coinalculator.ui.CoinsList.domain
+package com.example.coinalculator.ui.Coins.domain
 
-data class Coin(
+class Coin(
     val name: String,
     val market: String,
     val price: String

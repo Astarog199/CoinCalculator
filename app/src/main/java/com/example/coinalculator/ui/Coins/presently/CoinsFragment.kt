@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.CoinsList.presently
+package com.example.coinalculator.ui.Coins.presently
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.CoinsList.ServiceLocator
-import com.example.coinalculator.ui.CoinsList.presently.adapter.DashboardAdapter
+import com.example.coinalculator.ui.Coins.ServiceLocator
+import com.example.coinalculator.ui.Coins.presently.adapter.CoinsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,17 +24,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class DashboardFragment : Fragment() {
+class CoinsFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DashboardViewModel by viewModels(
+    private val viewModel: CoinsViewModel by viewModels(
         factoryProducer = { ServiceLocator.provideViewModel() }
     )
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
-    private val adapter = DashboardAdapter()
+    private val adapter = CoinsAdapter()
 
 
     override fun onCreateView(

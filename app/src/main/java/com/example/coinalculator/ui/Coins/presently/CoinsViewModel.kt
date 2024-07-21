@@ -1,8 +1,8 @@
-package com.example.coinalculator.ui.CoinsList.presently
+package com.example.coinalculator.ui.Coins.presently
 
 import androidx.lifecycle.ViewModel
-import com.example.coinalculator.ui.CoinsList.domain.ConsumeDashboardUseCase
-import com.example.coinalculator.ui.CoinsList.domain.FilterCoinsListUseCase
+import com.example.coinalculator.ui.Coins.domain.ConsumeCoinsUseCase
+import com.example.coinalculator.ui.Coins.domain.FilterCoinsListUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class DashboardViewModel(
-    private val consumeDashboardUseCase: ConsumeDashboardUseCase,
+class CoinsViewModel(
+    private val consumeCoinsUseCase: ConsumeCoinsUseCase,
     private val filterCoinsListUseCase: FilterCoinsListUseCase,
     private val coinVOMapper: CoinVOMapper
 ) : ViewModel() {

@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.CoinsList.presently
+package com.example.coinalculator.ui.Coins.presently
 
 data class CoinVO(
     val name: String,

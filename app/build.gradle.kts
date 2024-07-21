@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.ui.desktop)
+    implementation(libs.androidx.datastore.preferences.core.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,14 +78,13 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.legacy.support.v4)
 
-    //navigation extension
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     //Gson
     implementation(libs.gson)
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
+    implementation(libs.jackson.annotations)
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:1.8.21")
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
@@ -99,4 +99,5 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
 
     implementation("androidx.datastore:datastore:1.1.1:")
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
 }

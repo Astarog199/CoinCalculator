@@ -1,13 +1,13 @@
-package com.example.coinalculator.ui.CoinsList.presently.adapter
+package com.example.coinalculator.ui.Coins.presently.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.CoinsList.presently.CoinVO
+import com.example.coinalculator.ui.Coins.presently.CoinVO
 
 
-class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {
+class CoinsAdapter: RecyclerView.Adapter<CoinsHolder>() {
     private var values:List<CoinVO> = emptyList()
 
     fun setData(data: List<CoinVO>){
@@ -15,8 +15,8 @@ class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardHolder {
-        return DashboardHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsHolder {
+        return CoinsHolder(
             ItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -27,7 +27,7 @@ class DashboardAdapter: RecyclerView.Adapter<DashboardHolder>() {
 
     override fun getItemCount(): Int = values.size
 
-    override fun onBindViewHolder(holder: DashboardHolder, position: Int) {
+    override fun onBindViewHolder(holder: CoinsHolder, position: Int) {
         val item = values.getOrNull(position)
         with(holder.binding){
             market.text = item?.market

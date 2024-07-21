@@ -1,6 +1,7 @@
-package com.example.coinalculator.ui.CoinsList
+package com.example.coinalculator
 
 import android.app.Application
+import com.example.coinalculator.ui.Coins.ServiceLocator as coinServiceLocator
 
 class App: Application() {
 
@@ -15,13 +16,10 @@ class App: Application() {
 //            .fallbackToDestructiveMigration()
 //            .build()
 //    }
+//
 
-    init {
-        instance = this
-    }
-
-    companion object {
-        private var instance: App? = null
-        fun getInstance(): App = instance!!
+    override fun onCreate() {
+        super.onCreate()
+        coinServiceLocator.applicationContext = this
     }
 }
