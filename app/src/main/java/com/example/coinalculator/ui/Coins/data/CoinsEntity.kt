@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CoinsEntity (
-     val name: String = "",
+     val name: String ,
      val market: String,
      val price: String
 )

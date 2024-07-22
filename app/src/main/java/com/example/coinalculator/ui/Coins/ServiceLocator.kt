@@ -84,11 +84,10 @@ object ServiceLocator {
     }
 
     private fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
-        return FilterCoinsListUseCase(repositoryImpl = providDashboardRepository())
+        return FilterCoinsListUseCase(coinsRepository = providDashboardRepository())
     }
 
     private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
-
         return CoinsLocalDataSource(dataStore = applicationContext.appDataStore)
     }
 
