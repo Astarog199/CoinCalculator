@@ -4,19 +4,28 @@ import com.example.coinalculator.ui.Coins.data.CoinsDto
 import com.example.coinalculator.ui.Coins.data.CoinsRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-class FilterCoinsListUseCase(private val repositoryImpl: CoinsRepositoryImpl) {
+class FilterCoinsListUseCase(private val coinsRepository: CoinsRepository) {
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var filterCoin: List<CoinsDto> = mutableListOf()
+    private var filterCoin: List<Coin> = mutableListOf()
 
-//    suspend fun searchCoin(query: String) = suspendCoroutine {
-//        scope.launch {
-//            filterCoin = repositoryImpl.getList()
-//            .filter { coin ->
-//                coin.market!!.contains("Binance") &&
-//                coin.index_id!!.contains(query)
-//            }
-//            it.resume(filterCoin)
-//        }
-//    }
+    suspend fun searchCoin(query: String) = suspendCoroutine {
+        scope.launch {
+            coinsRepository.consumeCoins()
+                .map { value: List<Coin> ->
+                    filterCoin = value
+                }
+
+            filterCoin.filter { coin ->
+                coin.name.contains(query)
+        }
+        it.resume(filterCoin)
+    }
+}
 }
