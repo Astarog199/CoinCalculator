@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
 import com.example.coinalculator.ui.Coins.ServiceLocator
@@ -18,6 +20,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -52,9 +56,12 @@ class CoinsFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-        viewModel.coin.onEach {
-            adapter.setData(it)
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+//        viewModel.coin.onEach {
+//            adapter.setData(it)
+//        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        subscribeUI()
+
 
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -77,6 +84,60 @@ class CoinsFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
+    private fun subscribeUI() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.coin.collect { items: List <CoinVO> ->
+                        adapter.setData(items)
+                        showList()
+                    }
+                }
+
+                launch {
+                    viewModel.isError
+                        .filter { isError -> isError }
+                        .onEach {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error wile loading data",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        .collect()
+                }
+
+                launch {
+                    viewModel.isLoading
+                        .collect { isLoading ->
+                            if (isLoading) {
+                                showLoading()
+                            } else {
+                                showList()
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+
+    private fun showLoading() {
+        hideAll()
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun showList() {
+        hideAll()
+        binding.recyclerView.visibility = View.VISIBLE
+    }
+
+    private fun hideAll() {
+        binding.recyclerView.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+    }
+
 
     override fun onDestroyView() {
         scope.cancel()

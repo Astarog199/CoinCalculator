@@ -1,11 +1,7 @@
 package com.example.coinalculator.ui.Coins.domain
 
-import com.example.coinalculator.ui.Coins.data.CoinsDto
-import com.example.coinalculator.ui.Coins.data.CoinsRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
