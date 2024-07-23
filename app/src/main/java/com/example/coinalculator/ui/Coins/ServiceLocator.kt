@@ -5,12 +5,15 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.coinalculator.ui.Coins.data.CoinsDataMapper
 import com.example.coinalculator.ui.Coins.data.CoinsLocalDataSource
 import com.example.coinalculator.ui.Coins.data.CoinsRemoteDataSource
 import com.example.coinalculator.ui.Coins.data.CoinsRepositoryImpl
 import com.example.coinalculator.ui.Coins.data.CoinsMapper
 import com.example.coinalculator.ui.Coins.data.CoinsApiService
+import com.example.coinalculator.ui.Coins.data.room.CoinDao
+import com.example.coinalculator.ui.Coins.data.room.CoinsDB
 import com.example.coinalculator.ui.Coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.Coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.Coins.presently.CoinVOMapper
@@ -88,12 +91,26 @@ object ServiceLocator {
     }
 
     private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
-        return CoinsLocalDataSource(dataStore = applicationContext.appDataStore)
+//        return CoinsLocalDataSource(dataStore = applicationContext.appDataStore)
+        return CoinsLocalDataSource(coinDao = provideRoom())
     }
 
-    private fun provideCoinsMapper(): CoinsMapper {
-        return CoinsMapper()
+    private fun provideRoom(): CoinDao {
+        val db = Room.inMemoryDatabaseBuilder(
+            context = applicationContext,
+            CoinsDB::class.java,
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+
+        return db.coinDao()
     }
 
-    private val Context.appDataStore: DataStore<Preferences> by preferencesDataStore(name = "start_app")
+
+
+private fun provideCoinsMapper(): CoinsMapper {
+    return CoinsMapper()
+}
+
+private val Context.appDataStore: DataStore<Preferences> by preferencesDataStore(name = "start_app")
 }

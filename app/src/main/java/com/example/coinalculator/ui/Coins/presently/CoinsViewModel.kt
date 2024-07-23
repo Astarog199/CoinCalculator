@@ -66,8 +66,13 @@ class CoinsViewModel(
 
     fun searchCoin(arg: String) {
         scope.launch {
-            _filter.value = filterCoinsListUseCase.searchCoin(arg).map (coinVOMapper::toCoinVO)
-
+            filterCoinsListUseCase.searchCoin(arg)
+                .map { coins ->
+                    coins.map(coinVOMapper::toCoinVO)
+                }
+                .onEach { coinVOs ->
+                    _filter.value = coinVOs
+                }
         }
     }
 }

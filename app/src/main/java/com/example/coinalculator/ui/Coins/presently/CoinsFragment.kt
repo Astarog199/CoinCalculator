@@ -56,12 +56,7 @@ class CoinsFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-//        viewModel.coin.onEach {
-//            adapter.setData(it)
-//        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         subscribeUI()
-
 
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

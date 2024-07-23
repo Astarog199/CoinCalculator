@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "CoinTable")
 data class CoinTable (
     @PrimaryKey
+    @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "market") val market: String,
     @ColumnInfo(name = "price") val price: String

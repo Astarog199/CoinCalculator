@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.Coins.data
 
+import com.example.coinalculator.ui.Coins.data.room.NewCoin
 import com.example.coinalculator.ui.Coins.domain.Coin
 import com.example.coinalculator.ui.Coins.domain.CoinsRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,18 +20,31 @@ class CoinsRepositoryImpl(
 ) : CoinsRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
 
+    var id = 0
+
     override fun consumeCoins(): Flow<List<Coin>> {
         return saveList()
-            .map { coins -> coins.map (coinsMapper :: fromEntity)
-        }
+            .map { coins ->
+                coins.map(coinsMapper::fromEntity)
+            }
     }
 
     private fun saveList(): Flow<List<CoinsEntity>> {
         scope.launch {
             val coins = coinsRemoteDataSource.getList()
-            coinsLocalDataSource.save(
-                coins.map(coinsDataMapper::toEntity)
-            )
+                .map(coinsDataMapper::toEntity)
+
+
+            coins.map { coin ->
+                coinsLocalDataSource.save(
+                    NewCoin(
+                        id = id++,
+                        name = coin.name,
+                        market = coin.market,
+                        price = coin.price
+                    )
+                )
+            }
         }
 
         return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)

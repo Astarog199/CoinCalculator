@@ -14,6 +14,7 @@ class CoinsMapper {
 
     fun toEntity(coin: Coin): CoinsEntity {
         return CoinsEntity(
+            id = 0,
             name = coin.name,
             market = coin.market,
             price = coin.price,

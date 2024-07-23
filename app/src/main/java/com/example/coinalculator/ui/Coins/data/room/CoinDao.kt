@@ -12,7 +12,7 @@ interface CoinDao {
     fun getALL(): Flow<List<CoinsEntity>>
 
     @Insert(entity = CoinTable::class)
-    suspend fun insert(coinsEntity: CoinsEntity)
+    suspend fun insert(newCoin: NewCoin)
 
     @Query("DELETE FROM CoinTable")
     suspend fun delete()
