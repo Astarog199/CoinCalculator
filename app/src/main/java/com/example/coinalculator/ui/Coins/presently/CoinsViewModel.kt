@@ -42,10 +42,6 @@ class CoinsViewModel(
         consumeCoin()
     }
 
-    fun refresh() {
-        consumeCoin()
-    }
-
     private fun consumeCoin() {
         _isLoading.value = true
         consumeCoinsUseCase()
@@ -66,13 +62,7 @@ class CoinsViewModel(
 
     fun searchCoin(arg: String) {
         scope.launch {
-            filterCoinsListUseCase.searchCoin(arg)
-                .map { coins ->
-                    coins.map(coinVOMapper::toCoinVO)
-                }
-                .onEach { coinVOs ->
-                    _filter.value = coinVOs
-                }
+            _filter.value = filterCoinsListUseCase.searchCoin(_coin.value, arg)
         }
     }
 }
