@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.Coins.presently
+package com.example.coinalculator.ui.Coins.presently.model
 
 import com.example.coinalculator.ui.Coins.domain.Coin
 
-class CoinVOMapper() {
-    fun toCoinVO(coin: Coin) : CoinVO {
-        return CoinVO(
+class CoinStateMapper () {
+    fun toCoinState(coin: Coin) : CoinState{
+        return CoinState(
             name = coin.name,
             market = coin.market,
             price = coin.price,
