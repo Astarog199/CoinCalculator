@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.Coins.presently.CoinVO
+import com.example.coinalculator.ui.Coins.presently.model.CoinState
 
 
 class CoinsAdapter: RecyclerView.Adapter<CoinsHolder>() {
-    private var values:List<CoinVO> = emptyList()
+    private var values:List<CoinState> = emptyList()
 
-    fun setData(data: List<CoinVO>){
+    fun setData(data: List<CoinState>){
         this.values = data
         notifyDataSetChanged()
     }

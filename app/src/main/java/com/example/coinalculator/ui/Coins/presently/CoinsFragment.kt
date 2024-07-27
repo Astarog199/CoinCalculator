@@ -14,14 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.Coins.ServiceLocator
 import com.example.coinalculator.ui.Coins.presently.adapter.CoinsAdapter
+import com.example.coinalculator.ui.Coins.presently.model.CoinState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -33,13 +31,16 @@ class CoinsFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CoinsViewModel by viewModels(
-        factoryProducer = { ServiceLocator.provideViewModel() }
-    )
+    //    private val viewModel: CoinsViewModel by viewModels(
+//        factoryProducer = { ServiceLocator.provideViewModel() }
+//    )
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
     private val adapter = CoinsAdapter()
 
+    private val viewModel by viewModels<CoinViewModel> {
+        FeatureServiceLocator.provideCoinsViewModelFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -56,7 +57,26 @@ class CoinsFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-        subscribeUI()
+        viewModel.loadCoins()
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.coinState.collect { state ->
+                    when {
+                        state.isLoading -> showLoading()
+
+                        state.hasError -> {
+                            showError()
+                            viewModel.errorShown()
+                        }
+
+                        else -> showList(state.coinsList)
+                    }
+                }
+            }
+        }
+
+
 
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -64,79 +84,47 @@ class CoinsFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchJob?.cancel()
                 searchJob = scope.launch {
-                    viewModel.searchCoin(binding.search.text.toString())
+                    val arg = binding.search.text.toString()
+                    viewModel.searchCoin(arg)
+
                     withContext(Dispatchers.Main) {
                         if (viewModel.filter.value.isEmpty()) {
-                            Toast.makeText(requireActivity(), "null", Toast.LENGTH_SHORT).show()
+                            viewModel.stateFilter = false
+                            Toast.makeText(requireActivity(), "Nothing found for your request", Toast.LENGTH_SHORT).show()
                         } else {
-                            viewModel.filter.onEach {
-                                adapter.setData(it)
-                            }.launchIn(viewLifecycleOwner.lifecycleScope)
+                            viewModel.stateFilter = true
                         }
                     }
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    private fun subscribeUI() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.coin.collect { items: List <CoinVO> ->
-                        adapter.setData(items)
-                        showList()
-                    }
-                }
-
-                launch {
-                    viewModel.isError
-                        .filter { isError -> isError }
-                        .onEach {
-                            Toast.makeText(
-                                requireContext(),
-                                "Error wile loading data",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        .collect()
-                }
-
-                launch {
-                    viewModel.isLoading
-                        .collect { isLoading ->
-                            if (isLoading) {
-                                showLoading()
-                            } else {
-                                showList()
-                            }
-                        }
-                }
-            }
-        }
-    }
-
 
     private fun showLoading() {
-        hideAll()
+        binding.recyclerView.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun showList() {
-        hideAll()
+    private fun showList(list: List<CoinState>) {
+        adapter.setData(list)
         binding.recyclerView.visibility = View.VISIBLE
-    }
-
-    private fun hideAll() {
-        binding.recyclerView.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
     }
-
 
     override fun onDestroyView() {
         scope.cancel()
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showError() {
+        Toast.makeText(
+            requireContext(),
+            "Error wile loading data",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

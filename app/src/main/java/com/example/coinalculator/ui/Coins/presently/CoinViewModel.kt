@@ -1,10 +1,12 @@
-package com.example.coinalculator.ui.Coins.presently.model
+package com.example.coinalculator.ui.Coins.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coinalculator.ui.Coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.Coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.Coins.presently.CoinVO
+import com.example.coinalculator.ui.Coins.presently.model.CoinListState
+import com.example.coinalculator.ui.Coins.presently.model.CoinState
+import com.example.coinalculator.ui.Coins.presently.model.CoinStateMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +24,8 @@ class CoinViewModel(
     private val consumeCoinsUseCase: ConsumeCoinsUseCase,
     private val filterCoinsListUseCase: FilterCoinsListUseCase
 ): ViewModel() {
+    var stateFilter = false
+
     private val _coinState = MutableStateFlow(CoinListState())
     val coinState: StateFlow<CoinListState> = _coinState.asStateFlow()
 
@@ -30,7 +34,8 @@ class CoinViewModel(
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    fun loadCoins() {
+     fun loadCoins() {
+
         consumeCoinsUseCase()
             .map { coins ->
                 coins.map(coinStateMapper::toCoinState)
@@ -40,13 +45,18 @@ class CoinViewModel(
             }
             .onEach { coinsState ->
                 _coinState.update {
-                    coin -> coin.copy(isLoading = false, coinsList = coinsState)
+                    coin ->
+                    if (coin.filter){
+                        coin.copy(isLoading = false, filter = stateFilter , coinsList = filter.value)
+                    }else{
+                        coin.copy(isLoading = false, filter = stateFilter , coinsList = coinsState)
+                    }
                 }
             }
             .launchIn(viewModelScope)
     }
 
-    fun searchCoin(arg: String) {
+    suspend fun searchCoin(arg: String) {
         scope.launch {
             _filter.value = filterCoinsListUseCase.searchCoin(_coinState.value.coinsList, arg)
         }

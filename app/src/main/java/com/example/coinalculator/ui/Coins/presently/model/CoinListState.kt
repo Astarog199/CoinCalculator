@@ -1,9 +1,9 @@
 package com.example.coinalculator.ui.Coins.presently.model
 
-import com.example.coinalculator.ui.Coins.presently.CoinVO
 
 data class CoinListState (
     val isLoading: Boolean = false,
-    val coinsList: List<CoinVO> = mutableListOf(),
+    val filter: Boolean = false,
+    val coinsList: List<CoinState> = mutableListOf(),
     val hasError: Boolean = false,
 )

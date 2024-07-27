@@ -16,7 +16,6 @@ import com.example.coinalculator.ui.Coins.data.room.CoinDao
 import com.example.coinalculator.ui.Coins.data.room.CoinsDB
 import com.example.coinalculator.ui.Coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.Coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.Coins.presently.CoinVOMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -27,14 +26,6 @@ object ServiceLocator {
     private var coinsListRepositorySingleton: CoinsRepositoryImpl? = null
 
     lateinit var applicationContext: Context
-
-    fun provideViewModel(): ViewModelProvider.Factory {
-        return ViewModelFactory(
-            consumeCoinsUseCase = provideConsumeDashboardUseCase(),
-            filterCoinsListUseCase = provideFilterCoinsListUseCase(),
-            coinVOMapper = CoinVOMapper()
-        )
-    }
 
     private fun provideRetrofit(): Retrofit {
         val local = retrofitSingleton
@@ -82,16 +73,15 @@ object ServiceLocator {
         return CoinsDataMapper()
     }
 
-    private fun provideConsumeDashboardUseCase(): ConsumeCoinsUseCase {
+    fun provideConsumeDashboardUseCase(): ConsumeCoinsUseCase {
         return ConsumeCoinsUseCase(coinsRepository = providDashboardRepository())
     }
 
-    private fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
+    fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
         return FilterCoinsListUseCase(coinsRepository = providDashboardRepository())
     }
 
     private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
-//        return CoinsLocalDataSource(dataStore = applicationContext.appDataStore)
         return CoinsLocalDataSource(coinDao = provideRoom())
     }
 
@@ -111,6 +101,4 @@ object ServiceLocator {
 private fun provideCoinsMapper(): CoinsMapper {
     return CoinsMapper()
 }
-
-private val Context.appDataStore: DataStore<Preferences> by preferencesDataStore(name = "start_app")
 }
