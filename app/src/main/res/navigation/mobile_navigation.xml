@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.coinalculator.ui.Coins.presently.CoinsFragment"
+        android:name="com.example.coinalculator.ui.coins.presently.CoinsFragment"
         android:label="@string/CoinsList"
         tools:layout="@layout/fragment_dashboard" />
 

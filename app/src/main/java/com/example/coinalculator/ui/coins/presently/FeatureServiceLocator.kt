@@ -1,0 +1,20 @@
+package com.example.coinalculator.ui.coins.presently
+
+import androidx.lifecycle.ViewModelProvider
+import com.example.coinalculator.ui.coins.ServiceLocator
+import com.example.coinalculator.ui.coins.presently.model.CoinStateMapper
+
+object FeatureServiceLocator {
+
+    fun provideCoinsViewModelFactory() : ViewModelProvider.Factory{
+        return CoinsViewModelFactory(
+            consumeCoinsUseCase = ServiceLocator.provideConsumeDashboardUseCase(),
+            filterCoinsListUseCase = ServiceLocator.provideFilterCoinsListUseCase(),
+            coinStateMapper = provideCoinStateMapper()
+        )
+    }
+
+    private fun provideCoinStateMapper() : CoinStateMapper {
+        return CoinStateMapper()
+    }
+}

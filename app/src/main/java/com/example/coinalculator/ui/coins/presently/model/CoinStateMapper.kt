@@ -1,0 +1,13 @@
+package com.example.coinalculator.ui.coins.presently.model
+
+import com.example.coinalculator.ui.coins.domain.Coin
+
+class CoinStateMapper () {
+    fun toCoinState(coin: Coin) : CoinState{
+        return CoinState(
+            name = coin.name,
+            market = coin.market,
+            price = coin.price,
+        )
+    }
+}
