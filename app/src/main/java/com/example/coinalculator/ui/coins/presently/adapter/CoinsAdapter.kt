@@ -7,7 +7,9 @@ import com.example.coinalculator.databinding.ItemBinding
 import com.example.coinalculator.ui.coins.presently.model.CoinState
 
 
-class CoinsAdapter: RecyclerView.Adapter<CoinsHolder>() {
+class CoinsAdapter(
+    private val onClick: (CoinState) -> Unit
+): RecyclerView.Adapter<CoinsHolder>() {
     private var values:List<CoinState> = emptyList()
 
     fun setData(data: List<CoinState>){
@@ -34,5 +36,6 @@ class CoinsAdapter: RecyclerView.Adapter<CoinsHolder>() {
             title.text = item?.name
             price.text = item?.price
         }
+        holder.binding.root.setOnClickListener{ }
     }
 }

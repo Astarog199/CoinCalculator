@@ -1,8 +1,9 @@
 package com.example.coinalculator.ui.coins.data
 
-import com.example.coinalculator.ui.coins.data.room.NewCoin
+import com.example.coinalculator.ui.common.data.room.NewCoin
 import com.example.coinalculator.ui.coins.domain.Coin
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
+import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob

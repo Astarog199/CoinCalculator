@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.data
+package com.example.coinalculator.ui.common.data
 
 import retrofit2.Call
 import retrofit2.http.GET

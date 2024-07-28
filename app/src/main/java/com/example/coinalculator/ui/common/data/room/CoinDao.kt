@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.data.room
+package com.example.coinalculator.ui.common.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -58,8 +58,7 @@ class CoinViewModel(
         }
     }
 
-    suspend fun filterCoins() {
-
+    private suspend fun filterCoins() {
         _filter.value = filterCoinsListUseCase()
 
         _coinState.update { coin ->

@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import com.example.coinalculator.ui.coins.data.CoinsDataMapper
 import com.example.coinalculator.ui.coins.data.CoinsLocalDataSource
-import com.example.coinalculator.ui.coins.data.CoinsRemoteDataSource
+import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import com.example.coinalculator.ui.coins.data.CoinsRepositoryImpl
 import com.example.coinalculator.ui.coins.data.CoinsMapper
-import com.example.coinalculator.ui.coins.data.CoinsApiService
-import com.example.coinalculator.ui.coins.data.room.CoinDao
-import com.example.coinalculator.ui.coins.data.room.CoinsDB
+import com.example.coinalculator.ui.common.data.CoinsApiService
+import com.example.coinalculator.ui.common.data.room.CoinDao
+import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import kotlinx.coroutines.CoroutineDispatcher

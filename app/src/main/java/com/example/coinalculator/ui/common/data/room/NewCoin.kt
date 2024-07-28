@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.data.room
+package com.example.coinalculator.ui.common.data.room
 
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey

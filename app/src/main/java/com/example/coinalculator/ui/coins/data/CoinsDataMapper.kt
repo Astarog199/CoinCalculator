@@ -1,5 +1,7 @@
 package com.example.coinalculator.ui.coins.data
 
+import com.example.coinalculator.ui.common.data.CoinsDto
+
 class CoinsDataMapper {
     fun toEntity(coinsDto: CoinsDto) : CoinsEntity{
         return CoinsEntity(

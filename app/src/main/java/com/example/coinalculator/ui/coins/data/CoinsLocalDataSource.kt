@@ -1,7 +1,7 @@
 package com.example.coinalculator.ui.coins.data
 
-import com.example.coinalculator.ui.coins.data.room.CoinDao
-import com.example.coinalculator.ui.coins.data.room.NewCoin
+import com.example.coinalculator.ui.common.data.room.CoinDao
+import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.flow.Flow
 
 class CoinsLocalDataSource(private val coinDao: CoinDao) {

@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.coins.presently
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.databinding.FragmentDashboardBinding
 import com.example.coinalculator.ui.coins.presently.adapter.CoinsAdapter
@@ -33,7 +35,7 @@ class CoinsFragment : Fragment() {
 
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
-    private val adapter = CoinsAdapter()
+    private val adapter = CoinsAdapter{coinState -> onItemClick(coinState) }
     var arg: String = ""
 
     private val viewModel by viewModels<CoinViewModel> {
@@ -107,6 +109,11 @@ class CoinsFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    fun onItemClick(item: CoinState){
+        //ToDo: переход на страницу монеты
+        findNavController()
     }
 
 
