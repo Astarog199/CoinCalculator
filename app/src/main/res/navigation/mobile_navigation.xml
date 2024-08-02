@@ -22,4 +22,18 @@
         android:name="com.example.coinalculator.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_card"
+        android:name="com.example.coinalculator.ui.card.presentation.card.CoinCardFragment"
+        android:label="@string/coin_card"
+        tools:layout="@layout/fragment_coin_card"
+        />
+
+    <action
+        android:id="@+id/action_main_to_details"
+        app:destination="@id/navigation_card"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        />
 </navigation>

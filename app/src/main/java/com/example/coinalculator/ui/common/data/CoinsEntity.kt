@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.data
+package com.example.coinalculator.ui.common.data
 
 
 import kotlinx.serialization.Serializable

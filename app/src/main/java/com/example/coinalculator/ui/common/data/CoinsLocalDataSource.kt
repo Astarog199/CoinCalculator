@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.data
+package com.example.coinalculator.ui.common.data
 
 import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.NewCoin

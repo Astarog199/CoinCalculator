@@ -36,6 +36,10 @@ class CoinsAdapter(
             title.text = item?.name
             price.text = item?.price
         }
-        holder.binding.root.setOnClickListener{ }
+        holder.binding.title.setOnClickListener{
+            item?.let {
+                onClick(item)
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.coinalculator
 
 import android.app.Application
-import com.example.coinalculator.ui.coins.ServiceLocator as coinServiceLocator
+import com.example.coinalculator.ServiceLocator as coinServiceLocator
 
 class App: Application() {
 

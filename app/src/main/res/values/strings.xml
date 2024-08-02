@@ -3,4 +3,5 @@
     <string name="title_home">Home</string>
     <string name="CoinsList">CoinsList</string>
     <string name="title_notifications">Notifications</string>
+    <string name="coin_card">Coin card</string>
 </resources>

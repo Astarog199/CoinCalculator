@@ -1,4 +1,7 @@
 package com.example.coinalculator.ui.card.presentation.card.states
 
-class CoinCardStates {
-}
+data class CoinCardStates (
+    val name: String = "",
+    val market: String = "",
+    val price: String =""
+)

@@ -1,9 +1,7 @@
-package com.example.coinalculator.ui.coins.data
-
-import com.example.coinalculator.ui.common.data.CoinsDto
+package com.example.coinalculator.ui.common.data
 
 class CoinsDataMapper {
-    fun toEntity(coinsDto: CoinsDto) : CoinsEntity{
+    fun toEntity(coinsDto: CoinsDto) : CoinsEntity {
         return CoinsEntity(
             id = 0,
             name = coinsDto.index_id.toString(),

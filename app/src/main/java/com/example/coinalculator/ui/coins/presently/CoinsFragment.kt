@@ -8,14 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coinalculator.R
 import com.example.coinalculator.databinding.FragmentDashboardBinding
+import com.example.coinalculator.ui.card.CoinCardActivity
+import com.example.coinalculator.ui.card.presentation.card.CoinCardFragment
 import com.example.coinalculator.ui.coins.presently.adapter.CoinsAdapter
 import com.example.coinalculator.ui.coins.presently.model.CoinState
 import kotlinx.coroutines.CoroutineScope
@@ -111,9 +118,12 @@ class CoinsFragment : Fragment() {
         })
     }
 
-    fun onItemClick(item: CoinState){
-        //ToDo: переход на страницу монеты
-        findNavController()
+    private fun onItemClick(item: CoinState){
+        requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+            .navigate(
+                resId = R.id.action_main_to_details,
+                args = bundleOf("item" to item.id.toString())
+            )
     }
 
 

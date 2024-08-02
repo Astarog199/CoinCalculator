@@ -1,9 +1,11 @@
-package com.example.coinalculator.ui.coins
+package com.example.coinalculator
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinalculator.ui.coins.data.CoinsDataMapper
-import com.example.coinalculator.ui.coins.data.CoinsLocalDataSource
+import com.example.coinalculator.ui.card.domain.CoinDetailsDomainMapper
+import com.example.coinalculator.ui.card.domain.ConsumeCoinCard
+import com.example.coinalculator.ui.common.data.CoinsDataMapper
+import com.example.coinalculator.ui.common.data.CoinsLocalDataSource
 import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import com.example.coinalculator.ui.coins.data.CoinsRepositoryImpl
 import com.example.coinalculator.ui.coins.data.CoinsMapper
@@ -12,6 +14,7 @@ import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
+import com.example.coinalculator.ui.common.data.CommonRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -41,20 +44,21 @@ object ServiceLocator {
         return provideRetrofit().create(CoinsApiService::class.java)
     }
 
-    private fun providDashboardRepository(): CoinsRepositoryImpl {
-        val local = coinsListRepositorySingleton
-        return local ?: run {
-            val newRepository = CoinsRepositoryImpl(
-                coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
-                coinsDataMapper = provideCoinDataMapper(),
-                coinsLocalDataSource = provideDashboardLocalDataSource(),
-                coinsMapper = provideCoinsMapper(),
-                coroutineDispatcher = provideIOCoroutineDispatcher()
-            )
+    private fun provideRepository(): CoinsRepositoryImpl {
+        return CoinsRepositoryImpl(
+            coinsMapper = provideCoinsMapper(),
+            coinsRepository = provideCommonRepository()
+        )
+    }
 
-            coinsListRepositorySingleton = newRepository
-            newRepository
-        }
+
+    private fun provideCommonRepository(): CommonRepository {
+        return CommonRepository(
+            coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
+            coinsDataMapper = provideCoinDataMapper(),
+            coinsLocalDataSource = provideDashboardLocalDataSource(),
+            coroutineDispatcher = provideIOCoroutineDispatcher()
+        )
     }
 
     private fun provideIOCoroutineDispatcher(): CoroutineDispatcher {
@@ -70,11 +74,11 @@ object ServiceLocator {
     }
 
     fun provideConsumeDashboardUseCase(): ConsumeCoinsUseCase {
-        return ConsumeCoinsUseCase(coinsRepository = providDashboardRepository())
+        return ConsumeCoinsUseCase(coinsRepository = provideRepository())
     }
 
     fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
-        return FilterCoinsListUseCase(coinsRepository = providDashboardRepository())
+        return FilterCoinsListUseCase(coinsRepository = provideRepository())
     }
 
     private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
@@ -92,9 +96,18 @@ object ServiceLocator {
         return db.coinDao()
     }
 
+    private fun provideCoinsMapper(): CoinsMapper {
+        return CoinsMapper()
+    }
 
+    fun provideConsumeCoinCard(): ConsumeCoinCard {
+        return ConsumeCoinCard(
+            coinsRepository = provideRepository(),
+            coinDetailsDomainMapper = provideCoinDetailsDomainMapper()
+        )
+    }
 
-private fun provideCoinsMapper(): CoinsMapper {
-    return CoinsMapper()
-}
+    private fun provideCoinDetailsDomainMapper(): CoinDetailsDomainMapper {
+        return CoinDetailsDomainMapper()
+    }
 }
