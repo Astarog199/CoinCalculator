@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.card.presentation.card.CoinCardFragment"
+    tools:context=".ui.coins.presently.card.CoinCardFragment"
     android:id="@+id/CoinCardFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -44,6 +44,26 @@
         android:text="price change" />
 
     <TextView
+        android:id="@+id/marketText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="Market"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/priceText" />
+
+    <TextView
+        android:id="@+id/market"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="Market"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/Price_change"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <TextView
         android:id="@+id/priceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,11 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="14dp"
+        android:text="2000 руб"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="@+id/Price_change"
-        app:layout_constraintTop_toTopOf="@+id/priceText"
-        android:text="2000 руб" />
+        app:layout_constraintTop_toTopOf="@+id/priceText" />
 
     <Button
         android:id="@+id/addToCart"

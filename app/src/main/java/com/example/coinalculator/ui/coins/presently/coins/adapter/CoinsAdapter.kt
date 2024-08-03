@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.coins.presently.adapter
+package com.example.coinalculator.ui.coins.presently.coins.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.coins.presently.model.CoinState
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
 
 
 class CoinsAdapter(

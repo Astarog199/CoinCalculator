@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.card.presentation.card
+package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.coinalculator.ui.card.domain.ConsumeCoinCard
-import com.example.coinalculator.ui.card.presentation.card.states.CoinDetailsStatesMapper
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
+import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 
 class CoinCardViewModelFactory(
     private val consumeCoinCard: ConsumeCoinCard,

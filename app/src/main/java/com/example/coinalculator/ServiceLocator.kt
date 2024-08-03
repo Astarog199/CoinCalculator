@@ -2,8 +2,8 @@ package com.example.coinalculator
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinalculator.ui.card.domain.CoinDetailsDomainMapper
-import com.example.coinalculator.ui.card.domain.ConsumeCoinCard
+import com.example.coinalculator.ui.coins.domain.CardMapper
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
 import com.example.coinalculator.ui.common.data.CoinsDataMapper
 import com.example.coinalculator.ui.common.data.CoinsLocalDataSource
 import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
@@ -103,11 +103,11 @@ object ServiceLocator {
     fun provideConsumeCoinCard(): ConsumeCoinCard {
         return ConsumeCoinCard(
             coinsRepository = provideRepository(),
-            coinDetailsDomainMapper = provideCoinDetailsDomainMapper()
+            cardMapper = provideCardMapper()
         )
     }
 
-    private fun provideCoinDetailsDomainMapper(): CoinDetailsDomainMapper {
-        return CoinDetailsDomainMapper()
+    private fun provideCardMapper(): CardMapper {
+        return CardMapper()
     }
 }

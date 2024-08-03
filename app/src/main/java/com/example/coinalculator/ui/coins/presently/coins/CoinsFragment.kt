@@ -1,6 +1,5 @@
-package com.example.coinalculator.ui.coins.presently
+package com.example.coinalculator.ui.coins.presently.coins
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,21 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.R
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.card.CoinCardActivity
-import com.example.coinalculator.ui.card.presentation.card.CoinCardFragment
-import com.example.coinalculator.ui.coins.presently.adapter.CoinsAdapter
-import com.example.coinalculator.ui.coins.presently.model.CoinState
+import com.example.coinalculator.ui.coins.presently.coins.adapter.CoinsAdapter
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

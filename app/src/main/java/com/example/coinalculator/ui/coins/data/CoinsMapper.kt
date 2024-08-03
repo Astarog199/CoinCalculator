@@ -11,15 +11,17 @@ class CoinsMapper {
             name = coinsEntity.name,
             market = coinsEntity.market,
             price = coinsEntity.price,
+            change24h = coinsEntity.price_percentage_change_24h
         )
     }
 
     fun toEntity(coin: Coin): CoinsEntity {
         return CoinsEntity(
-            id = 0,
+            id = coin.id,
             name = coin.name,
             market = coin.market,
             price = coin.price,
+            price_percentage_change_24h = coin.change24h
         )
     }
 }

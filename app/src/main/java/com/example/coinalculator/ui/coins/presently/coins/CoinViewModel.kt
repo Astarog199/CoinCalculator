@@ -1,12 +1,12 @@
-package com.example.coinalculator.ui.coins.presently
+package com.example.coinalculator.ui.coins.presently.coins
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.coins.presently.model.CoinListState
-import com.example.coinalculator.ui.coins.presently.model.CoinState
-import com.example.coinalculator.ui.coins.presently.model.CoinStateMapper
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinListState
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinStateMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

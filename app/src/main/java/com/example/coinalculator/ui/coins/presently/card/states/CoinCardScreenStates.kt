@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.card.presentation.card.states
+package com.example.coinalculator.ui.coins.presently.card.states
 
 data class CoinCardScreenStates (
     val isLoading: Boolean = false,

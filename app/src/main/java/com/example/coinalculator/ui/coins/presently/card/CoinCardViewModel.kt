@@ -1,11 +1,10 @@
-package com.example.coinalculator.ui.card.presentation.card
+package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.card.domain.ConsumeCoinCard
-import com.example.coinalculator.ui.card.presentation.card.states.CoinCardScreenStates
-import com.example.coinalculator.ui.card.presentation.card.states.CoinCardStates
-import com.example.coinalculator.ui.card.presentation.card.states.CoinDetailsStatesMapper
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
+import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
+import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -56,6 +55,7 @@ class CoinCardViewModel(
     private suspend fun cheduleRefresh() {
         viewModelScope.launch {
             delay(5000)
+            clearError()
             loadCoinCard()
         }
     }

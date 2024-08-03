@@ -1,6 +1,6 @@
 package com.example.coinalculator.ui.coins.domain
 
-import com.example.coinalculator.ui.coins.presently.model.CoinState
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

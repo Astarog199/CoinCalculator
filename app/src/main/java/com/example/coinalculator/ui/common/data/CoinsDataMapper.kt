@@ -6,7 +6,8 @@ class CoinsDataMapper {
             id = 0,
             name = coinsDto.index_id.toString(),
             market = coinsDto.market.toString(),
-            price = coinsDto.price
+            price = coinsDto.price,
+            price_percentage_change_24h =  coinsDto.price_percentage_change_24h
         )
     }
 }

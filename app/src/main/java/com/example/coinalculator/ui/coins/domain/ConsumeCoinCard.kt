@@ -1,12 +1,12 @@
-package com.example.coinalculator.ui.card.domain
+package com.example.coinalculator.ui.coins.domain
 
-import com.example.coinalculator.ui.coins.domain.CoinsRepository
+
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ConsumeCoinCard(
     private val coinsRepository: CoinsRepository,
-    private val coinDetailsDomainMapper: CoinDetailsDomainMapper
+    private val cardMapper: CardMapper
 ) {
 
     operator fun invoke(itemId:String): Flow <CoinDetails> {
@@ -14,7 +14,7 @@ class ConsumeCoinCard(
             .map { products ->
                 products
                     .first { it.id.toString() == itemId }
-                    .run(coinDetailsDomainMapper::fromEntity)
+                    .run(cardMapper::fromEntity)
             }
     }
 }

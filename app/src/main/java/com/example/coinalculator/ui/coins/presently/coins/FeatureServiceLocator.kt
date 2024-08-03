@@ -1,8 +1,8 @@
-package com.example.coinalculator.ui.coins.presently
+package com.example.coinalculator.ui.coins.presently.coins
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.coinalculator.ServiceLocator
-import com.example.coinalculator.ui.coins.presently.model.CoinStateMapper
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinStateMapper
 
 object FeatureServiceLocator {
 

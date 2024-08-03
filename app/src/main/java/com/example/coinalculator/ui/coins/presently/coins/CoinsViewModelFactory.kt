@@ -1,10 +1,10 @@
-package com.example.coinalculator.ui.coins.presently
+package com.example.coinalculator.ui.coins.presently.coins
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.coins.presently.model.CoinStateMapper
+import com.example.coinalculator.ui.coins.presently.coins.model.CoinStateMapper
 
 class CoinsViewModelFactory(
     private val coinStateMapper: CoinStateMapper,

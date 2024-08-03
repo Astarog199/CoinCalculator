@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.presently.model
+package com.example.coinalculator.ui.coins.presently.coins.model
 
 data class CoinState (
     val id: Int = 0,
