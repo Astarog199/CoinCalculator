@@ -1,12 +1,11 @@
-package com.example.coinalculator.ui.coins.data
+package com.example.coinalculator.ui.favorite.data
 
-import com.example.coinalculator.ui.coins.domain.Coin
 import com.example.coinalculator.ui.common.data.CoinsEntity
+import com.example.coinalculator.ui.favorite.domain.Favorite
 
-class CoinsMapper {
-
-    fun fromEntity(coinsEntity: CoinsEntity) : Coin {
-        return Coin(
+class FavoriteMapper {
+    fun fromEntity(coinsEntity: CoinsEntity) : Favorite {
+        return Favorite(
             id = coinsEntity.id,
             name = coinsEntity.name,
             market = coinsEntity.market,
@@ -16,7 +15,7 @@ class CoinsMapper {
         )
     }
 
-    fun toEntity(coin: Coin): CoinsEntity {
+    fun toEntity(coin: Favorite): CoinsEntity {
         return CoinsEntity(
             id = coin.id,
             name = coin.name,

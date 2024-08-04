@@ -9,5 +9,6 @@ data class CoinsEntity(
      val name: String,
      val market: String,
      val price: String,
-     val price_percentage_change_24h : Float
+     val price_percentage_change_24h : Float,
+     val isFavorite: Boolean
 )
