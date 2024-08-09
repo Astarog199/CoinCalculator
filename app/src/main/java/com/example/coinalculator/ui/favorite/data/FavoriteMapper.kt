@@ -1,10 +1,11 @@
 package com.example.coinalculator.ui.favorite.data
 
 import com.example.coinalculator.ui.common.data.CoinsEntity
+import com.example.coinalculator.ui.common.data.room.CoinEntity
 import com.example.coinalculator.ui.favorite.domain.Favorite
 
 class FavoriteMapper {
-    fun fromEntity(coinsEntity: CoinsEntity) : Favorite {
+    fun fromEntity(coinsEntity: CoinEntity) : Favorite {
         return Favorite(
             id = coinsEntity.id,
             name = coinsEntity.name,

@@ -2,19 +2,23 @@ package com.example.coinalculator
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinalculator.ui.coins.domain.CardMapper
+import com.example.coinalculator.ui.coins.domain.CoinsMapper
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
 import com.example.coinalculator.ui.common.data.CoinsDataMapper
 import com.example.coinalculator.ui.common.data.CoinsLocalDataSource
 import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import com.example.coinalculator.ui.coins.data.CoinsRepositoryImpl
-import com.example.coinalculator.ui.coins.data.CoinsMapper
+import com.example.coinalculator.ui.coins.data.Mapper
+import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
 import com.example.coinalculator.ui.common.data.CoinsApiService
 import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.common.data.CommonRepository
+import com.example.coinalculator.ui.favorite.data.FavoriteMapper
+import com.example.coinalculator.ui.favorite.data.FavoritesRepositoryImpl
+import com.example.coinalculator.ui.favorite.domain.ConsumeFavorietesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -22,7 +26,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ServiceLocator {
     private var retrofitSingleton: Retrofit? = null
-    private var coinsListRepositorySingleton: CoinsRepositoryImpl? = null
+    private var commonRepositorySingleton: CommonRepository? = null
 
     lateinit var applicationContext: Context
 
@@ -53,12 +57,18 @@ object ServiceLocator {
 
 
     private fun provideCommonRepository(): CommonRepository {
-        return CommonRepository(
-            coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
-            coinsDataMapper = provideCoinDataMapper(),
-            coinsLocalDataSource = provideDashboardLocalDataSource(),
-            coroutineDispatcher = provideIOCoroutineDispatcher()
-        )
+        val local = commonRepositorySingleton
+        return local ?: run {
+            val newCommonRepository = CommonRepository(
+                coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
+                coinsDataMapper = provideCoinDataMapper(),
+                coinsLocalDataSource = provideDashboardLocalDataSource(),
+                coroutineDispatcher = provideIOCoroutineDispatcher()
+            )
+            commonRepositorySingleton = newCommonRepository
+            newCommonRepository
+        }
+
     }
 
     private fun provideIOCoroutineDispatcher(): CoroutineDispatcher {
@@ -78,7 +88,7 @@ object ServiceLocator {
     }
 
     fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
-        return FilterCoinsListUseCase(coinsRepository = provideRepository())
+        return FilterCoinsListUseCase()
     }
 
     private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
@@ -96,18 +106,36 @@ object ServiceLocator {
         return db.coinDao()
     }
 
-    private fun provideCoinsMapper(): CoinsMapper {
-        return CoinsMapper()
+    private fun provideCoinsMapper(): Mapper {
+        return Mapper()
     }
 
     fun provideConsumeCoinCard(): ConsumeCoinCard {
         return ConsumeCoinCard(
-            coinsRepository = provideRepository(),
+            coinsRepository = provideCommonRepository(),
             cardMapper = provideCardMapper()
         )
     }
 
-    private fun provideCardMapper(): CardMapper {
-        return CardMapper()
+    private fun provideCardMapper(): CoinsMapper {
+        return CoinsMapper()
+    }
+
+    fun provideAddFavoriteUseCase(): AddFavoriteUseCase {
+        return AddFavoriteUseCase(
+            coinsRepository = provideCommonRepository(),
+            cardMapper = provideCardMapper()
+        )
+    }
+
+    private fun provideFavoritesRepository() : FavoritesRepositoryImpl {
+        return FavoritesRepositoryImpl(
+            coinsRepository = provideCommonRepository(),
+            favoriteMapper = FavoriteMapper()
+            )
+    }
+
+    fun provideConsumeFavoriteList(): ConsumeFavorietesUseCase {
+        return ConsumeFavorietesUseCase(favoriteRepository = provideFavoritesRepository())
     }
 }

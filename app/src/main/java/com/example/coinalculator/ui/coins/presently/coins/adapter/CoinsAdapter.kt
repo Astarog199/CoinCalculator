@@ -32,7 +32,6 @@ class CoinsAdapter(
     override fun onBindViewHolder(holder: CoinsHolder, position: Int) {
         val item = values.getOrNull(position)
         with(holder.binding){
-            market.text = item?.market
             title.text = item?.name
             price.text = item?.price
         }

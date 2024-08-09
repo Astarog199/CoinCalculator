@@ -12,11 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.coinalculator.databinding.FragmentCoinCardBinding
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.skia.Color
 
 class CoinCardFragment : Fragment() {
 
+    private val scope = CoroutineScope(Dispatchers.IO)
     private var _binding: FragmentCoinCardBinding? = null
     private val binding get() = _binding!!
     var itemId = ""
@@ -56,12 +59,21 @@ class CoinCardFragment : Fragment() {
                 }
             }
         }
+
+
+        binding.addToFavorite.setOnClickListener {
+            scope.launch {
+                viewModel.changeFavorite()
+            }
+            if (viewModel.state.value.coin.isFavorite){
+                binding.addToFavorite.text =  "remove to favorite"
+            }else{
+                binding.addToFavorite.text =  "add to favorite"
+            }
+        }
     }
 
     private fun renderCoinCard(coin: CoinCardStates) {
-
-
-
         binding.name.text = coin.name
         binding.name.visibility = View.VISIBLE
 

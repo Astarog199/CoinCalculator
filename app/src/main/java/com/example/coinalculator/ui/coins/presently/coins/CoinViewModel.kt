@@ -2,6 +2,7 @@ package com.example.coinalculator.ui.coins.presently.coins
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.coins.presently.coins.model.CoinListState

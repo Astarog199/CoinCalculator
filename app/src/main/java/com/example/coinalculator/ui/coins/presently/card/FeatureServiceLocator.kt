@@ -10,6 +10,7 @@ object FeatureServiceLocator {
         return CoinCardViewModelFactory(
             consumeCoinCard = ServiceLocator.provideConsumeCoinCard(),
             coinDetailsStatesMapper =  provideCoinDetailsStatesMapper(),
+            addFavoriteUseCase = ServiceLocator.provideAddFavoriteUseCase(),
             productId = productId
         )
     }

@@ -2,8 +2,11 @@ package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
+import com.example.coinalculator.ui.coins.domain.CoinDetails
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
+import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +23,7 @@ import kotlinx.coroutines.launch
 class CoinCardViewModel(
     private val consumeCoinCard: ConsumeCoinCard,
     private val coinDetailsStatesMapper: CoinDetailsStatesMapper,
+    private val addFavoriteUseCase: AddFavoriteUseCase,
     private val productId: String
 ) : ViewModel() {
     private val _state = MutableStateFlow(CoinCardScreenStates())
@@ -62,5 +66,12 @@ class CoinCardViewModel(
 
     fun clearError(){
         _state.update { screenState -> screenState.copy(hasError = false)  }
+    }
+
+     suspend fun changeFavorite() {
+        _state.update { coinState -> coinState.copy(coin = coinState.coin.copy(isFavorite = true))
+
+        }
+         addFavoriteUseCase(CoinDetailsStatesMapper().toCoinDetails(_state.value.coin))
     }
 }

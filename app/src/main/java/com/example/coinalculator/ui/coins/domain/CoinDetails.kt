@@ -5,5 +5,6 @@ class CoinDetails (
     val name: String,
     val market: String,
     val price: String,
-    val change24h: Float
+    val change24h: Float,
+    val isFavorite: Boolean
 )

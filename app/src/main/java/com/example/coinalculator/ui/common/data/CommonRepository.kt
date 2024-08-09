@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.common.data
 
+import com.example.coinalculator.ui.common.data.room.CoinEntity
 import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +17,7 @@ class CommonRepository(
 ) {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
 
-     fun saveList(): Flow<List<CoinsEntity>> {
+     fun saveList(): Flow<List<CoinEntity>> {
         scope.launch {
             val coins = coinsRemoteDataSource.getList()
                 .map(coinsDataMapper::toEntity)
@@ -35,5 +36,9 @@ class CommonRepository(
         }
 
          return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)
+    }
+
+    suspend fun addFavorite( coin: CoinEntity) {
+        coinsLocalDataSource.addFavorite(coin)
     }
 }

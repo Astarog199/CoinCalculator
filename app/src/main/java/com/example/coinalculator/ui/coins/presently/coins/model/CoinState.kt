@@ -5,4 +5,5 @@ data class CoinState (
     val name: String = "",
     val market: String = "",
     val price: String = "",
+    val isFavorite: Boolean = false
 )

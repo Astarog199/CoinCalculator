@@ -4,6 +4,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepository {
     fun consumeFavoriteCoins() : Flow<List<Favorite>>
-    fun addFavorite(id: String)
-    fun removeFavorite(id: String)
 }

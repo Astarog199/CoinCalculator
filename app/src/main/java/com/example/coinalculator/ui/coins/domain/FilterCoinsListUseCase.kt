@@ -3,12 +3,11 @@ package com.example.coinalculator.ui.coins.domain
 import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class FilterCoinsListUseCase(private val coinsRepository: CoinsRepository) {
+class FilterCoinsListUseCase() {
     private val scope = CoroutineScope(Dispatchers.IO)
     private var _filterCoin: List<CoinState> = mutableListOf()
     private var filterCoin: List<CoinState> = mutableListOf()

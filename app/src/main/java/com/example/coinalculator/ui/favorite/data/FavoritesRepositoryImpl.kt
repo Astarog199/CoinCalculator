@@ -20,12 +20,4 @@ class FavoritesRepositoryImpl(
                     .map(favoriteMapper::fromEntity)
             }
     }
-
-    override fun addFavorite(id: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun removeFavorite(id: String) {
-        TODO("Not yet implemented")
-    }
 }
