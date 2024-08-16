@@ -54,9 +54,12 @@ dependencies {
     implementation(libs.androidx.datastore.preferences.core.jvm)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity)
+    //test
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+//    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.bundles.mockTesting)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 
     implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
@@ -86,7 +89,7 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:1.9.0")
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 

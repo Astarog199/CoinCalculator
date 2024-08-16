@@ -1,5 +1,5 @@
 [versions]
-agp = "8.4.1"
+agp = "8.4.2"
 coil = "2.4.0"
 converterMoshi = "2.4.0"
 glide = "4.14.2"
@@ -8,15 +8,16 @@ jacksonAnnotations = "2.13.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+androidx-test-ext-junit = "1.2.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 appcompat = "1.7.0"
 kotlinxCoroutinesCore = "1.8.0"
 legacySupportV4 = "1.0.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
-lifecycleLivedataKtx = "2.8.1"
-lifecycleViewmodelKtx = "2.8.1"
+lifecycleLivedataKtx = "2.8.4"
+lifecycleViewmodelKtx = "2.8.4"
 moshi = "1.15.1"
 moshiKotlinCodegen = "moshi"
 moshiKotlinCodegenVersion = "1.15.1"
@@ -28,8 +29,12 @@ rxjava = "3.1.8"
 roomCommon = "2.6.1"
 uiDesktop = "1.6.8"
 datastorePreferencesCoreJvm = "1.1.1"
-fragmentKtx = "1.8.1"
-activity = "1.8.0"
+fragmentKtx = "1.8.2"
+activity = "1.9.1"
+mockitoCore = "5.1.1"
+mockitoKotlin = "4.0.0"
+mockitoInline = "5.1.1"
+coroutines = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +47,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jacksonAnnotations" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
@@ -64,6 +70,15 @@ androidx-ui-desktop = { group = "androidx.compose.ui", name = "ui-desktop", vers
 androidx-datastore-preferences-core-jvm = { group = "androidx.datastore", name = "datastore-preferences-core-jvm", version.ref = "datastorePreferencesCoreJvm" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+test-junit = { module = "junit:junit", version.ref = "junit" }
+test-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+test-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+
+
+[bundles]
+mockTesting = ["test-junit", "test-mockito-core", "test-mockito-kotlin", "test-mockito-inline", "kotlinx-coroutines-test"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

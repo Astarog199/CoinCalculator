@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.presently.coins
+package com.example.coinalculator.ui.coins.presently.list
 
 import android.os.Bundle
 import android.text.Editable
@@ -17,8 +17,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinalculator.R
 import com.example.coinalculator.databinding.FragmentDashboardBinding
-import com.example.coinalculator.ui.coins.presently.coins.adapter.CoinsAdapter
-import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
+import com.example.coinalculator.ui.coins.presently.list.adapter.CoinListAdapter
+import com.example.coinalculator.ui.coins.presently.list.states.CoinState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,17 +29,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class CoinsFragment : Fragment() {
+class CoinListFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
-    private val adapter = CoinsAdapter{coinState -> onItemClick(coinState) }
+    private val adapter = CoinListAdapter{ coinState -> onItemClick(coinState) }
     var arg: String = ""
 
-    private val viewModel by viewModels<CoinViewModel> {
+    private val viewModel by viewModels<CoinListViewModel> {
         FeatureServiceLocator.provideCoinsViewModelFactory()
     }
 

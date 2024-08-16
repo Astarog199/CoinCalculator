@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.coins.presently.coins.model
+package com.example.coinalculator.ui.coins.presently.list.states
 
 import com.example.coinalculator.ui.coins.domain.Coin
 

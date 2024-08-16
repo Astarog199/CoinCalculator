@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class ConsumeCoinsUseCase(
+class ConsumeCoinListUseCase(
     private val coinsRepository: CoinsRepository
 ) {
     private val scope = CoroutineScope(Dispatchers.IO)

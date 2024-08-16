@@ -1,13 +1,12 @@
-package com.example.coinalculator.ui.coins.presently.coins
+package com.example.coinalculator.ui.coins.presently.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
-import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.coins.presently.coins.model.CoinListState
-import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
-import com.example.coinalculator.ui.coins.presently.coins.model.CoinStateMapper
+import com.example.coinalculator.ui.coins.presently.list.states.CoinListState
+import com.example.coinalculator.ui.coins.presently.list.states.CoinState
+import com.example.coinalculator.ui.coins.presently.list.states.CoinStateMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +19,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class CoinViewModel(
+class CoinListViewModel(
     private val coinStateMapper: CoinStateMapper,
-    private val consumeCoinsUseCase: ConsumeCoinsUseCase,
+    private val consumeCoinsUseCase: ConsumeCoinListUseCase,
     private val filterCoinsListUseCase: FilterCoinsListUseCase
 ) : ViewModel() {
     var stateFilter = false

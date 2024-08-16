@@ -1,15 +1,15 @@
-package com.example.coinalculator.ui.coins.presently.coins.adapter
+package com.example.coinalculator.ui.coins.presently.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ItemBinding
-import com.example.coinalculator.ui.coins.presently.coins.model.CoinState
+import com.example.coinalculator.ui.coins.presently.list.states.CoinState
 
 
-class CoinsAdapter(
+class CoinListAdapter(
     private val onClick: (CoinState) -> Unit
-): RecyclerView.Adapter<CoinsHolder>() {
+): RecyclerView.Adapter<CoinListHolder>() {
     private var values:List<CoinState> = emptyList()
 
     fun setData(data: List<CoinState>){
@@ -17,8 +17,8 @@ class CoinsAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsHolder {
-        return CoinsHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinListHolder {
+        return CoinListHolder(
             ItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -29,7 +29,7 @@ class CoinsAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    override fun onBindViewHolder(holder: CoinsHolder, position: Int) {
+    override fun onBindViewHolder(holder: CoinListHolder, position: Int) {
         val item = values.getOrNull(position)
         with(holder.binding){
             title.text = item?.name

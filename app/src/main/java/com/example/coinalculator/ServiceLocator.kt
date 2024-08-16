@@ -13,7 +13,7 @@ import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
 import com.example.coinalculator.ui.common.data.CoinsApiService
 import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
-import com.example.coinalculator.ui.coins.domain.ConsumeCoinsUseCase
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.common.data.CommonRepository
 import com.example.coinalculator.ui.favorite.data.FavoriteMapper
@@ -83,8 +83,8 @@ object ServiceLocator {
         return CoinsDataMapper()
     }
 
-    fun provideConsumeDashboardUseCase(): ConsumeCoinsUseCase {
-        return ConsumeCoinsUseCase(coinsRepository = provideRepository())
+    fun provideConsumeDashboardUseCase(): ConsumeCoinListUseCase {
+        return ConsumeCoinListUseCase(coinsRepository = provideRepository())
     }
 
     fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
