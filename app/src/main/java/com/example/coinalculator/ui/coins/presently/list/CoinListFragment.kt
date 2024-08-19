@@ -58,12 +58,9 @@ class CoinListFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-        scope.launch {
-            viewModel.loadCoins()
-        }
+        viewModel.loadCoins()
 
         viewLifecycleOwner.lifecycleScope.launch {
-
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.coinState.collect { state ->
                     when {
@@ -78,7 +75,7 @@ class CoinListFragment : Fragment() {
                             showFoundCoins()
                         }
 
-                        else -> withContext(Dispatchers.Main) {
+                        else -> {
                             showList(state.coinsList)
                         }
                     }
@@ -94,8 +91,11 @@ class CoinListFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchJob?.cancel()
                 searchJob = scope.launch {
-                     arg = binding.search.text.toString()
-                    viewModel.searchCoin(arg)
+                    arg = binding.search.text.toString()
+
+                    if (arg.isNotEmpty()) {
+                        viewModel.searchCoin(arg)
+                    }
 
                     withContext(Dispatchers.Main) {
                         if (viewModel.filter.value.isEmpty()) {

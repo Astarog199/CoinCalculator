@@ -15,6 +15,9 @@ interface CoinDao {
     @Insert(entity = CoinEntity::class)
     suspend fun insert(newCoin: NewCoin)
 
+    @Insert(entity = CoinEntity::class)
+    suspend fun insertMany(newCoins: List<NewCoin>)
+
     @Query("DELETE FROM CoinEntity")
     suspend fun delete()
 

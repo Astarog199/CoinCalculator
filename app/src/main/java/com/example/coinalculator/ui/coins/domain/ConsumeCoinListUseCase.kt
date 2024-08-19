@@ -13,10 +13,7 @@ class ConsumeCoinListUseCase(
     private val scope = CoroutineScope(Dispatchers.IO)
     private lateinit var coins: Flow<List<Coin>>
 
-    suspend operator fun invoke()= suspendCoroutine {
-        scope.launch {
-            coins = coinsRepository.consumeCoins()
-            it.resume(coins)
-        }
+    operator fun invoke(): Flow<List<Coin>> {
+        return coinsRepository.consumeCoins()
     }
 }
