@@ -4,11 +4,9 @@ import com.example.coinalculator.ui.common.data.CommonRepository
 
 
 class AddFavoriteUseCase(
-    private val coinsRepository: CommonRepository,
-    private val cardMapper: CoinsMapper
+    private val coinsRepository: CoinsRepository,
     ) {
     suspend operator fun invoke(coin: CoinDetails){
-        val value = cardMapper.toEntity(coin)
-        coinsRepository.addFavorite(value)
+        coinsRepository.addFavorite(coin)
     }
 }

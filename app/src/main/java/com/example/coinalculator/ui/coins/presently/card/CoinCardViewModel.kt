@@ -3,10 +3,8 @@ package com.example.coinalculator.ui.coins.presently.card
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
-import com.example.coinalculator.ui.coins.domain.CoinDetails
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
-import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

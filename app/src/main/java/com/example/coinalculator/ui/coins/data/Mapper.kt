@@ -13,6 +13,8 @@ class Mapper {
             name = coinEntity.name,
             market = coinEntity.market,
             price = coinEntity.price,
+            change24h = coinEntity.price_percentage_change_24h,
+            isFavorite = coinEntity.isFavorite
         )
     }
 

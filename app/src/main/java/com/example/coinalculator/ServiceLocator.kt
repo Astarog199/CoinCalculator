@@ -112,7 +112,7 @@ object ServiceLocator {
 
     fun provideConsumeCoinCard(): ConsumeCoinCard {
         return ConsumeCoinCard(
-            coinsRepository = provideCommonRepository(),
+            coinsRepository = provideRepository(),
             cardMapper = provideCardMapper()
         )
     }
@@ -123,8 +123,7 @@ object ServiceLocator {
 
     fun provideAddFavoriteUseCase(): AddFavoriteUseCase {
         return AddFavoriteUseCase(
-            coinsRepository = provideCommonRepository(),
-            cardMapper = provideCardMapper()
+            coinsRepository = provideRepository()
         )
     }
 

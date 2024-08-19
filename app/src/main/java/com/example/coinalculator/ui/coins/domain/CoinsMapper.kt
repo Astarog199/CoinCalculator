@@ -4,13 +4,13 @@ import com.example.coinalculator.ui.common.data.room.CoinEntity
 
 
 class CoinsMapper {
-    fun fromEntity(coin: CoinEntity) : CoinDetails {
+    fun fromCoin(coin: Coin) : CoinDetails {
         return CoinDetails(
             id = coin.id,
             name = coin.name,
             market = coin.market,
             price = coin.price,
-            change24h = coin.price_percentage_change_24h,
+            change24h = coin.change24h,
             isFavorite = coin.isFavorite
         )
     }
