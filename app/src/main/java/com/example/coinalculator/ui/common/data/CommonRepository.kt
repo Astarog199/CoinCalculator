@@ -22,8 +22,8 @@ class CommonRepository(
             val coins = coinsRemoteDataSource.getList()
                 .map(coinsDataMapper::toEntity)
 
-            coins.map { coin ->
-                coinsLocalDataSource.save(
+            coinsLocalDataSource.saveMany(
+                coins.map { coin ->
                     NewCoin(
                         name = coin.name,
                         market = coin.market,
@@ -31,8 +31,8 @@ class CommonRepository(
                         price_percentage_change_24h = coin.price_percentage_change_24h,
                         isFavorite = coin.isFavorite
                     )
-                )
-            }
+                }
+            )
         }
 
          return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)

@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -35,9 +36,9 @@ class CoinListViewModel(
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    suspend fun loadCoins() {
-
+    fun loadCoins() {
         consumeCoinsUseCase()
+            .filter { it.isNotEmpty() }
             .map { coins ->
                 coins.map(coinStateMapper::toCoinState)
             }

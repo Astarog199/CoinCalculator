@@ -16,6 +16,10 @@ class CoinsLocalDataSource(private val coinDao: CoinDao) {
         coinDao.insert(coin)
     }
 
+    suspend fun saveMany(coins: List<NewCoin>){
+        coinDao.insertMany(coins)
+    }
+
     suspend fun addFavorite(coin: CoinEntity){
         coinDao.changeFavorite(coin)
     }
