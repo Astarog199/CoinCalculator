@@ -4,6 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CoinsRepository {
     fun consumeCoins() : Flow<List<Coin>>
-    suspend fun addFavorite(coinDetails: CoinDetails)
-    fun removeFavorite(id: String)
+    suspend fun changeFavoriteState(coin: Coin)
 }

@@ -1,7 +1,6 @@
 package com.example.coinalculator.ui.coins.data
 
 import com.example.coinalculator.ui.coins.domain.Coin
-import com.example.coinalculator.ui.coins.domain.CoinDetails
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.CommonRepository
 import kotlinx.coroutines.flow.Flow
@@ -18,12 +17,8 @@ class CoinsRepositoryImpl(
             }
     }
 
-    override suspend fun addFavorite(coinDetails: CoinDetails) {
-        val value = coinsMapper.toEntity(coinDetails)
+    override suspend fun changeFavoriteState(coin: Coin) {
+        val value = coinsMapper.toEntity(coin)
         coinsRepository.addFavorite(value)
-    }
-
-    override fun removeFavorite(id: String) {
-        TODO("Not yet implemented")
     }
 }

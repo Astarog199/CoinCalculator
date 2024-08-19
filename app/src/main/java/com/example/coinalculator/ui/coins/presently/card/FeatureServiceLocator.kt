@@ -8,7 +8,7 @@ object FeatureServiceLocator {
 
     fun provideCoinCardViewModelFactory(productId: String) : ViewModelProvider.Factory{
         return CoinCardViewModelFactory(
-            consumeCoinCard = ServiceLocator.provideConsumeCoinCard(),
+            consumeCoinCard = ServiceLocator.provideConsumeCoinCardUseCase(),
             coinDetailsStatesMapper =  provideCoinDetailsStatesMapper(),
             addFavoriteUseCase = ServiceLocator.provideAddFavoriteUseCase(),
             productId = productId

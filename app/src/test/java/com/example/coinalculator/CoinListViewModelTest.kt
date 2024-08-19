@@ -1,7 +1,6 @@
 package com.example.coinalculator
 
 import com.example.coinalculator.ui.coins.domain.Coin
-import com.example.coinalculator.ui.coins.domain.CoinDetails
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.coins.presently.list.CoinListViewModel
@@ -88,7 +87,7 @@ class CoinListViewModelTest {
 
 
 
-    private suspend fun loadCoins(): List<CoinState> {
+    private fun loadCoins(): List<CoinState> {
         whenever(consumeCoinListUseCase.invoke())
             .thenReturn(flowOf(listOf(loadCoin(id = 1), loadCoin(id = 2))))
 

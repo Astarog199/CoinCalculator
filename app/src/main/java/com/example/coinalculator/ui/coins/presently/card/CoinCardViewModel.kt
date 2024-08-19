@@ -2,8 +2,8 @@ package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
-import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
+import com.example.coinalculator.ui.coins.domain.ChangeFavoriteStateUseCase
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 import kotlinx.coroutines.delay
@@ -19,17 +19,17 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CoinCardViewModel(
-    private val consumeCoinCard: ConsumeCoinCard,
+    private val ConsumeCoinCardUseCase: ConsumeCoinCardUseCase,
     private val coinDetailsStatesMapper: CoinDetailsStatesMapper,
-    private val addFavoriteUseCase: AddFavoriteUseCase,
+    private val addFavoriteUseCase: ChangeFavoriteStateUseCase,
     private val productId: String
 ) : ViewModel() {
     private val _state = MutableStateFlow(CoinCardScreenStates())
     val state: StateFlow<CoinCardScreenStates> = _state.asStateFlow()
 
 
-    fun loadCoinCard(){
-        consumeCoinCard(productId)
+    fun loadCoinCard() {
+        ConsumeCoinCardUseCase(productId)
             .map { coins ->
                 coinDetailsStatesMapper.toCoinCardStates(coins)
             }
@@ -62,14 +62,14 @@ class CoinCardViewModel(
         }
     }
 
-    fun clearError(){
-        _state.update { screenState -> screenState.copy(hasError = false)  }
+    fun clearError() {
+        _state.update { screenState -> screenState.copy(hasError = false) }
     }
 
-     suspend fun changeFavorite() {
-        _state.update { coinState -> coinState.copy(coin = coinState.coin.copy(isFavorite = true))
-
+    suspend fun changeFavoriteState() {
+        _state.update { coinState ->
+            coinState.copy(coin = coinState.coin.copy(isFavorite = !coinState.coin.isFavorite))
         }
-         addFavoriteUseCase(CoinDetailsStatesMapper().toCoinDetails(_state.value.coin))
+        addFavoriteUseCase(CoinDetailsStatesMapper().toCoinDetails(_state.value.coin))
     }
 }

@@ -53,9 +53,11 @@ class CoinCardFragment : Fragment() {
                             showError()
                             viewModel.clearError()
                         }
-                        else-> renderCoinCard(state.coin)
-                    }
 
+                        else-> {
+                            renderCoinCard(state.coin)
+                        }
+                    }
                 }
             }
         }
@@ -63,12 +65,7 @@ class CoinCardFragment : Fragment() {
 
         binding.addToFavorite.setOnClickListener {
             scope.launch {
-                viewModel.changeFavorite()
-            }
-            if (viewModel.state.value.coin.isFavorite){
-                binding.addToFavorite.text =  "remove to favorite"
-            }else{
-                binding.addToFavorite.text =  "add to favorite"
+                viewModel.changeFavoriteState()
             }
         }
     }
@@ -89,6 +86,12 @@ class CoinCardFragment : Fragment() {
         binding.market.visibility = View.VISIBLE
 
         binding.progress.visibility = View.GONE
+
+        if (coin.isFavorite){
+            binding.addToFavorite.text =  "remove to favorite"
+        }else{
+            binding.addToFavorite.text =  "add to favorite"
+        }
     }
 
     private fun formatChange24h(value: Float) : String {

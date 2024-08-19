@@ -1,21 +1,18 @@
 package com.example.coinalculator.ui.coins.domain
 
 
-import com.example.coinalculator.ui.common.data.CommonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class ConsumeCoinCard(
+class ConsumeCoinCardUseCase(
     private val coinsRepository: CoinsRepository,
-    private val cardMapper: CoinsMapper
 ) {
 
-    operator fun invoke(itemId:String): Flow <CoinDetails> {
+    operator fun invoke(itemId:String): Flow <Coin> {
         return coinsRepository.consumeCoins()
             .map { products ->
                 products
                     .first { it.id.toString() == itemId }
-                    .run(cardMapper::fromCoin)
             }
     }
 }

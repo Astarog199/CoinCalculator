@@ -2,14 +2,13 @@ package com.example.coinalculator
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinalculator.ui.coins.domain.CoinsMapper
-import com.example.coinalculator.ui.coins.domain.ConsumeCoinCard
 import com.example.coinalculator.ui.common.data.CoinsDataMapper
 import com.example.coinalculator.ui.common.data.CoinsLocalDataSource
 import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import com.example.coinalculator.ui.coins.data.CoinsRepositoryImpl
 import com.example.coinalculator.ui.coins.data.Mapper
-import com.example.coinalculator.ui.coins.domain.AddFavoriteUseCase
+import com.example.coinalculator.ui.coins.domain.ChangeFavoriteStateUseCase
+import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.common.data.CoinsApiService
 import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
@@ -110,19 +109,14 @@ object ServiceLocator {
         return Mapper()
     }
 
-    fun provideConsumeCoinCard(): ConsumeCoinCard {
-        return ConsumeCoinCard(
+    fun provideConsumeCoinCardUseCase(): ConsumeCoinCardUseCase {
+        return ConsumeCoinCardUseCase(
             coinsRepository = provideRepository(),
-            cardMapper = provideCardMapper()
         )
     }
 
-    private fun provideCardMapper(): CoinsMapper {
-        return CoinsMapper()
-    }
-
-    fun provideAddFavoriteUseCase(): AddFavoriteUseCase {
-        return AddFavoriteUseCase(
+    fun provideAddFavoriteUseCase(): ChangeFavoriteStateUseCase {
+        return ChangeFavoriteStateUseCase(
             coinsRepository = provideRepository()
         )
     }

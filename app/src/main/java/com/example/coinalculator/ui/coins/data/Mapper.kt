@@ -1,8 +1,6 @@
 package com.example.coinalculator.ui.coins.data
 
 import com.example.coinalculator.ui.coins.domain.Coin
-import com.example.coinalculator.ui.coins.domain.CoinDetails
-import com.example.coinalculator.ui.common.data.CoinsEntity
 import com.example.coinalculator.ui.common.data.room.CoinEntity
 
 class Mapper {
@@ -18,14 +16,14 @@ class Mapper {
         )
     }
 
-    fun toEntity(coinDetails: CoinDetails) : CoinEntity {
+    fun toEntity(coin: Coin) : CoinEntity {
         return CoinEntity(
-            id = coinDetails.id,
-            name = coinDetails.name,
-            market = coinDetails.market,
-            price = coinDetails.price,
-            price_percentage_change_24h = coinDetails.change24h,
-            isFavorite = coinDetails.isFavorite
+            id = coin.id,
+            name = coin.name,
+            market = coin.market,
+            price = coin.price,
+            price_percentage_change_24h = coin.change24h,
+            isFavorite = coin.isFavorite
         )
     }
 }
