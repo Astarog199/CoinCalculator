@@ -7,46 +7,43 @@ import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.coins.presently.card.CoinCardViewModel
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
-import com.example.coinalculator.ui.coins.presently.list.states.CoinListState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 import java.util.Random
 
-
-class CoinsRepositoryTest() : CoinsRepository {
-
-    val state = MutableStateFlow<List<Coin>>(listOf())
-
-    override fun consumeCoins(): Flow<List<Coin>> = state.asStateFlow()
-
-    override suspend fun changeFavoriteState(coin: Coin) {
-        TODO("Not yet implemented")
-    }
-
-    override fun removeFavorite(id: String) {
-        TODO("Not yet implemented")
-    }
-
-    fun add(newCoin: Coin){
-        state.value += newCoin
-    }
-}
+const val ID = "3"
 
 @RunWith(MockitoJUnitRunner::class)
 class IntegrationTest {
     private lateinit var sut: CoinCardViewModel
 
-    val  coinsRepository = CoinsRepositoryTest()
+    @Mock
+    lateinit var coinsRepository: CoinsRepository
+
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule(StandardTestDispatcher())
+
+    private val ioDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
-
         val coinDetailsStatesMapper = CoinDetailsStatesMapper()
 
         val consumeCoinCard = ConsumeCoinCardUseCase(
@@ -57,35 +54,33 @@ class IntegrationTest {
             coinsRepository = coinsRepository,
         )
         sut = CoinCardViewModel(
-            ConsumeCoinCardUseCase = consumeCoinCard,
+            consumeCoinCardUseCase = consumeCoinCard,
             coinDetailsStatesMapper = coinDetailsStatesMapper,
             addFavoriteUseCase = addFavoriteUseCase,
-            productId = "3"
+            productId = ID
         )
     }
 
     @Test
-    fun `requestCoins EXPECTED  show all states`() {
+    fun `changeFavoriteState EXPECTED  isFavorite = true`() = runTest {
         //arrange
-        fillingRepository()
-        whenever(coinsRepository.consumeCoins())
-
-        val expectedInitialState = CoinCardScreenStates()
-        val expectedLoadingState = CoinCardScreenStates(isLoading = true)
-        val expectedDataState = CoinCardScreenStates()
+        whenever(coinsRepository.consumeCoins()).thenReturn(fillingRepository())
 
         //act
         sut.loadCoinCard()
+        sut.changeFavoriteState()
 
-        val result = mutableListOf<CoinListState>()
-
+        assertEquals(true, sut.state.value.coin.isFavorite)
     }
 
 
-    private fun fillingRepository() {
+    private fun fillingRepository() : Flow<List<Coin>> {
+        val state = MutableStateFlow<List<Coin>>(listOf())
+
         for( i in 1..5) {
-            coinsRepository.add(newCoin = createCoin(i))
+            state.value +=  createCoin(i)
         }
+        return state
     }
 
     private fun createCoin( id: Int): Coin {

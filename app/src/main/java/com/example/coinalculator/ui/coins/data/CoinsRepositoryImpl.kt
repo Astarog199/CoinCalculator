@@ -19,6 +19,6 @@ class CoinsRepositoryImpl(
 
     override suspend fun changeFavoriteState(coin: Coin) {
         val value = coinsMapper.toEntity(coin)
-        coinsRepository.addFavorite(value)
+        coinsRepository.changeFavorite(value)
     }
 }

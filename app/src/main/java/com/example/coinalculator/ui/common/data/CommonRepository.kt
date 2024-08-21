@@ -38,7 +38,7 @@ class CommonRepository(
          return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)
     }
 
-    suspend fun addFavorite( coin: CoinEntity) {
+    suspend fun changeFavorite(coin: CoinEntity) {
         coinsLocalDataSource.addFavorite(coin)
     }
 }

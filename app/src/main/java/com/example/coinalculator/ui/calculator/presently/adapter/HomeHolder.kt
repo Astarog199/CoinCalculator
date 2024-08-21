@@ -1,4 +1,4 @@
-package com.example.coinalculator.ui.home.presently.adapter
+package com.example.coinalculator.ui.calculator.presently.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ListItemBinding

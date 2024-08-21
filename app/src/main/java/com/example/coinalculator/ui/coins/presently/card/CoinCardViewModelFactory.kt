@@ -21,7 +21,7 @@ class CoinCardViewModelFactory(
             modelClass.isAssignableFrom(CoinCardViewModel::class.java) -> {
                 @Suppress("UNCHEKED_CAST")
                 return CoinCardViewModel(
-                    ConsumeCoinCardUseCase = consumeCoinCard,
+                    consumeCoinCardUseCase = consumeCoinCard,
                     coinDetailsStatesMapper = coinDetailsStatesMapper,
                     addFavoriteUseCase = addFavoriteUseCase,
                     productId = productId,

@@ -1,15 +1,15 @@
-package com.example.coinalculator.ui.home.presently.adapter
+package com.example.coinalculator.ui.calculator.presently.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ListItemBinding
-import kotlinx.coroutines.flow.StateFlow
+import com.example.coinalculator.ui.calculator.domain.CoinCalculator
 
 class HomeAdapter : RecyclerView.Adapter<HomeHolder>() {
-    private var values: List<String> = emptyList()
+    private var values: List<CoinCalculator> = emptyList()
 
-    fun setData(data: List<String>) {
+    fun setData(data: List<CoinCalculator>) {
         this.values = data
         notifyDataSetChanged()
     }
@@ -29,7 +29,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeHolder>() {
     override fun onBindViewHolder(holder: HomeHolder, position: Int) {
         val item = values.getOrNull(position)
         with(holder.binding){
-            listItem.text = item
+            listItem.text = item?.price.toString()
         }
     }
 }

@@ -38,7 +38,7 @@ class CoinCardViewModelTest {
     @Before
     fun setup() {
         sut = CoinCardViewModel (
-            ConsumeCoinCardUseCase = ConsumeCoinCardUseCase,
+            consumeCoinCardUseCase = ConsumeCoinCardUseCase,
             coinDetailsStatesMapper = coinDetailsStatesMapper,
             addFavoriteUseCase = addFavoriteUseCase,
             productId = productId

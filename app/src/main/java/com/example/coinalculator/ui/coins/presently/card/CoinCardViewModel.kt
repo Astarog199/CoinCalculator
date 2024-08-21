@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CoinCardViewModel(
-    private val ConsumeCoinCardUseCase: ConsumeCoinCardUseCase,
+    private val consumeCoinCardUseCase: ConsumeCoinCardUseCase,
     private val coinDetailsStatesMapper: CoinDetailsStatesMapper,
     private val addFavoriteUseCase: ChangeFavoriteStateUseCase,
     private val productId: String
@@ -29,7 +29,7 @@ class CoinCardViewModel(
 
 
     fun loadCoinCard() {
-        ConsumeCoinCardUseCase(productId)
+        consumeCoinCardUseCase(productId)
             .map { coins ->
                 coinDetailsStatesMapper.toCoinCardStates(coins)
             }
