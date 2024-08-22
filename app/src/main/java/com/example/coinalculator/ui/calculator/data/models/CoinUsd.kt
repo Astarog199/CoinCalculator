@@ -1,12 +1,8 @@
-package com.example.coinalculator.ui.calculator.data
+package com.example.coinalculator.ui.calculator.data.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
-data class ModelDto (
-    @Json(name = "bitcoin") val coinUsd: CoinUsd
-)
 
 @JsonClass(generateAdapter = true)
 data class CoinUsd (

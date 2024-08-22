@@ -9,7 +9,7 @@ class CoinsLocalDataSource(private val coinDao: CoinDao) {
 
 
   fun consume(): Flow<List<CoinEntity>>  {
-     return coinDao.getALL(arg = "Binance (Futures)")
+     return coinDao.getALL()
   }
 
     suspend fun save(coin: NewCoin){

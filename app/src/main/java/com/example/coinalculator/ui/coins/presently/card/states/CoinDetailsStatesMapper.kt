@@ -7,7 +7,7 @@ class CoinDetailsStatesMapper() {
         return CoinCardStates(
             id = coin.id,
             name = coin.name,
-            market = coin.market,
+            image = coin.image,
             price = coin.price,
             change24h = coin.change24h,
             isFavorite = coin.isFavorite
@@ -18,7 +18,7 @@ class CoinDetailsStatesMapper() {
         return Coin(
             id = coin.id,
             name = coin.name,
-            market = coin.market,
+            image = coin.image,
             price = coin.price,
             change24h = coin.change24h,
             isFavorite = coin.isFavorite

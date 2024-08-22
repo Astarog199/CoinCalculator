@@ -26,11 +26,11 @@ class RepositoryImpl(
         }
     }
 
-        fun saveCoins(): Flow<List<CalculatorEntity>> {
+        private fun saveCoins(): Flow<List<CalculatorEntity>> {
         scope.launch {
-            val coins = repository.getCoins()
+            val coins = repository.getBitcoin()
             calculatorLocalDataSource.saveCoin(
-                calculatorDataMapper.toEntity(coins)
+                calculatorDataMapper.toEntity(coins, "BTC")
             )
         }
 

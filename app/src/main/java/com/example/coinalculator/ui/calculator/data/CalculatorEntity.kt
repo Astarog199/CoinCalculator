@@ -5,5 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CalculatorEntity (
+    val name: String,
     val price: Long
 )

@@ -9,7 +9,7 @@ class FavoriteMapper {
         return Favorite(
             id = coinsEntity.id,
             name = coinsEntity.name,
-            market = coinsEntity.market,
+            image = coinsEntity.image,
             price = coinsEntity.price,
             change24h = coinsEntity.price_percentage_change_24h,
             isFavorite = coinsEntity.isFavorite
@@ -20,7 +20,7 @@ class FavoriteMapper {
         return CoinsEntity(
             id = coin.id,
             name = coin.name,
-            market = coin.market,
+            image = coin.image,
             price = coin.price,
             price_percentage_change_24h = coin.change24h,
             isFavorite = coin.isFavorite

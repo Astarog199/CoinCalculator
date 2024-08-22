@@ -7,7 +7,7 @@ class FavoriteScreenStatesMapper {
         return FavoriteStates(
             id = favorite.id,
             name = favorite.name,
-            market = favorite.market,
+            image = favorite.image,
             price = favorite.price,
             isFavorite = favorite.isFavorite
         )

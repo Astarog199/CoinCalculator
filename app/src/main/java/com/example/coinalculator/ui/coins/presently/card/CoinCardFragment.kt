@@ -81,9 +81,9 @@ class CoinCardFragment : Fragment() {
         binding.price.text = coin.price
         binding.price.visibility = View.VISIBLE
 
-        binding.marketText.visibility = View.VISIBLE
-        binding.market.text = coin.market
-        binding.market.visibility = View.VISIBLE
+//        binding.marketText.visibility = View.VISIBLE
+//        binding.market.text = coin.market
+//        binding.market.visibility = View.VISIBLE
 
         binding.progress.visibility = View.GONE
 

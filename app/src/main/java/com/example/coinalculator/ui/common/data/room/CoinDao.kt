@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoinDao {
-    @Query("SELECT * FROM CoinEntity WHERE market LIKE :arg")
-    fun getALL(arg: String): Flow<List<CoinEntity>>
+    @Query("SELECT * FROM CoinEntity")
+    fun getALL(): Flow<List<CoinEntity>>
 
     @Insert(entity = CoinEntity::class)
     suspend fun insert(newCoin: NewCoin)

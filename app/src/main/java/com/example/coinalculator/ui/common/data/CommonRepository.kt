@@ -26,7 +26,7 @@ class CommonRepository(
                 coins.map { coin ->
                     NewCoin(
                         name = coin.name,
-                        market = coin.market,
+                        image = coin.image,
                         price = coin.price,
                         price_percentage_change_24h = coin.price_percentage_change_24h,
                         isFavorite = coin.isFavorite

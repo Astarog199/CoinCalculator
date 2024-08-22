@@ -7,7 +7,7 @@ class CoinStateMapper () {
         return CoinState(
             id = coin.id,
             name = coin.name,
-            market = coin.market,
+            image = coin.image,
             price = coin.price,
         )
     }
