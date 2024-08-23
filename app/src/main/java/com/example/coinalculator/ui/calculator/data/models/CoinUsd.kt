@@ -6,5 +6,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CoinUsd (
-    @Json(name = "usd") val usd: Long
+    @Json(name = "rub") val usd: Float
 )

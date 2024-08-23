@@ -18,7 +18,7 @@ class CalculatorLocalDataSource(
     fun consumeCoins() : Flow<List<CalculatorEntity>> = dataStore.data
         .map(::mapProductFromPrefs)
 
-    suspend fun saveCoin(coins: CalculatorEntity) {
+    suspend fun saveCoin(coins: List<CalculatorEntity>) {
         dataStore.edit { prefs -> prefs[productPreferencesKey] = encodeToString(coins) }
     }
 
@@ -38,10 +38,10 @@ class CalculatorLocalDataSource(
     private val productPreferencesKey = stringPreferencesKey(PRODUCT_KEY)
 
     @OptIn(InternalSerializationApi::class)
-    private fun encodeToString(products: CalculatorEntity): String =
+    private fun encodeToString(products: List<CalculatorEntity>): String =
         Json.encodeToString(
             ListSerializer(CalculatorEntity::class.serializer()),
-            listOf(products),
+            (products),
         )
 
     private companion object {

@@ -1,12 +1,13 @@
 package com.example.coinalculator.ui.calculator.data
 
-import com.example.coinalculator.ui.calculator.data.models.DTO
+import com.example.coinalculator.ui.calculator.data.models.CoinCalculatorDto
+import com.example.coinalculator.ui.calculator.data.models.RubDTO
 import retrofit2.await
 
 class RemoteDataSource (
     private val listCoinApi: CalculatorApiService
 ){
-    suspend fun getBitcoin(): DTO {
-        return listCoinApi.getCoin("bitcoin", "usd").await()
+    suspend fun getRub(): RubDTO {
+        return listCoinApi.getRub("usd", "rub").await()
     }
 }

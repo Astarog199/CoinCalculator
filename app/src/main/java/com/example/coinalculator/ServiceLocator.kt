@@ -74,7 +74,7 @@ object ServiceLocator {
         return Dispatchers.IO
     }
 
-    private fun provideCoinsListRemoteDataSource(): CoinsRemoteDataSource {
+     fun provideCoinsListRemoteDataSource(): CoinsRemoteDataSource {
         return CoinsRemoteDataSource(coinApi = provideDataApiService())
     }
 

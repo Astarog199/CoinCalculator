@@ -4,5 +4,5 @@ import com.example.coinalculator.ui.calculator.data.CalculatorEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CalculatorRepository {
-    fun consumeCoins() : Flow<List<CoinCalculator>>
+    suspend fun consumeCoins() : Flow<List<CoinCalculator>>
 }

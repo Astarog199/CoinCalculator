@@ -5,14 +5,18 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import com.example.coinalculator.ServiceLocator
 import com.example.coinalculator.ui.calculator.data.RemoteDataSource
 import com.example.coinalculator.ui.calculator.data.CalculatorApiService
-import com.example.coinalculator.ui.calculator.data.CalculatorDataMapper
+import com.example.coinalculator.ui.calculator.data.models.DataMapper
 import com.example.coinalculator.ui.calculator.data.CalculatorDomainMapper
 import com.example.coinalculator.ui.calculator.data.CalculatorLocalDataSource
 import com.example.coinalculator.ui.calculator.data.RepositoryImpl
 import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.calculator.presently.ViewModelFactory
+import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
+import com.example.coinalculator.ui.common.data.CoinsDataMapper
+import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -38,8 +42,10 @@ object ServiceLocator {
         return local ?: run {
             val newRepository = RepositoryImpl(
                 repository = provideRemoteDataSource(),
+                coinsRemoteDataSource = ServiceLocator.provideCoinsListRemoteDataSource(),
+                coinsDataMapper = CoinsDataMapper(),
                 calculatorLocalDataSource = provideCalculatorLocalDataSource(),
-                calculatorDataMapper = CalculatorDataMapper(),
+                dataMapper = DataMapper(),
                 calculatorDomainMapper = CalculatorDomainMapper(),
                 coroutineDispatcher = provideIOCoroutineDispatcher()
             )
@@ -50,7 +56,8 @@ object ServiceLocator {
     
     fun provideViewModel() : ViewModelProvider.Factory{
         return ViewModelFactory(
-            consumeCoinsUseCase = provideGetCoinsUseCase()
+            consumeCoinsUseCase = provideGetCoinsUseCase(),
+            calcStateMapper = CalcStateMapper()
         )
     }
     
