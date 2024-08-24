@@ -104,7 +104,7 @@ class CoinListViewModelTest {
         return Coin (
             id = id,
             name = "Coin$id",
-            market  = "Binance",
+            image  = "",
             price  = "60000",
             change24h  = 0f,
             isFavorite = false

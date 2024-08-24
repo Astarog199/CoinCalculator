@@ -5,5 +5,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class RubDTO (
-    @Json(name = "usd") val price: CoinUsd
+    @Json(name = "usd") val price: CoinRub
 )

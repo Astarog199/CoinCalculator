@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class CoinUsd (
+data class CoinRub (
     @Json(name = "rub") val usd: Float
 )

@@ -87,7 +87,7 @@ class CoinCardViewModelTest {
         return Coin (
             id = 3,
             name = "BTC",
-            market  = "Binance",
+            image  = "",
             price  = "60000",
             change24h  = 0f,
             isFavorite = false

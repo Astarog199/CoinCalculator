@@ -19,12 +19,12 @@ import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-class HomeFragment : Fragment() {
+class CalculatorFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = HomeAdapter{state, s2 -> onTextChange(state, s2)}
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val adapter = HomeAdapter{arg, arg2 -> onTextChange(arg, arg2)}
+
 
     private val viewModel: CalculatorViewModel by viewModels(
         factoryProducer = {ServiceLocator.provideViewModel()}
@@ -41,12 +41,18 @@ class HomeFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
+        viewModel.loadItems()
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loadItems()
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.items.collect { state ->
                     when{
                         state.isLoading -> showLoading()
+
+                        state.hasError -> {
+                            showError()
+                            viewModel.errorShown()
+                        }
 
                         else -> {
                             showList(state.coinsList)
@@ -74,9 +80,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onTextChange(arg: Float, arg2: Float){
-        scope.launch {
             viewModel.changeVolume(arg * arg2)
-        }
     }
 
     private fun showError() {

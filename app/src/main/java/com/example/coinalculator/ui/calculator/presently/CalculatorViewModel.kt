@@ -2,10 +2,8 @@ package com.example.coinalculator.ui.calculator.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.calculator.domain.CoinCalculator
 import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
-import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import com.example.coinalculator.ui.calculator.presently.states.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +23,7 @@ class CalculatorViewModel(
     private val _items = MutableStateFlow(ScreenState())
     val items: StateFlow<ScreenState> = _items.asStateFlow()
 
-    suspend fun loadItems() {
+     fun loadItems() {
         consumeCoinsUseCase.invoke()
             .map { coins ->
                 coins.map { coin ->
@@ -50,6 +48,10 @@ class CalculatorViewModel(
                 }
             }
             .launchIn(viewModelScope)
+    }
+
+    fun errorShown() {
+        _items.update { screenState -> screenState.copy(hasError = false) }
     }
 
     fun changeVolume(arg: Float) {

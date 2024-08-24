@@ -2,7 +2,6 @@ package com.example.coinalculator.ui.calculator.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.coinalculator.ui.calculator.data.RemoteDataSource
 import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
 

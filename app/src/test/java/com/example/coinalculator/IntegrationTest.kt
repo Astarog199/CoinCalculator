@@ -87,7 +87,7 @@ class IntegrationTest {
         return Coin(
             id = id,
             name = "Coin$id",
-            market = "Binance",
+            image = "",
             price = Random().nextInt(1000).toString(),
             change24h = 0f,
             isFavorite = false

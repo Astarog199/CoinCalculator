@@ -34,8 +34,7 @@ class RepositoryImpl(
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var list = mutableListOf<CalculatorEntity>()
 
-    override suspend fun consumeCoins(): Flow<List<CoinCalculator>> {
-
+    override  fun consumeCoins(): Flow<List<CoinCalculator>> {
         return createList().map { coins ->
             coins.map(calculatorDomainMapper::fromEntity)
         }
