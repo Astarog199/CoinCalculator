@@ -23,7 +23,7 @@ class CalculatorFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = HomeAdapter{arg, arg2 -> onTextChange(arg, arg2)}
+    private val adapter = HomeAdapter{arg, item-> onTextChange(arg, item)}
 
 
     private val viewModel: CalculatorViewModel by viewModels(
@@ -77,10 +77,15 @@ class CalculatorFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
-    private fun onTextChange(arg: Float, arg2: Float){
-            viewModel.changeVolume(arg * arg2)
+    private fun onTextChange(arg: Float, item: CoinCalState){
+        if (item.name == "rub") {
+            viewModel.changeVolume(arg / item.price)
+        }else{
+            viewModel.changeVolume(arg * item.price)
+        }
     }
 
     private fun showError() {

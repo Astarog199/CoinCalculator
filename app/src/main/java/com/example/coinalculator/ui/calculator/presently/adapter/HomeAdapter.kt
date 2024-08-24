@@ -14,7 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class HomeAdapter(
-    private val textChange:(Float, Float) -> Unit
+    private val textChange:(Float, CoinCalState) -> Unit
 ) : RecyclerView.Adapter<HomeHolder>() {
     private val scope = CoroutineScope(Dispatchers.IO)
     private var values: List<CoinCalState> = emptyList()
@@ -43,10 +43,10 @@ class HomeAdapter(
             text.text = item?.name
             editText.setText("")
             fun addHint() : String{
-                if (item?.name == "rub") {
-                   return (item.price * item.value).toString()
+                return if (item?.name == "rub") {
+                    (item.price * item.value).toString()
                 } else {
-                   return item?.getPriceValue().toString()
+                    item?.getPriceValue().toString()
                 }
             }
             editText.hint = addHint()
@@ -67,7 +67,7 @@ class HomeAdapter(
                         val arg =editText.text.toString()
                         if (arg.isNotEmpty()) {
                             item?.let {
-                                textChange(arg.toFloat(), item.price)
+                                textChange(arg.toFloat(), item)
                             }
                         }
                     }

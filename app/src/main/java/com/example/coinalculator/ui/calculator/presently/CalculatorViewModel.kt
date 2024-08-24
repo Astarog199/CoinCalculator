@@ -37,8 +37,8 @@ class CalculatorViewModel(
                 _items.update { list -> list.copy(isLoading = true) }
             }
             .onEach { coins ->
-                _items.update { list ->
-                    list.copy(isLoading = false, coinsList = coins)
+                _items.update { state ->
+                    state.copy(isLoading = false, coinsList = coins)
                 }
 
             }

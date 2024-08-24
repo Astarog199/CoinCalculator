@@ -8,6 +8,7 @@ import com.example.coinalculator.ui.favorite.presently.states.FavoriteScreenStat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -28,11 +29,16 @@ class FavoriteViewModel(
                 favorite.map(favoriteScreenStatesMapper::toFavotiteStates)
             }
             .onStart {
-                _favoriteState.update { list -> list.copy() }
+                _favoriteState.update { list -> list.copy(isLoading = true) }
             }
-            .onEach { state ->
-                _favoriteState.update { coin ->
-                    coin.copy(isLoading = false, favoriteList = state)
+            .onEach { coins ->
+                _favoriteState.update { state ->
+                    state.copy(isLoading = false, favoriteList = coins)
+                }
+            }
+            .catch {
+                _favoriteState.update { screenState ->
+                    screenState.copy(hasError = true)
                 }
             }
             .launchIn(viewModelScope)
