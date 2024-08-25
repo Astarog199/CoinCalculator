@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class CommonRepository(
-    private val coinsRemoteDataSource: CoinsRemoteDataSource,
-    private val coinsDataMapper: CoinsDataMapper,
-    private val coinsLocalDataSource: CoinsLocalDataSource,
+    private val coinsRemoteDataSource: CommonRemoteDataSource,
+    private val coinsDataMapper: CommonDataMapper,
+    private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)

@@ -64,10 +64,10 @@ class HomeAdapter(
                     searchJob = scope.launch {
 
 
-                        val arg =editText.text.toString()
+                        val arg =editText.text
                         if (arg.isNotEmpty()) {
                             item?.let {
-                                textChange(arg.toFloat(), item)
+                                textChange(arg.toString().toFloat(), item)
                             }
                         }
                     }

@@ -6,17 +6,16 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.example.coinalculator.ServiceLocator
-import com.example.coinalculator.ui.calculator.data.RemoteDataSource
+import com.example.coinalculator.ui.calculator.data.CalculatorRemoteDataSource
 import com.example.coinalculator.ui.calculator.data.CalculatorApiService
 import com.example.coinalculator.ui.calculator.data.models.DataMapper
 import com.example.coinalculator.ui.calculator.data.CalculatorDomainMapper
 import com.example.coinalculator.ui.calculator.data.CalculatorLocalDataSource
-import com.example.coinalculator.ui.calculator.data.RepositoryImpl
+import com.example.coinalculator.ui.calculator.data.CalculatorRepositoryImpl
 import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
 import com.example.coinalculator.ui.calculator.presently.ViewModelFactory
 import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
-import com.example.coinalculator.ui.common.data.CoinsDataMapper
-import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
+import com.example.coinalculator.ui.common.data.CommonDataMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -29,7 +28,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ServiceLocator {
 
-    private var calculatorRepositorySinlgleton: RepositoryImpl? = null
+    private var retrofitSingleton: Retrofit? = null
+    private var calculatorRepositorySinlgleton: CalculatorRepositoryImpl? = null
 
     lateinit var applicationContext: Context
 
@@ -37,13 +37,13 @@ object ServiceLocator {
         return ConsumeCoinsUseCase(repository = provideRepository())
     }
 
-    fun provideRepository() : RepositoryImpl{
+    fun provideRepository() : CalculatorRepositoryImpl{
         val local = calculatorRepositorySinlgleton
         return local ?: run {
-            val newRepository = RepositoryImpl(
+            val newRepository = CalculatorRepositoryImpl(
                 repository = provideRemoteDataSource(),
                 coinsRemoteDataSource = ServiceLocator.provideCoinsListRemoteDataSource(),
-                coinsDataMapper = CoinsDataMapper(),
+                coinsDataMapper = CommonDataMapper(),
                 calculatorLocalDataSource = provideCalculatorLocalDataSource(),
                 dataMapper = DataMapper(),
                 calculatorDomainMapper = CalculatorDomainMapper(),
@@ -60,24 +60,36 @@ object ServiceLocator {
             calcStateMapper = CalcStateMapper()
         )
     }
+
+    private fun provideOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
     
     private fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .client(
-                OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().also {
-                    it.level = HttpLoggingInterceptor.Level.BODY
-                }).build())
-            .baseUrl("https://api.coingecko.com/api/v3/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
+        val local = retrofitSingleton
+
+        return local ?: run {
+            val newRetrofit =Retrofit.Builder()
+                .client(provideOkHttpClient())
+                .baseUrl("https://api.coingecko.com/api/v3/")
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+            retrofitSingleton = newRetrofit
+            newRetrofit
+        }
     }
 
     private fun provideDataApiService(): CalculatorApiService {
         return provideRetrofit().create(CalculatorApiService::class.java)
     }
     
-    private fun provideRemoteDataSource(): RemoteDataSource{
-        return RemoteDataSource(listCoinApi = provideDataApiService())
+    private fun provideRemoteDataSource(): CalculatorRemoteDataSource{
+        return CalculatorRemoteDataSource(listCoinApi = provideDataApiService())
     }
 
     private fun provideIOCoroutineDispatcher(): CoroutineDispatcher {

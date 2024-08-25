@@ -2,14 +2,14 @@ package com.example.coinalculator
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinalculator.ui.common.data.CoinsDataMapper
-import com.example.coinalculator.ui.common.data.CoinsLocalDataSource
-import com.example.coinalculator.ui.common.data.CoinsRemoteDataSource
+import com.example.coinalculator.ui.common.data.CommonDataMapper
+import com.example.coinalculator.ui.common.data.CommonLocalDataSource
+import com.example.coinalculator.ui.common.data.CommonRemoteDataSource
 import com.example.coinalculator.ui.coins.data.CoinsRepositoryImpl
 import com.example.coinalculator.ui.coins.data.Mapper
 import com.example.coinalculator.ui.coins.domain.ChangeFavoriteStateUseCase
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
-import com.example.coinalculator.ui.common.data.CoinsApiService
+import com.example.coinalculator.ui.common.data.CommonApiService
 import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
@@ -20,6 +20,8 @@ import com.example.coinalculator.ui.favorite.data.FavoritesRepositoryImpl
 import com.example.coinalculator.ui.favorite.domain.ConsumeFavorietesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -29,11 +31,20 @@ object ServiceLocator {
 
     lateinit var applicationContext: Context
 
+    private fun provideOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
     private fun provideRetrofit(): Retrofit {
         val local = retrofitSingleton
 
         return local ?: run {
             val newRetrofit = Retrofit.Builder()
+                .client(provideOkHttpClient())
                 .baseUrl("https://api.coingecko.com/api/v3/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
@@ -43,8 +54,8 @@ object ServiceLocator {
         }
     }
 
-    private fun provideDataApiService(): CoinsApiService {
-        return provideRetrofit().create(CoinsApiService::class.java)
+    private fun provideDataApiService(): CommonApiService {
+        return provideRetrofit().create(CommonApiService::class.java)
     }
 
     private fun provideRepository(): CoinsRepositoryImpl {
@@ -74,12 +85,12 @@ object ServiceLocator {
         return Dispatchers.IO
     }
 
-     fun provideCoinsListRemoteDataSource(): CoinsRemoteDataSource {
-        return CoinsRemoteDataSource(coinApi = provideDataApiService())
+     fun provideCoinsListRemoteDataSource(): CommonRemoteDataSource {
+        return CommonRemoteDataSource(coinApi = provideDataApiService())
     }
 
-    private fun provideCoinDataMapper(): CoinsDataMapper {
-        return CoinsDataMapper()
+    private fun provideCoinDataMapper(): CommonDataMapper {
+        return CommonDataMapper()
     }
 
     fun provideConsumeDashboardUseCase(): ConsumeCoinListUseCase {
@@ -90,8 +101,8 @@ object ServiceLocator {
         return FilterCoinsListUseCase()
     }
 
-    private fun provideDashboardLocalDataSource(): CoinsLocalDataSource {
-        return CoinsLocalDataSource(coinDao = provideRoom())
+    private fun provideDashboardLocalDataSource(): CommonLocalDataSource {
+        return CommonLocalDataSource(coinDao = provideRoom())
     }
 
     private fun provideRoom(): CoinDao {

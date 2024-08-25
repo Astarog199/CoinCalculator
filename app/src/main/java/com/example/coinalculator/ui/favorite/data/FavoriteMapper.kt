@@ -1,6 +1,6 @@
 package com.example.coinalculator.ui.favorite.data
 
-import com.example.coinalculator.ui.common.data.CoinsEntity
+import com.example.coinalculator.ui.common.data.CommonEntity
 import com.example.coinalculator.ui.common.data.room.CoinEntity
 import com.example.coinalculator.ui.favorite.domain.Favorite
 
@@ -16,8 +16,8 @@ class FavoriteMapper {
         )
     }
 
-    fun toEntity(coin: Favorite): CoinsEntity {
-        return CoinsEntity(
+    fun toEntity(coin: Favorite): CommonEntity {
+        return CommonEntity(
             id = coin.id,
             name = coin.name,
             image = coin.image,

@@ -1,8 +1,8 @@
 package com.example.coinalculator.ui.common.data
 
-class CoinsDataMapper {
-    fun toEntity(coinsDto: CoinsDto) : CoinsEntity {
-        return CoinsEntity(
+class CommonDataMapper {
+    fun toEntity(coinsDto: CoinsDto) : CommonEntity {
+        return CommonEntity(
             id = 0,
             name = coinsDto.name,
             image = coinsDto.image,

@@ -4,7 +4,7 @@ package com.example.coinalculator.ui.common.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CoinsEntity(
+data class CommonEntity(
      val id: Int,
      val name: String,
      val image: String,
