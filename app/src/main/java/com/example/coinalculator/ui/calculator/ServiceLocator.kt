@@ -43,7 +43,6 @@ object ServiceLocator {
             val newRepository = CalculatorRepositoryImpl(
                 repository = provideRemoteDataSource(),
                 coinsRemoteDataSource = ServiceLocator.provideCoinsListRemoteDataSource(),
-                coinsDataMapper = CommonDataMapper(),
                 calculatorLocalDataSource = provideCalculatorLocalDataSource(),
                 dataMapper = DataMapper(),
                 calculatorDomainMapper = CalculatorDomainMapper(),

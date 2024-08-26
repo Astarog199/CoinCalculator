@@ -16,14 +16,12 @@ import kotlinx.coroutines.launch
 class CalculatorRepositoryImpl(
     private val repository: CalculatorRemoteDataSource,
     private val coinsRemoteDataSource: CommonRemoteDataSource,
-    private val coinsDataMapper: CommonDataMapper,
     private val calculatorLocalDataSource: CalculatorLocalDataSource,
     private val dataMapper: DataMapper,
     private val calculatorDomainMapper: CalculatorDomainMapper,
     private val coroutineDispatcher: CoroutineDispatcher,
 ) : CalculatorRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
-    private var list = mutableListOf<CalculatorEntity>()
 
     override  fun consumeCoins(): Flow<List<CoinCalculator>> {
         return createList().map { coins ->
@@ -33,6 +31,7 @@ class CalculatorRepositoryImpl(
 
     private fun createList(): Flow<List<CalculatorEntity>> {
         scope.launch {
+            val list = mutableListOf<CalculatorEntity>()
             val coins = coinsRemoteDataSource.getList()
                 .map(dataMapper::toEntity)
 
@@ -43,6 +42,7 @@ class CalculatorRepositoryImpl(
                     list.add(coin)
                 }
             }
+
 
             calculatorLocalDataSource.saveCoin(list)
         }

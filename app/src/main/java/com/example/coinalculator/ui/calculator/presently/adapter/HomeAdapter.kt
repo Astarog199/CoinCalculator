@@ -11,6 +11,7 @@ import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeAdapter(
@@ -44,11 +45,13 @@ class HomeAdapter(
             editText.setText("")
             fun addHint() : String{
                 return if (item?.name == "rub") {
-                    (item.price * item.value).toString()
+                    val res = (item.price * item.value)
+                    res.toString()
                 } else {
                     item?.getPriceValue().toString()
                 }
             }
+            //editText.setText(addHint())
             editText.hint = addHint()
 
             editText.addTextChangedListener(object : TextWatcher {
@@ -62,7 +65,7 @@ class HomeAdapter(
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     searchJob?.cancel()
                     searchJob = scope.launch {
-
+                        delay(500)
 
                         val arg =editText.text
                         if (arg.isNotEmpty()) {

@@ -24,7 +24,7 @@ class CalculatorViewModel(
     val items: StateFlow<ScreenState> = _items.asStateFlow()
 
      fun loadItems() {
-        consumeCoinsUseCase.invoke()
+        consumeCoinsUseCase()
             .map { coins ->
                 coins.map { coin ->
                     if (coin.name == "btc") amountOfFiatCurrency = coin.price
