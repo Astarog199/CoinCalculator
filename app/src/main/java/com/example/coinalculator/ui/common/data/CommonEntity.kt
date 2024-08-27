@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CommonEntity(
-     val id: Int,
      val name: String,
      val image: String,
      val price: String,

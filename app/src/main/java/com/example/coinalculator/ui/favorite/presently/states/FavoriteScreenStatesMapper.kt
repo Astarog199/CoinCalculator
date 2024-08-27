@@ -5,7 +5,7 @@ import com.example.coinalculator.ui.favorite.domain.Favorite
 class FavoriteScreenStatesMapper {
     fun toFavotiteStates(favorite: Favorite) : FavoriteStates {
         return FavoriteStates(
-            id = favorite.id,
+//            id = favorite.id,
             name = favorite.name,
             image = favorite.image,
             price = favorite.price,

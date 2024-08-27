@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 class CommonLocalDataSource(private val coinDao: CoinDao) {
 
-
   fun consume(): Flow<List<CoinEntity>>  {
      return coinDao.getALL()
   }
@@ -18,6 +17,10 @@ class CommonLocalDataSource(private val coinDao: CoinDao) {
 
     suspend fun saveMany(coins: List<NewCoin>){
         coinDao.insertMany(coins)
+    }
+
+    suspend fun updateCoin(coin: CoinEntity) {
+        coinDao.update(coin)
     }
 
     suspend fun addFavorite(coin: CoinEntity){

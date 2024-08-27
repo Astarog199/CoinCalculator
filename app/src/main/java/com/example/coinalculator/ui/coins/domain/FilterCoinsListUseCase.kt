@@ -9,22 +9,14 @@ import kotlin.coroutines.suspendCoroutine
 
 class FilterCoinsListUseCase() {
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var _filterCoin: List<CoinState> = mutableListOf()
-    private var filterCoin: List<CoinState> = mutableListOf()
-    private var _query = ""
 
-    suspend operator fun invoke() = suspendCoroutine {
+    suspend operator fun invoke(coins: List<CoinState>, query: String) = suspendCoroutine {
         scope.launch {
-            filterCoin = _filterCoin
+           val filterCoins = coins
                 .filter { coin ->
-                    coin.name.contains(_query)
+                    coin.name.contains(query)
                 }
-            it.resume(filterCoin)
+            it.resume(filterCoins)
         }
-    }
-
-     fun searchCoin(coins: List<CoinState>, query: String) {
-        _filterCoin = coins
-        _query = query
     }
 }

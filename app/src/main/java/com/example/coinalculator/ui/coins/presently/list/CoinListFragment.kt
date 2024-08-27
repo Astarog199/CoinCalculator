@@ -54,6 +54,7 @@ class CoinListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.search.setText("")
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
@@ -95,14 +96,16 @@ class CoinListFragment : Fragment() {
 
                     if (arg.isNotEmpty()) {
                         viewModel.searchCoin(arg)
-                    }
 
-                    withContext(Dispatchers.Main) {
-                        if (viewModel.filter.value.isEmpty()) {
-                            viewModel.stateFilter = false
-                            Toast.makeText(requireActivity(), "Nothing found for your request", Toast.LENGTH_SHORT).show()
-                        } else {
-                            viewModel.stateFilter = true
+                        withContext(Dispatchers.Main) {
+                            if (viewModel.filter.value.isEmpty()) {
+                                viewModel.stateFilter = false
+                                Toast.makeText(requireActivity(), "Nothing found for your request", Toast.LENGTH_SHORT).show()
+                                arg = ""
+                                viewModel.loadCoins()
+                            } else {
+                                viewModel.stateFilter = true
+                            }
                         }
                     }
                 }
@@ -113,10 +116,11 @@ class CoinListFragment : Fragment() {
     }
 
     private fun onItemClick(item: CoinState){
+        binding.search.setText("")
         requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             .navigate(
                 resId = R.id.action_main_to_details,
-                args = bundleOf("item" to item.id.toString())
+                args = bundleOf("item" to item.name)
             )
     }
 

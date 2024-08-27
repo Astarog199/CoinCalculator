@@ -7,7 +7,6 @@ class Mapper {
 
     fun fromEntity(coinEntity: CoinEntity) : Coin {
         return Coin(
-            id = coinEntity.id,
             name = coinEntity.name,
             image = coinEntity.image,
             price = coinEntity.price,
@@ -18,7 +17,6 @@ class Mapper {
 
     fun toEntity(coin: Coin) : CoinEntity {
         return CoinEntity(
-            id = coin.id,
             name = coin.name,
             image = coin.image,
             price = coin.price,

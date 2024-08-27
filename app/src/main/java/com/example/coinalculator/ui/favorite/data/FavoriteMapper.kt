@@ -7,7 +7,6 @@ import com.example.coinalculator.ui.favorite.domain.Favorite
 class FavoriteMapper {
     fun fromEntity(coinsEntity: CoinEntity) : Favorite {
         return Favorite(
-            id = coinsEntity.id,
             name = coinsEntity.name,
             image = coinsEntity.image,
             price = coinsEntity.price,
@@ -18,7 +17,6 @@ class FavoriteMapper {
 
     fun toEntity(coin: Favorite): CommonEntity {
         return CommonEntity(
-            id = coin.id,
             name = coin.name,
             image = coin.image,
             price = coin.price,

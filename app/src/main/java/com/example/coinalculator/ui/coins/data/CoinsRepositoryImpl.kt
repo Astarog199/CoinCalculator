@@ -11,7 +11,7 @@ class CoinsRepositoryImpl(
     private val coinsRepository: CommonRepository
 ) : CoinsRepository {
     override fun consumeCoins(): Flow<List<Coin>> {
-        return coinsRepository.saveList()
+        return coinsRepository.getList()
             .map { coins ->
                 coins.map(coinsMapper::fromEntity)
             }

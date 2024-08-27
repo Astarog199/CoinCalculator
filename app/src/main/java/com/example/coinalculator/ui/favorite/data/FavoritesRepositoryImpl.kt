@@ -12,7 +12,7 @@ class FavoritesRepositoryImpl(
 ) : FavoriteRepository {
 
     override fun consumeFavoriteCoins(): Flow<List<Favorite>> {
-        return coinsRepository.saveList()
+        return coinsRepository.getList()
             .map { coins ->
                 coins.filter { favorites ->
                     favorites.isFavorite

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 data class NewCoin(
     @PrimaryKey
-    @ColumnInfo(name = "id") val id: Int? = null,
+//    @ColumnInfo(name = "id") val id: Int? = null,
     @ColumnInfo(name = "name")val name: String,
     @ColumnInfo(name = "image")val image: String,
     @ColumnInfo(name = "price")val price: String,

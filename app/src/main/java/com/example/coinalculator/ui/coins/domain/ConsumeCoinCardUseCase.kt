@@ -8,11 +8,11 @@ class ConsumeCoinCardUseCase(
     private val coinsRepository: CoinsRepository,
 ) {
 
-    operator fun invoke(itemId:String): Flow <Coin> {
+    operator fun invoke(name:String): Flow <Coin> {
         return coinsRepository.consumeCoins()
             .map { products ->
                 products
-                    .first { it.id.toString() == itemId }
+                    .first { it.name == name }
             }
     }
 }

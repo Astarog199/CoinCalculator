@@ -34,7 +34,7 @@ class CoinListViewModel(
     private var _filter = MutableStateFlow<List<CoinState>>(listOf())
     val filter: StateFlow<List<CoinState>> = _filter.asStateFlow()
 
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     fun loadCoins() {
         consumeCoinsUseCase()
@@ -60,16 +60,10 @@ class CoinListViewModel(
 
     fun searchCoin(arg: String) {
         scope.launch {
-            filterCoinsListUseCase.searchCoin(_coinState.value.coinsList, arg)
-            filterCoins()
-        }
-    }
-
-    private suspend fun filterCoins() {
-        _filter.value = filterCoinsListUseCase()
-
-        _coinState.update { coin ->
-            coin.copy(isLoading = false, filter = stateFilter, coinsList = filter.value)
+            _filter.value =   filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
+            _coinState.update { coin ->
+                coin.copy(isLoading = false, filter = stateFilter, coinsList = filter.value)
+            }
         }
     }
 

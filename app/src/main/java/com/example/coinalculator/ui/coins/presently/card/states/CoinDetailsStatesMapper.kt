@@ -5,7 +5,7 @@ import com.example.coinalculator.ui.coins.domain.Coin
 class CoinDetailsStatesMapper() {
     fun toCoinCardStates(coin: Coin): CoinCardStates {
         return CoinCardStates(
-            id = coin.id,
+//            id = coin.id,
             name = coin.name,
             image = coin.image,
             price = coin.price,
@@ -16,7 +16,7 @@ class CoinDetailsStatesMapper() {
 
     fun toCoinDetails(coin: CoinCardStates) : Coin {
         return Coin(
-            id = coin.id,
+//            id = coin.id,
             name = coin.name,
             image = coin.image,
             price = coin.price,
