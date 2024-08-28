@@ -10,12 +10,15 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil.load
 import com.example.coinalculator.databinding.FragmentCoinCardBinding
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.skia.Color
+import java.text.NumberFormat
+import java.util.Locale
 
 class CoinCardFragment : Fragment() {
 
@@ -74,16 +77,19 @@ class CoinCardFragment : Fragment() {
         binding.name.text = coin.name
         binding.name.visibility = View.VISIBLE
 
-        binding.PriceChange.text = formatChange24h(coin.change24h)
+        binding.PriceChange.text = formatChange24h(coin.priceChange24h, coin.pricePercentageChange24h)
         binding.PriceChange.visibility = View.VISIBLE
 
-        binding.priceText.visibility = View.VISIBLE
         binding.price.text = coin.price
+        binding.priceText.visibility = View.VISIBLE
         binding.price.visibility = View.VISIBLE
 
-//        binding.marketText.visibility = View.VISIBLE
-//        binding.market.text = coin.market
-//        binding.market.visibility = View.VISIBLE
+        binding.image.load(coin.image)
+        binding.image.visibility = View.VISIBLE
+
+        binding.marketCapValue.text = formatMarketCap(coin.marketCap)
+        binding.marketCapValue.visibility = View.VISIBLE
+        binding.marketCapText.visibility = View.VISIBLE
 
         binding.progress.visibility = View.GONE
 
@@ -94,14 +100,35 @@ class CoinCardFragment : Fragment() {
         }
     }
 
-    private fun formatChange24h(value: Float) : String {
+    private fun formatChange24h(value: Float, valuePercent: Float) : String {
         if (value < 0f){
             binding.PriceChange.setTextColor(Color.RED)
         }else{
             binding.PriceChange.setTextColor(Color.GREEN)
         }
 
-        return String.format("%.1f", value)+ " %"
+        return String.format("%.1f",  value) +" $ · " + String.format("%.1f", valuePercent)+ " %"
+    }
+
+    private fun formatMarketCap(value: Long) : String {
+        var v = value
+
+        var sizeOfNumber = 0
+        while (v > 10000){
+            v /= 10
+            sizeOfNumber++
+        }
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+
+        return when  {
+            sizeOfNumber >= 9 -> formatter.format(value/1000000000) + " T"
+
+            sizeOfNumber >= 6 -> formatter.format(value/1000000) + " B"
+
+            else -> formatter.format(value) + " $"
+        }
     }
 
     private fun renderLoading() {
@@ -109,8 +136,8 @@ class CoinCardFragment : Fragment() {
         binding.priceText.visibility = View.GONE
         binding.price.visibility = View.GONE
         binding.PriceChange.visibility = View.GONE
-        binding.marketText.visibility = View.GONE
-        binding.market.visibility = View.GONE
+        binding.image.visibility = View.GONE
+
         binding.progress.visibility = View.VISIBLE
     }
 

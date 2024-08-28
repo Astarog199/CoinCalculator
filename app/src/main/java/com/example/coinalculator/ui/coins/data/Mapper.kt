@@ -10,7 +10,11 @@ class Mapper {
             name = coinEntity.name,
             image = coinEntity.image,
             price = coinEntity.price,
-            change24h = coinEntity.price_percentage_change_24h,
+            pricePercentageChange24h = coinEntity.price_percentage_change_24h,
+            priceChange24h = coinEntity.price_change_24h,
+            marketCap = coinEntity.market_cap,
+            marketCapRank = coinEntity.market_cap_rank,
+            totalVolume = coinEntity.total_volume,
             isFavorite = coinEntity.isFavorite
         )
     }
@@ -20,7 +24,11 @@ class Mapper {
             name = coin.name,
             image = coin.image,
             price = coin.price,
-            price_percentage_change_24h = coin.change24h,
+            price_percentage_change_24h = coin.pricePercentageChange24h,
+            price_change_24h = coin.priceChange24h,
+            market_cap = coin.marketCap,
+            market_cap_rank = coin.marketCapRank,
+            total_volume = coin.totalVolume,
             isFavorite = coin.isFavorite
         )
     }

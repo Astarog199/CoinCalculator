@@ -30,7 +30,11 @@ class CommonRepository(
                         name = coin.name,
                         image = coin.image,
                         price = coin.price,
-                        price_percentage_change_24h = coin.price_percentage_change_24h,
+                        price_percentage_change_24h = coin.pricePercentageChange24h,
+                        priceChange24h = coin.priceChange24h,
+                        marketCap = coin.marketCap,
+                        marketCapRank = coin.marketCapRank,
+                        totalVolume = coin.totalVolume,
                         isFavorite = coin.isFavorite
                     )
                 }
@@ -53,6 +57,10 @@ class CommonRepository(
                                         image = i.image,
                                         price = i.currentPrice.toString(),
                                         price_percentage_change_24h = i.priceChangePercentage24h,
+                                        price_change_24h = i.priceChange24h,
+                                        market_cap = i.marketCap,
+                                        market_cap_rank = i.marketCapRank,
+                                        total_volume = i.totalVolume,
                                         isFavorite = coin.isFavorite
                                     )
                                 )

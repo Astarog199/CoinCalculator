@@ -9,26 +9,27 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="30dp"
-        android:background="#99ff0000" />
+        />
 
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Coin Name"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toBottomOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@+id/image"
-        android:layout_marginStart="15dp"
-        android:text="Coin Name" />
+        app:layout_constraintTop_toTopOf="@+id/image" />
 
     <TextView
         android:id="@+id/Price_change"
@@ -41,27 +42,29 @@
         app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/image"
         app:layout_constraintTop_toTopOf="@+id/image"
-        android:text="price change" />
+        android:text="Value" />
 
     <TextView
-        android:id="@+id/marketText"
+        android:id="@+id/marketCapText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="Market"
+        android:text="Market cap"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
     <TextView
-        android:id="@+id/market"
+        android:id="@+id/marketCapValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="Market"
+        android:text="Value"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/Price_change"
         app:layout_constraintTop_toBottomOf="@+id/price" />
+
+
 
     <TextView
         android:id="@+id/priceText"
@@ -78,11 +81,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="2000 руб"
+        android:text="Value"
         android:textSize="18sp"
 
         app:layout_constraintStart_toStartOf="@+id/Price_change"
         app:layout_constraintTop_toTopOf="@+id/priceText" />
+
+
 
     <Button
         android:id="@+id/addToFavorite"

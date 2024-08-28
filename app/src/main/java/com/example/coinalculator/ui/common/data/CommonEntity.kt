@@ -8,6 +8,10 @@ data class CommonEntity(
      val name: String,
      val image: String,
      val price: String,
-     val price_percentage_change_24h : Float,
+     val pricePercentageChange24h : Float,
+     val priceChange24h: Float,
+     val marketCap: Long,
+     val marketCapRank: Int,
+     val totalVolume: Long,
      val isFavorite: Boolean
 )

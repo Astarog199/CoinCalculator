@@ -85,11 +85,14 @@ class IntegrationTest {
 
     private fun createCoin( id: Int): Coin {
         return Coin(
-            id = id,
             name = "Coin$id",
             image = "",
             price = Random().nextInt(1000).toString(),
-            change24h = 0f,
+            pricePercentageChange24h = 0f,
+            priceChange24h = 0f,
+            marketCap = 0,
+            marketCapRank = 0,
+            totalVolume = 0,
             isFavorite = false
         )
     }

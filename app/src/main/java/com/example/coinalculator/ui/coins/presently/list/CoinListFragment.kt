@@ -101,7 +101,6 @@ class CoinListFragment : Fragment() {
                             if (viewModel.filter.value.isEmpty()) {
                                 viewModel.stateFilter = false
                                 Toast.makeText(requireActivity(), "Nothing found for your request", Toast.LENGTH_SHORT).show()
-                                arg = ""
                                 viewModel.loadCoins()
                             } else {
                                 viewModel.stateFilter = true
