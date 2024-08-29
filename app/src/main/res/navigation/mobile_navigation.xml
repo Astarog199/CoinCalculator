@@ -8,19 +8,19 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.coinalculator.ui.calculator.presently.CalculatorFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_Calculator"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.coinalculator.ui.coins.presently.list.CoinListFragment"
-        android:label="@string/CoinsList"
+        android:label="@string/title_CoinsList"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.coinalculator.ui.favorite.presently.FavoriteFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_Portfolio"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment

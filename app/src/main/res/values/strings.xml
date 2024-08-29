@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CoinСalculator</string>
-    <string name="title_home">Home</string>
-    <string name="CoinsList">CoinsList</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_Calculator">Calculator</string>
+    <string name="title_CoinsList">CoinsList</string>
+    <string name="title_Portfolio">Cryptocurrency Portfolio</string>
     <string name="coin_card">Coin card</string>
 </resources>
