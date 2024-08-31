@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import com.example.coinalculator.databinding.FragmentHomeBinding
 import com.example.coinalculator.ui.calculator.ServiceLocator
-import com.example.coinalculator.ui.calculator.presently.adapter.HomeAdapter
+import com.example.coinalculator.ui.calculator.presently.adapter.СalculatorAdapter
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ class CalculatorFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val scope = CoroutineScope(Dispatchers.Main)
-    private val adapter =  HomeAdapter(
+    private val adapter =  СalculatorAdapter(
         textChange = {arg, item-> onTextChange(arg, item)},
         showError = {exception -> showErrorTextChange(exception)}
     )

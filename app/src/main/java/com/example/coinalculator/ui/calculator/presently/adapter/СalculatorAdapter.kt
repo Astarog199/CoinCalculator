@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.ListItemBinding
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 
-class HomeAdapter(
+class СalculatorAdapter(
     private val textChange:(Float, CoinCalState) -> Unit,
     private val showError: (Exception) -> Unit
-) : RecyclerView.Adapter<HomeHolder>() {
+) : RecyclerView.Adapter<СalculatorHolder>() {
 
     private var values: List<CoinCalState> = emptyList()
 
@@ -18,8 +18,8 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeHolder {
-        return HomeHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): СalculatorHolder {
+        return СalculatorHolder(
             binding =  ListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -32,7 +32,7 @@ class HomeAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    override fun onBindViewHolder(holder: HomeHolder, position: Int) {
+    override fun onBindViewHolder(holder: СalculatorHolder, position: Int) {
         val item = values.getOrNull(position)
         holder.bind(item)
     }
