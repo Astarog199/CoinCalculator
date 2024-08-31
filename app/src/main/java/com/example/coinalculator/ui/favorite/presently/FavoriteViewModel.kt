@@ -2,7 +2,7 @@ package com.example.coinalculator.ui.favorite.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.favorite.domain.ConsumeFavorietesUseCase
+import com.example.coinalculator.ui.favorite.domain.ConsumeFavoritesUseCase
 import com.example.coinalculator.ui.favorite.presently.states.FavoriteScreenStates
 import com.example.coinalculator.ui.favorite.presently.states.FavoriteScreenStatesMapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
 
 class FavoriteViewModel(
     private val favoriteScreenStatesMapper: FavoriteScreenStatesMapper,
-    private val consumeFavorietesUseCase: ConsumeFavorietesUseCase,
+    private val consumeFavorietesUseCase: ConsumeFavoritesUseCase,
 ) : ViewModel() {
 
     private val _favoriteState = MutableStateFlow(FavoriteScreenStates())

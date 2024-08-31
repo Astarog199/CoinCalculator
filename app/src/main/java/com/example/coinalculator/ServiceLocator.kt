@@ -17,7 +17,7 @@ import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.common.data.CommonRepository
 import com.example.coinalculator.ui.favorite.data.FavoriteMapper
 import com.example.coinalculator.ui.favorite.data.FavoritesRepositoryImpl
-import com.example.coinalculator.ui.favorite.domain.ConsumeFavorietesUseCase
+import com.example.coinalculator.ui.favorite.domain.ConsumeFavoritesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -139,7 +139,7 @@ object ServiceLocator {
             )
     }
 
-    fun provideConsumeFavoriteList(): ConsumeFavorietesUseCase {
-        return ConsumeFavorietesUseCase(favoriteRepository = provideFavoritesRepository())
+    fun provideConsumeFavoriteList(): ConsumeFavoritesUseCase {
+        return ConsumeFavoritesUseCase(favoriteRepository = provideFavoritesRepository())
     }
 }

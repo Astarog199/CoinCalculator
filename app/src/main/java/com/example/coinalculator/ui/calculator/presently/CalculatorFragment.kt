@@ -18,13 +18,17 @@ import com.example.coinalculator.ui.calculator.presently.adapter.HomeAdapter
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import java.lang.Exception
 
 class CalculatorFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = HomeAdapter{arg, item-> onTextChange(arg, item)}
-
+    private val scope = CoroutineScope(Dispatchers.Main)
+    private val adapter =  HomeAdapter(
+        textChange = {arg, item-> onTextChange(arg, item)},
+        showError = {exception -> showErrorTextChange(exception)}
+    )
 
     private val viewModel: CalculatorViewModel by viewModels(
         factoryProducer = {ServiceLocator.provideViewModel()}
@@ -80,10 +84,31 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun onTextChange(arg: Float, item: CoinCalState){
-        if (item.name == "rub") {
-            viewModel.changeVolume(arg / item.price)
-        }else{
-            viewModel.changeVolume(arg * item.price)
+        when {
+            item.name == "rub" -> viewModel.changeVolume(arg / item.price)
+            else -> viewModel.changeVolume(arg * item.price)
+        }
+    }
+
+    private fun showErrorTextChange(exception: Exception) {
+        scope.launch {
+            when(exception) {
+               is NumberFormatException -> {
+                    Toast.makeText(
+                        requireActivity(),
+                        "Error: enter number in edit Text",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                else -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
