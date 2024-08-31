@@ -24,7 +24,7 @@ class CoinCardViewModelFactory(
                     consumeCoinCardUseCase = consumeCoinCard,
                     coinDetailsStatesMapper = coinDetailsStatesMapper,
                     addFavoriteUseCase = addFavoriteUseCase,
-                    productId = productId,
+                    coinName = productId,
                 ) as T
             }
         }

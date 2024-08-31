@@ -22,16 +22,16 @@ class CoinCardViewModel(
     private val consumeCoinCardUseCase: ConsumeCoinCardUseCase,
     private val coinDetailsStatesMapper: CoinDetailsStatesMapper,
     private val addFavoriteUseCase: ChangeFavoriteStateUseCase,
-    private val productId: String
+    private val coinName: String
 ) : ViewModel() {
     private val _state = MutableStateFlow(CoinCardScreenStates())
     val state: StateFlow<CoinCardScreenStates> = _state.asStateFlow()
 
 
     fun loadCoinCard() {
-        consumeCoinCardUseCase(productId)
-            .map { coins ->
-                coinDetailsStatesMapper.toCoinCardStates(coins)
+        consumeCoinCardUseCase(coinName)
+            .map { coin ->
+                coinDetailsStatesMapper.toCoinCardStates(coin)
             }
             .onStart {
                 _state.update { coinCardScreenStates -> coinCardScreenStates.copy(isLoading = true) }

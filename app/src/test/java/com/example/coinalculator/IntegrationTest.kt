@@ -5,18 +5,11 @@ import com.example.coinalculator.ui.coins.domain.Coin
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.coins.presently.card.CoinCardViewModel
-import com.example.coinalculator.ui.coins.presently.card.states.CoinCardScreenStates
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -57,7 +50,7 @@ class IntegrationTest {
             consumeCoinCardUseCase = consumeCoinCard,
             coinDetailsStatesMapper = coinDetailsStatesMapper,
             addFavoriteUseCase = addFavoriteUseCase,
-            productId = ID
+            coinName = ID
         )
     }
 
