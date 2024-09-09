@@ -2,13 +2,13 @@ package com.example.coinalculator.ui.coins.data
 
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
-import com.example.coinalculator.ui.common.data.CommonRepository
+import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CoinsRepositoryImpl(
     private val coinsMapper: Mapper,
-    private val coinsRepository: CommonRepository
+    private val coinsRepository: CommonRepositoryImpl
 ) : CoinsRepository {
     override fun consumeCoins(): Flow<List<CoinEntity>> {
         return coinsRepository.getList()

@@ -9,19 +9,24 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class CommonRepository(
+class CommonRepositoryImpl(
     private val coinsRemoteDataSource: CommonRemoteDataSource,
     private val coinsDataMapper: CommonDataMapper,
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
+    private var newList: List<CoinsDto> = mutableListOf()
+
+    private suspend fun requestListFromApiService() {
+        newList = coinsRemoteDataSource.getList()
+    }
 
     private fun saveList() {
         scope.launch {
-            val coins = coinsRemoteDataSource.getList()
-                .map(coinsDataMapper::toEntity)
+            requestListFromApiService()
 
+            val coins = newList.map(coinsDataMapper::toEntity)
             coinsLocalDataSource.saveMany(
                 coins.map { coin ->
                     NewCoin(
@@ -42,12 +47,15 @@ class CommonRepository(
 
     fun getList(): Flow<List<Entity>> {
         scope.launch {
+            if (newList.isEmpty()) {
+                requestListFromApiService()
+            }
             coinsLocalDataSource.consume().collect { coins ->
-                if (coins.isEmpty()){
+                if (coins.isEmpty()) {
                     saveList()
-                }else{
+                } else {
                     coins.map { coin ->
-                        for (i in coinsRemoteDataSource.getList()) {
+                        for (i in newList) {
                             if (i.name == coin.name) {
                                 coinsLocalDataSource.updateCoin(
                                     Entity(

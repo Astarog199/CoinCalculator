@@ -14,7 +14,7 @@ import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
-import com.example.coinalculator.ui.common.data.CommonRepository
+import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
 import com.example.coinalculator.ui.favorite.data.FavoriteMapper
 import com.example.coinalculator.ui.favorite.data.FavoritesRepositoryImpl
 import com.example.coinalculator.ui.favorite.domain.ConsumeFavoritesUseCase
@@ -27,7 +27,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ServiceLocator {
     private var retrofitSingleton: Retrofit? = null
-    private var commonRepositorySingleton: CommonRepository? = null
+    private var commonRepositorySingleton: CommonRepositoryImpl? = null
 
     lateinit var applicationContext: Context
 
@@ -66,10 +66,10 @@ object ServiceLocator {
     }
 
 
-    private fun provideCommonRepository(): CommonRepository {
+    private fun provideCommonRepository(): CommonRepositoryImpl {
         val local = commonRepositorySingleton
         return local ?: run {
-            val newCommonRepository = CommonRepository(
+            val newCommonRepository = CommonRepositoryImpl(
                 coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
                 coinsDataMapper = provideCoinDataMapper(),
                 coinsLocalDataSource = provideDashboardLocalDataSource(),
