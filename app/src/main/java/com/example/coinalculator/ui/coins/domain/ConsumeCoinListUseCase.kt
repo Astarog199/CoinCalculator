@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 class ConsumeCoinListUseCase(
     private val coinsRepository: CoinsRepository
 ) {
-    operator fun invoke(): Flow<List<Coin>> {
+    operator fun invoke(): Flow<List<CoinEntity>> {
         return coinsRepository.consumeCoins()
     }
 }

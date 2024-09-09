@@ -1,6 +1,6 @@
 package com.example.coinalculator.ui.coins.data
 
-import com.example.coinalculator.ui.coins.domain.Coin
+import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.CommonRepository
 import kotlinx.coroutines.flow.Flow
@@ -10,14 +10,14 @@ class CoinsRepositoryImpl(
     private val coinsMapper: Mapper,
     private val coinsRepository: CommonRepository
 ) : CoinsRepository {
-    override fun consumeCoins(): Flow<List<Coin>> {
+    override fun consumeCoins(): Flow<List<CoinEntity>> {
         return coinsRepository.getList()
             .map { coins ->
                 coins.map(coinsMapper::fromEntity)
             }
     }
 
-    override suspend fun changeFavoriteState(coin: Coin) {
+    override suspend fun changeFavoriteState(coin: CoinEntity) {
         val value = coinsMapper.toEntity(coin)
         coinsRepository.changeFavorite(value)
     }

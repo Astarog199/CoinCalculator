@@ -1,26 +1,26 @@
 package com.example.coinalculator.ui.coins.data
 
-import com.example.coinalculator.ui.coins.domain.Coin
-import com.example.coinalculator.ui.common.data.room.CoinEntity
+import com.example.coinalculator.ui.coins.domain.CoinEntity
+import com.example.coinalculator.ui.common.data.room.Entity
 
 class Mapper {
 
-    fun fromEntity(coinEntity: CoinEntity) : Coin {
-        return Coin(
-            name = coinEntity.name,
-            image = coinEntity.image,
-            price = coinEntity.price,
-            pricePercentageChange24h = coinEntity.price_percentage_change_24h,
-            priceChange24h = coinEntity.price_change_24h,
-            marketCap = coinEntity.market_cap,
-            marketCapRank = coinEntity.market_cap_rank,
-            totalVolume = coinEntity.total_volume,
-            isFavorite = coinEntity.isFavorite
+    fun fromEntity(entity: Entity) : CoinEntity {
+        return CoinEntity(
+            name = entity.name,
+            image = entity.image,
+            price = entity.price,
+            pricePercentageChange24h = entity.price_percentage_change_24h,
+            priceChange24h = entity.price_change_24h,
+            marketCap = entity.market_cap,
+            marketCapRank = entity.market_cap_rank,
+            totalVolume = entity.total_volume,
+            isFavorite = entity.isFavorite
         )
     }
 
-    fun toEntity(coin: Coin) : CoinEntity {
-        return CoinEntity(
+    fun toEntity(coin: CoinEntity) : Entity {
+        return Entity(
             name = coin.name,
             image = coin.image,
             price = coin.price,

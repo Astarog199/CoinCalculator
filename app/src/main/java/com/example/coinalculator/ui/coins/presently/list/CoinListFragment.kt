@@ -48,7 +48,6 @@ class CoinListFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         return root
     }
 

@@ -1,10 +1,13 @@
 package com.example.coinalculator
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coinalculator.databinding.ActivityMainBinding
@@ -12,6 +15,13 @@ import com.example.coinalculator.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val toolbar = findNavController(R.id.nav_host_fragment_activity_main)
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(toolbar, appBarConfiguration)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(

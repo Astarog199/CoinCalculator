@@ -8,7 +8,7 @@ class ConsumeCoinCardUseCase(
     private val coinsRepository: CoinsRepository,
 ) {
 
-    operator fun invoke(name:String): Flow <Coin> {
+    operator fun invoke(name:String): Flow <CoinEntity> {
         return coinsRepository.consumeCoins()
             .map { products ->
                 products

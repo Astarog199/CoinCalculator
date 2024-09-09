@@ -9,21 +9,21 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoinDao {
-    @Query("SELECT * FROM CoinEntity")
-    fun getALL(): Flow<List<CoinEntity>>
+    @Query("SELECT * FROM Entity")
+    fun getALL(): Flow<List<Entity>>
 
-    @Insert(entity = CoinEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = Entity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(newCoin: NewCoin)
 
-    @Insert(entity = CoinEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = Entity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(newCoins: List<NewCoin>)
 
     @Update
-    suspend fun update(coin: CoinEntity)
+    suspend fun update(coin: Entity)
 
-    @Query("DELETE FROM CoinEntity")
+    @Query("DELETE FROM Entity")
     suspend fun delete()
 
     @Update
-    suspend fun changeFavorite (coinTable: CoinEntity)
+    suspend fun changeFavorite (coinTable: Entity)
 }

@@ -2,8 +2,7 @@ package com.example.coinalculator.ui.calculator.data
 
 import com.example.coinalculator.ui.calculator.data.models.DataMapper
 import com.example.coinalculator.ui.calculator.domain.CalculatorRepository
-import com.example.coinalculator.ui.calculator.domain.CoinCalculator
-import com.example.coinalculator.ui.common.data.CommonDataMapper
+import com.example.coinalculator.ui.calculator.domain.CalculatorModel
 import com.example.coinalculator.ui.common.data.CommonRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +22,7 @@ class CalculatorRepositoryImpl(
 ) : CalculatorRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
 
-    override  fun consumeCoins(): Flow<List<CoinCalculator>> {
+    override  fun consumeCoins(): Flow<List<CalculatorModel>> {
         return createList().map { coins ->
             coins.map(calculatorDomainMapper::fromEntity)
         }

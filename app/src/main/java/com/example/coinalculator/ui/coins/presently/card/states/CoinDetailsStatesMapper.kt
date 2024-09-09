@@ -1,9 +1,9 @@
 package com.example.coinalculator.ui.coins.presently.card.states
 
-import com.example.coinalculator.ui.coins.domain.Coin
+import com.example.coinalculator.ui.coins.domain.CoinEntity
 
 class CoinDetailsStatesMapper() {
-    fun toCoinCardStates(coin: Coin): CoinCardStates {
+    fun toCoinCardStates(coin: CoinEntity): CoinCardStates {
         return CoinCardStates(
             name = coin.name,
             image = coin.image,
@@ -17,8 +17,8 @@ class CoinDetailsStatesMapper() {
         )
     }
 
-    fun toCoinDetails(coin: CoinCardStates) : Coin {
-        return Coin(
+    fun toCoinDetails(coin: CoinCardStates) : CoinEntity {
+        return CoinEntity(
             name = coin.name,
             image = coin.image,
             price = coin.price,

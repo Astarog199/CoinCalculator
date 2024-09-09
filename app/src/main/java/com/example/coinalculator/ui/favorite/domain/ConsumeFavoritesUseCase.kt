@@ -13,7 +13,7 @@ class ConsumeFavoritesUseCase(
 ) {
 
     private val scope = CoroutineScope(Dispatchers.IO)
-    private lateinit var coins: Flow<List<Favorite>>
+    private lateinit var coins: Flow<List<FavoriteEntity>>
 
     suspend operator fun invoke() = suspendCoroutine {
         scope.launch {

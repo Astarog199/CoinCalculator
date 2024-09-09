@@ -7,7 +7,7 @@ class ConsumeCoinsUseCase(
     private val repository: CalculatorRepository
 ) {
 
-     operator fun invoke(): Flow<List<CoinCalculator>> {
+     operator fun invoke(): Flow<List<CalculatorModel>> {
         return repository.consumeCoins()
     }
 }

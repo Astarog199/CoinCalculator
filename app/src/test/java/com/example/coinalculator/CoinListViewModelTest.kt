@@ -1,6 +1,6 @@
 package com.example.coinalculator
 
-import com.example.coinalculator.ui.coins.domain.Coin
+import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.coins.presently.list.CoinListViewModel
@@ -84,9 +84,6 @@ class CoinListViewModelTest {
         Assert.assertTrue(sut.coinState.value.hasError)
     }
 
-
-
-
     private fun loadCoins(): List<CoinState> {
         whenever(consumeCoinListUseCase.invoke())
             .thenReturn(flowOf(listOf(loadCoin(name = "Bitcoin"), loadCoin(name = "ethereum"))))
@@ -100,8 +97,8 @@ class CoinListViewModelTest {
         return listOf(state1, state2)
     }
 
-    private fun loadCoin(name: String) : Coin {
-        return Coin (
+    private fun loadCoin(name: String) : CoinEntity {
+        return CoinEntity (
             name = name,
             image  = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
             price  = "58888",

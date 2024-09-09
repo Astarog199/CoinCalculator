@@ -1,14 +1,12 @@
 package com.example.coinalculator.ui.common.data
 
-import com.example.coinalculator.ui.common.data.room.CoinEntity
+import com.example.coinalculator.ui.common.data.room.Entity
 import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class CommonRepository(
@@ -42,7 +40,7 @@ class CommonRepository(
         }
     }
 
-    fun getList(): Flow<List<CoinEntity>> {
+    fun getList(): Flow<List<Entity>> {
         scope.launch {
             coinsLocalDataSource.consume().collect { coins ->
                 if (coins.isEmpty()){
@@ -52,7 +50,7 @@ class CommonRepository(
                         for (i in coinsRemoteDataSource.getList()) {
                             if (i.name == coin.name) {
                                 coinsLocalDataSource.updateCoin(
-                                    CoinEntity(
+                                    Entity(
                                         name = coin.name,
                                         image = i.image,
                                         price = i.currentPrice.toString(),
@@ -73,7 +71,7 @@ class CommonRepository(
         return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)
     }
 
-    suspend fun changeFavorite(coin: CoinEntity) {
+    suspend fun changeFavorite(coin: Entity) {
         coinsLocalDataSource.addFavorite(coin)
     }
 }

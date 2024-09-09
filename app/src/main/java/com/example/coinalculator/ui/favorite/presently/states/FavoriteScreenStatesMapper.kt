@@ -1,9 +1,9 @@
 package com.example.coinalculator.ui.favorite.presently.states
 
-import com.example.coinalculator.ui.favorite.domain.Favorite
+import com.example.coinalculator.ui.favorite.domain.FavoriteEntity
 
 class FavoriteScreenStatesMapper {
-    fun toFavotiteStates(favorite: Favorite) : FavoriteStates {
+    fun toFavotiteStates(favorite: FavoriteEntity) : FavoriteStates {
         return FavoriteStates(
 //            id = favorite.id,
             name = favorite.name,

@@ -1,6 +1,5 @@
 package com.example.coinalculator.ui.calculator.data
 
-import com.example.coinalculator.ui.calculator.data.models.CoinCalculatorDto
 import com.example.coinalculator.ui.calculator.data.models.RubDTO
 import retrofit2.Call
 import retrofit2.http.GET

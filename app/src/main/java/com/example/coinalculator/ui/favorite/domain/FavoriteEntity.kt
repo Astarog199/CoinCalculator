@@ -1,7 +1,6 @@
 package com.example.coinalculator.ui.favorite.domain
 
-data class Favorite(
-//    val id: Int,
+data class FavoriteEntity(
     val name: String,
     val image: String,
     val price: String,
