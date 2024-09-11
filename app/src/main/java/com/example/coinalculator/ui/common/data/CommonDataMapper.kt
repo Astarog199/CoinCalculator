@@ -5,7 +5,7 @@ class CommonDataMapper {
         return CommonEntity(
             name = coinsDto.name,
             image = coinsDto.image,
-            price = coinsDto.currentPrice.toString(),
+            price = coinsDto.currentPrice,
             pricePercentageChange24h =  coinsDto.priceChangePercentage24h,
             marketCap = coinsDto.marketCap,
             marketCapRank = coinsDto.marketCapRank,

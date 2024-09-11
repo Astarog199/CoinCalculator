@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.coinalculator.ui.common.data.CommonEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -13,7 +14,7 @@ interface CoinDao {
     fun getALL(): Flow<List<Entity>>
 
     @Insert(entity = Entity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(newCoin: NewCoin)
+    suspend fun insert(newCoin: Entity)
 
     @Insert(entity = Entity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(newCoins: List<NewCoin>)
@@ -25,5 +26,5 @@ interface CoinDao {
     suspend fun delete()
 
     @Update
-    suspend fun changeFavorite (coinTable: Entity)
+    suspend fun changeFavorite (coin: Entity)
 }

@@ -8,6 +8,7 @@ class CoinStateMapper () {
             name = coin.name,
             image = coin.image,
             price = coin.price,
+            isFavorite = coin.isFavorite
         )
     }
 }

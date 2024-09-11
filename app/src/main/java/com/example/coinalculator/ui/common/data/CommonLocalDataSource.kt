@@ -11,7 +11,7 @@ class CommonLocalDataSource(private val coinDao: CoinDao) {
      return coinDao.getALL()
   }
 
-    suspend fun save(coin: NewCoin){
+    suspend fun save(coin: Entity){
         coinDao.insert(coin)
     }
 

@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class CommonRepositoryImpl(
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
+    private var _coins : List<Entity> = mutableListOf()
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var newList: List<CoinsDto> = mutableListOf()
     private lateinit var refreshTimer: Job
@@ -31,8 +33,10 @@ class CommonRepositoryImpl(
         refreshTimer = scope.launch(Dispatchers.Default) {
             while (true) {
                 requestListFromApiService()
+                updateValueForList(_coins)
                 delay(60000L)// 60 seconds
             }
+
         }
     }
 
@@ -66,10 +70,9 @@ class CommonRepositoryImpl(
                 requestListFromApiService()
             }
             coinsLocalDataSource.consume().collect { coins ->
-                if (coins.isEmpty()) {
-                    saveList()
-                } else {
-                    updateValueForList(coins)
+                when{
+                    coins.isEmpty() -> saveList()
+                    else -> _coins = coins
                 }
             }
         }
@@ -81,16 +84,13 @@ class CommonRepositoryImpl(
             for (i in newList) {
                 if (i.name == coin.name) {
                     coinsLocalDataSource.updateCoin(
-                        Entity(
-                            name = coin.name,
-                            image = i.image,
+                        coin.copy(
                             price = i.currentPrice,
                             price_percentage_change_24h = i.priceChangePercentage24h,
                             price_change_24h = i.priceChange24h,
                             market_cap = i.marketCap,
                             market_cap_rank = i.marketCapRank,
                             total_volume = i.totalVolume,
-                            isFavorite = coin.isFavorite
                         )
                     )
                 }

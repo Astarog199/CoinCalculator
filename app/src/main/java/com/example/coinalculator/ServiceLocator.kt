@@ -1,7 +1,6 @@
 package com.example.coinalculator
 
 import android.content.Context
-import androidx.room.Room
 import com.example.coinalculator.ui.common.data.CommonDataMapper
 import com.example.coinalculator.ui.common.data.CommonLocalDataSource
 import com.example.coinalculator.ui.common.data.CommonRemoteDataSource
@@ -11,7 +10,6 @@ import com.example.coinalculator.ui.coins.domain.ChangeFavoriteStateUseCase
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.common.data.CommonApiService
 import com.example.coinalculator.ui.common.data.room.CoinDao
-import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
@@ -106,14 +104,15 @@ object ServiceLocator {
     }
 
     private fun provideRoom(): CoinDao {
-        val db = Room.inMemoryDatabaseBuilder(
-            context = applicationContext,
-            CoinsDB::class.java,
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+//        val db = Room.inMemoryDatabaseBuilder(
+//            context = applicationContext,
+//            CoinsDB::class.java,
+//        )
+//            .fallbackToDestructiveMigration()
+//            .build()
+//        return db.coinDao()
 
-        return db.coinDao()
+        return (applicationContext as App).db.coinDao()
     }
 
     private fun provideCoinsMapper(): Mapper {

@@ -26,8 +26,6 @@ class CoinListViewModel(
     private val consumeCoinsUseCase: ConsumeCoinListUseCase,
     private val filterCoinsListUseCase: FilterCoinsListUseCase
 ) : ViewModel() {
-    var stateFilter = false
-
     private val _coinState = MutableStateFlow(CoinListState())
     val coinState: StateFlow<CoinListState> = _coinState.asStateFlow()
 
@@ -79,23 +77,6 @@ class CoinListViewModel(
                     }
                 }
             }
-
-
-//            if (arg.isNotEmpty()) {
-//                _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
-//                _coinState.update { coin ->
-//                    coin.copy(isLoading = false, filter = stateFilter, coinsList = filter.value)
-//                }
-//                if (filter.value.isEmpty()) {
-//                    stateFilter = false
-//                    loadCoins()
-//                } else {
-//                    stateFilter = true
-//                }
-//            }else{
-//                stateFilter = false
-//                loadCoins()
-//            }
         }
     }
 
