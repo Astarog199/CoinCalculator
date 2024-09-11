@@ -9,7 +9,7 @@ data class Entity (
     @PrimaryKey
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "image") val image: String,
-    @ColumnInfo(name = "price") val price: String,
+    @ColumnInfo(name = "price") val price: Float,
     @ColumnInfo(name = "price_percentage_change_24h") val price_percentage_change_24h: Float,
     @ColumnInfo(name = "price_change_24h") val price_change_24h: Float,
     @ColumnInfo(name = "market_cap") val market_cap: Long,

@@ -32,7 +32,7 @@ class FavoriteAdapter(
         val item = values.getOrNull(position)
         with(holder.binding){
             title.text = item?.name
-            price.text = item?.price
+            price.text = item?.price.toString()
         }
         holder.binding.title.setOnClickListener{
             item?.let {

@@ -47,7 +47,12 @@ class CoinListViewModel(
             }
             .onEach { coinsState ->
                 _coinState.update { coin ->
-                    coin.copy(isLoading = false, filter = stateFilter, coinsList = coinsState)
+                    when {
+                        coin.filter -> {
+                            coin.copy(isLoading = false, coinsList = filter.value)
+                        }
+                        else -> coin.copy(isLoading = false, coinsList = coinsState)
+                    }
                 }
             }
             .catch {
@@ -60,10 +65,43 @@ class CoinListViewModel(
 
     fun searchCoin(arg: String) {
         scope.launch {
-            _filter.value =   filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
-            _coinState.update { coin ->
-                coin.copy(isLoading = false, filter = stateFilter, coinsList = filter.value)
+            when {
+                arg.isNotEmpty() -> {
+                    _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
+                    _coinState.update { coin ->
+                        coin.copy(filter = true)
+                    }
+                }
+
+                else -> {
+                    _coinState.update { coin ->
+                        coin.copy(filter = false)
+                    }
+                }
             }
+
+
+//            if (arg.isNotEmpty()) {
+//                _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
+//                _coinState.update { coin ->
+//                    coin.copy(isLoading = false, filter = stateFilter, coinsList = filter.value)
+//                }
+//                if (filter.value.isEmpty()) {
+//                    stateFilter = false
+//                    loadCoins()
+//                } else {
+//                    stateFilter = true
+//                }
+//            }else{
+//                stateFilter = false
+//                loadCoins()
+//            }
+        }
+    }
+
+    fun resetView() {
+        _coinState.update { coin ->
+            coin.copy(filter = false)
         }
     }
 

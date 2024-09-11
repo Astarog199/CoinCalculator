@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -36,8 +37,7 @@ class CoinListFragment : Fragment() {
 
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
-    private val adapter = CoinListAdapter{ coinState -> onItemClick(coinState) }
-    var arg: String = ""
+    private val adapter = CoinListAdapter { coinState -> onItemClick(coinState) }
 
     private val viewModel by viewModels<CoinListViewModel> {
         FeatureServiceLocator.provideCoinsViewModelFactory()
@@ -91,21 +91,8 @@ class CoinListFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchJob?.cancel()
                 searchJob = scope.launch {
-                    arg = binding.search.text.toString()
-
-                    if (arg.isNotEmpty()) {
-                        viewModel.searchCoin(arg)
-
-                        withContext(Dispatchers.Main) {
-                            if (viewModel.filter.value.isEmpty()) {
-                                viewModel.stateFilter = false
-                                Toast.makeText(requireActivity(), "Nothing found for your request", Toast.LENGTH_SHORT).show()
-                                viewModel.loadCoins()
-                            } else {
-                                viewModel.stateFilter = true
-                            }
-                        }
-                    }
+                    delay(500)
+                    viewModel.searchCoin(binding.search.text.toString())
                 }
             }
 
@@ -114,7 +101,7 @@ class CoinListFragment : Fragment() {
     }
 
     private fun onItemClick(item: CoinState){
-        binding.search.setText("")
+        viewModel.resetView()
         requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             .navigate(
                 resId = R.id.action_main_to_details,
@@ -141,7 +128,7 @@ class CoinListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        scope.cancel()
+//        scope.cancel()
         super.onDestroyView()
         _binding = null
     }

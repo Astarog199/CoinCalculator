@@ -25,14 +25,10 @@ class CoinCardFragment : Fragment() {
     private val scope = CoroutineScope(Dispatchers.IO)
     private var _binding: FragmentCoinCardBinding? = null
     private val binding get() = _binding!!
-    var itemId = ""
+    private var itemId = ""
 
     private val viewModel: CoinCardViewModel by viewModels<CoinCardViewModel>{
         FeatureServiceLocator.provideCoinCardViewModelFactory(itemId)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -84,7 +80,7 @@ class CoinCardFragment : Fragment() {
         binding.PriceChange.text = formatChange24h(coin.priceChange24h, coin.pricePercentageChange24h)
         binding.PriceChange.visibility = View.VISIBLE
 
-        binding.price.text = coin.price
+        binding.price.text = coin.price.toString()
         binding.priceText.visibility = View.VISIBLE
         binding.price.visibility = View.VISIBLE
 
@@ -111,7 +107,7 @@ class CoinCardFragment : Fragment() {
             binding.PriceChange.setTextColor(Color.GREEN)
         }
 
-        return String.format("%.1f",  value) +" $ · " + String.format("%.1f", valuePercent)+ " %"
+        return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
     }
 
     private fun formatMarketCap(value: Long) : String {

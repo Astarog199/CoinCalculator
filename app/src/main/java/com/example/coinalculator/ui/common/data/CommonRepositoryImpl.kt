@@ -54,7 +54,6 @@ class CommonRepositoryImpl(
                         marketCap = coin.marketCap,
                         marketCapRank = coin.marketCapRank,
                         totalVolume = coin.totalVolume,
-                        isFavorite = coin.isFavorite
                     )
                 }
             )
@@ -85,7 +84,7 @@ class CommonRepositoryImpl(
                         Entity(
                             name = coin.name,
                             image = i.image,
-                            price = i.currentPrice.toString(),
+                            price = i.currentPrice,
                             price_percentage_change_24h = i.priceChangePercentage24h,
                             price_change_24h = i.priceChange24h,
                             market_cap = i.marketCap,
