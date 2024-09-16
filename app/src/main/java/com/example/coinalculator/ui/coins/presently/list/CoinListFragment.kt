@@ -128,7 +128,6 @@ class CoinListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-//        scope.cancel()
         super.onDestroyView()
         _binding = null
     }

@@ -18,6 +18,7 @@ import com.example.coinalculator.ui.calculator.presently.adapter.СalculatorAdap
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import java.lang.Exception
 
 class CalculatorFragment : Fragment() {
@@ -25,16 +26,20 @@ class CalculatorFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val scope = CoroutineScope(Dispatchers.Main)
-    private val adapter =  СalculatorAdapter(
-        textChange = {arg, item-> onTextChange(arg, item)},
-        showError = {exception -> showErrorTextChange(exception)}
+    private val adapter = СalculatorAdapter(
+        textChange = { arg, item -> onTextChange(arg, item) },
+        showError = { exception -> showErrorTextChange(exception) }
     )
 
     private val viewModel: CalculatorViewModel by viewModels(
-        factoryProducer = {ServiceLocator.provideViewModel()}
+        factoryProducer = { ServiceLocator.provideViewModel() }
     )
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,7 +47,8 @@ class CalculatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
         viewModel.loadItems()
@@ -50,7 +56,7 @@ class CalculatorFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.items.collect { state ->
-                    when{
+                    when {
                         state.isLoading -> showLoading()
 
                         state.hasError -> {
@@ -81,6 +87,7 @@ class CalculatorFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        scope.cancel()
     }
 
     private fun onTextChange(arg: Float, item: CoinCalState){

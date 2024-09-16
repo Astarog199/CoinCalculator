@@ -60,12 +60,21 @@ class CoinListViewModel(
     }
 
     fun searchCoin(arg: String) {
+        val newStr = makeWithCapitalLetter(arg)
+
         viewModelScope.launch {
             when {
                 arg.isNotEmpty() -> {
-                    _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)
-                    _coinState.update { coin ->
-                        coin.copy(filter = true)
+                    _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, newStr)
+                    if (_filter.value.isNotEmpty()){
+                        _coinState.update { coin ->
+                            coin.copy(filter = true)
+                        }
+                    }
+                    else{
+                        _coinState.update { coin ->
+                            coin.copy(filter = false)
+                        }
                     }
                 }
 
@@ -76,6 +85,16 @@ class CoinListViewModel(
                 }
             }
         }
+    }
+
+    private fun makeWithCapitalLetter(arg: String): String {
+        var newStr = ""
+        val str = arg.split(" ")
+        for( i in str) {
+            newStr += i.replaceFirstChar(Char::uppercaseChar) + " "
+        }
+
+        return newStr.trim()
     }
 
     fun resetView() {
