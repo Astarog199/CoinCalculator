@@ -32,8 +32,6 @@ class CoinListViewModel(
     private var _filter = MutableStateFlow<List<CoinState>>(listOf())
     val filter: StateFlow<List<CoinState>> = _filter.asStateFlow()
 
-    private val scope = CoroutineScope(Dispatchers.Main)
-
     fun loadCoins() {
         consumeCoinsUseCase()
             .filter { it.isNotEmpty() }
@@ -62,7 +60,7 @@ class CoinListViewModel(
     }
 
     fun searchCoin(arg: String) {
-        scope.launch {
+        viewModelScope.launch {
             when {
                 arg.isNotEmpty() -> {
                     _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, arg)

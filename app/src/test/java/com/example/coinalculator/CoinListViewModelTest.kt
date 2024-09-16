@@ -86,13 +86,13 @@ class CoinListViewModelTest {
 
     private fun loadCoins(): List<CoinState> {
         whenever(consumeCoinListUseCase.invoke())
-            .thenReturn(flowOf(listOf(loadCoin(name = "Bitcoin"), loadCoin(name = "ethereum"))))
+            .thenReturn(flowOf(listOf(loadCoin(name = "Bitcoin"), loadCoin(name = "Ethereum"))))
 
-        val state1 = CoinState(id = 1)
-        val state2 = CoinState(id = 2)
+        val state1 = CoinState(name = "Bitcoin")
+        val state2 = CoinState(name = "Ethereum")
 
         whenever(coinStateMapper.toCoinState(argThat { name == "Bitcoin" })).thenReturn(state1)
-        whenever(coinStateMapper.toCoinState(argThat { name == "ethereum" })).thenReturn(state2)
+        whenever(coinStateMapper.toCoinState(argThat { name == "Ethereum" })).thenReturn(state2)
 
         return listOf(state1, state2)
     }
@@ -101,7 +101,7 @@ class CoinListViewModelTest {
         return CoinEntity (
             name = name,
             image  = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-            price  = "58888",
+            price  = 58888f,
             pricePercentageChange24h = -1.0778f,
             priceChange24h = -641.65076f,
             marketCap = 1163068419014,

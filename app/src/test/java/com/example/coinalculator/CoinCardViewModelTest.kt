@@ -1,14 +1,13 @@
 package com.example.coinalculator
 
 import com.example.coinalculator.ui.coins.domain.ChangeFavoriteStateUseCase
-import com.example.coinalculator.ui.coins.domain.Coin
+import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinCardUseCase
 import com.example.coinalculator.ui.coins.presently.card.CoinCardViewModel
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import okhttp3.internal.wait
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -16,8 +15,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.argThat
-import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
@@ -87,11 +84,11 @@ class CoinCardViewModelTest {
     }
 
 
-    private fun loadCoin() : Flow<Coin> {
-        return flowOf( Coin (
+    private fun loadCoin() : Flow<CoinEntity> {
+        return flowOf( CoinEntity (
             name = "Bitcoin",
             image  = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-            price  = "58888",
+            price  = 58888f,
             pricePercentageChange24h = -1.0778f,
             priceChange24h = -641.65076f,
             marketCap = 1163068419014,
