@@ -1,6 +1,6 @@
 package com.example.coinalculator.ui.common.data
 
-import com.example.coinalculator.ui.common.data.room.Entity
+import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -9,9 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CommonRepositoryImpl(
@@ -20,7 +18,6 @@ class CommonRepositoryImpl(
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
-    private var _coins : List<Entity> = mutableListOf()
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var newList: List<CoinsDto> = mutableListOf()
     private lateinit var refreshTimer: Job
@@ -33,10 +30,23 @@ class CommonRepositoryImpl(
         refreshTimer = scope.launch(Dispatchers.Default) {
             while (true) {
                 requestListFromApiService()
-                updateValueForList(_coins)
+                fillRepository()
                 delay(60000L)// 60 seconds
             }
+        }
+    }
 
+    private fun fillRepository() {
+        scope.launch {
+            if (newList.isEmpty()) {
+                requestListFromApiService()
+            }
+            coinsLocalDataSource.consume().collect { coins ->
+                when{
+                    coins.isEmpty() -> saveList()
+                    else -> updateValueForList(coins)
+                }
+            }
         }
     }
 
@@ -64,22 +74,11 @@ class CommonRepositoryImpl(
         }
     }
 
-    fun getList(): Flow<List<Entity>> {
-        scope.launch {
-            if (newList.isEmpty()) {
-                requestListFromApiService()
-            }
-            coinsLocalDataSource.consume().collect { coins ->
-                when{
-                    coins.isEmpty() -> saveList()
-                    else -> _coins = coins
-                }
-            }
-        }
+    fun getList(): Flow<List<Coin>> {
         return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)
     }
 
-    private suspend fun updateValueForList(list: List<Entity>) {
+    private suspend fun updateValueForList(list: List<Coin>) {
         list.map { coin ->
             for (i in newList) {
                 if (i.name == coin.name) {
@@ -98,7 +97,7 @@ class CommonRepositoryImpl(
         }
     }
 
-    suspend fun changeFavorite(coin: Entity) {
+    suspend fun changeFavorite(coin: Coin) {
         coinsLocalDataSource.addFavorite(coin)
     }
 }

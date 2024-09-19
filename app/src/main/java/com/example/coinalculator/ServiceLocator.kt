@@ -96,7 +96,7 @@ object ServiceLocator {
     }
 
     fun provideFilterCoinsListUseCase(): FilterCoinsListUseCase {
-        return FilterCoinsListUseCase()
+        return FilterCoinsListUseCase(coinsRepository = provideRepository())
     }
 
     private fun provideDashboardLocalDataSource(): CommonLocalDataSource {

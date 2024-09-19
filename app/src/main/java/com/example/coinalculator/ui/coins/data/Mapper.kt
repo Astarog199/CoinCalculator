@@ -1,11 +1,11 @@
 package com.example.coinalculator.ui.coins.data
 
 import com.example.coinalculator.ui.coins.domain.CoinEntity
-import com.example.coinalculator.ui.common.data.room.Entity
+import com.example.coinalculator.ui.common.data.room.Coin
 
 class Mapper {
 
-    fun fromEntity(entity: Entity) : CoinEntity {
+    fun fromEntity(entity: Coin) : CoinEntity {
         return CoinEntity(
             name = entity.name,
             image = entity.image,
@@ -19,8 +19,8 @@ class Mapper {
         )
     }
 
-    fun toEntity(coin: CoinEntity) : Entity {
-        return Entity(
+    fun toEntity(coin: CoinEntity) : Coin {
+        return Coin(
             name = coin.name,
             image = coin.image,
             price = coin.price,

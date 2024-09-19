@@ -2,13 +2,12 @@ package com.example.coinalculator.ui.coins.presently.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.coins.presently.list.states.CoinListState
 import com.example.coinalculator.ui.coins.presently.list.states.CoinState
 import com.example.coinalculator.ui.coins.presently.list.states.CoinStateMapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,10 +31,13 @@ class CoinListViewModel(
     private var _filter = MutableStateFlow<List<CoinState>>(listOf())
     val filter: StateFlow<List<CoinState>> = _filter.asStateFlow()
 
+    private var listV: List<CoinEntity> = mutableListOf()
+
     fun loadCoins() {
         consumeCoinsUseCase()
             .filter { it.isNotEmpty() }
             .map { coins ->
+                listV = coins
                 coins.map(coinStateMapper::toCoinState)
             }
             .onStart {
@@ -45,14 +47,15 @@ class CoinListViewModel(
                 _coinState.update { coin ->
                     when {
                         coin.filter -> {
-                            coin.copy(isLoading = false, coinsList = filter.value)
+                            coin.copy(isLoading = false, coinsList = _filter.value)
                         }
+
                         else -> coin.copy(isLoading = false, coinsList = coinsState)
                     }
                 }
             }
             .catch {
-                _coinState.update { screenState->
+                _coinState.update { screenState ->
                     screenState.copy(hasError = true)
                 }
             }
@@ -65,17 +68,9 @@ class CoinListViewModel(
         viewModelScope.launch {
             when {
                 arg.isNotEmpty() -> {
-                    _filter.value = filterCoinsListUseCase.invoke(_coinState.value.coinsList, newStr)
-                    if (_filter.value.isNotEmpty()){
-                        _coinState.update { coin ->
-                            coin.copy(filter = true)
-                        }
-                    }
-                    else{
-                        _coinState.update { coin ->
-                            coin.copy(filter = false)
-                        }
-                    }
+                    _filter.value = filterCoinsListUseCase.invoke(newStr, listV).map(coinStateMapper::toCoinState)
+
+                    filterCheck()
                 }
 
                 else -> {
@@ -87,10 +82,22 @@ class CoinListViewModel(
         }
     }
 
+    private fun filterCheck() {
+        if (_filter.value.isNotEmpty()) {
+            _coinState.update { coin ->
+                coin.copy(filter = true)
+            }
+        } else {
+            _coinState.update { coin ->
+                coin.copy(filter = false)
+            }
+        }
+    }
+
     private fun makeWithCapitalLetter(arg: String): String {
         var newStr = ""
         val str = arg.split(" ")
-        for( i in str) {
+        for (i in str) {
             newStr += i.replaceFirstChar(Char::uppercaseChar) + " "
         }
 

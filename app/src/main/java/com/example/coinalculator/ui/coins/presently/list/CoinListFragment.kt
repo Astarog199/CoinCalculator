@@ -100,7 +100,7 @@ class CoinListFragment : Fragment() {
         })
     }
 
-    private fun onItemClick(item: CoinState){
+    private fun onItemClick(item: CoinState) {
         viewModel.resetView()
         requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             .navigate(

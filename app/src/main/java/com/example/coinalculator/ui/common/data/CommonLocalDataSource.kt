@@ -1,17 +1,17 @@
 package com.example.coinalculator.ui.common.data
 
 import com.example.coinalculator.ui.common.data.room.CoinDao
-import com.example.coinalculator.ui.common.data.room.Entity
+import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.flow.Flow
 
 class CommonLocalDataSource(private val coinDao: CoinDao) {
 
-  fun consume(): Flow<List<Entity>>  {
+  fun consume(): Flow<List<Coin>>  {
      return coinDao.getALL()
   }
 
-    suspend fun save(coin: Entity){
+    suspend fun save(coin: NewCoin){
         coinDao.insert(coin)
     }
 
@@ -19,11 +19,11 @@ class CommonLocalDataSource(private val coinDao: CoinDao) {
         coinDao.insertMany(coins)
     }
 
-    suspend fun updateCoin(coin: Entity) {
+    suspend fun updateCoin(coin: Coin) {
         coinDao.update(coin)
     }
 
-    suspend fun addFavorite(coin: Entity){
+    suspend fun addFavorite(coin: Coin){
         coinDao.changeFavorite(coin)
     }
 }

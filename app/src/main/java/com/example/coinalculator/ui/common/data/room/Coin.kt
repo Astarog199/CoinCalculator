@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Entity")
-data class Entity (
+@Entity(tableName = "Coin")
+data class Coin (
     @PrimaryKey
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "image") val image: String,

@@ -4,6 +4,7 @@ import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
 class CoinsRepositoryImpl(
@@ -15,6 +16,10 @@ class CoinsRepositoryImpl(
             .map { coins ->
                 coins.map(coinsMapper::fromEntity)
             }
+    }
+
+    override fun filterCoins(query: String): Flow<List<CoinEntity>> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun changeFavoriteState(coin: CoinEntity) {
