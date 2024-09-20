@@ -1,7 +1,11 @@
 package com.example.coinalculator.ui.common.data
 
+import com.example.coinalculator.ui.coins.domain.CoinEntity
+import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.common.data.room.NewCoin
+import com.example.coinalculator.ui.favorite.domain.FavoriteEntity
+import com.example.coinalculator.ui.favorite.domain.FavoriteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CommonRepositoryImpl(
@@ -17,9 +22,10 @@ class CommonRepositoryImpl(
     private val coinsDataMapper: CommonDataMapper,
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher
-) {
+) : CoinsRepository, FavoriteRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var newList: List<CoinsDto> = mutableListOf()
+    private var _coins : List<Coin> = mutableListOf()
     private lateinit var refreshTimer: Job
 
     init {
@@ -30,6 +36,7 @@ class CommonRepositoryImpl(
         refreshTimer = scope.launch(Dispatchers.Default) {
             while (true) {
                 requestListFromApiService()
+                updateValueForList(_coins)
                 fillRepository()
                 delay(60000L)// 60 seconds
             }
@@ -42,9 +49,9 @@ class CommonRepositoryImpl(
                 requestListFromApiService()
             }
             coinsLocalDataSource.consume().collect { coins ->
-                when{
+                when {
                     coins.isEmpty() -> saveList()
-                    else -> updateValueForList(coins)
+                    else -> _coins = coins
                 }
             }
         }
@@ -56,25 +63,24 @@ class CommonRepositoryImpl(
 
     private fun saveList() {
         scope.launch {
-            val coins = newList.map(coinsDataMapper::toEntity)
             coinsLocalDataSource.saveMany(
-                coins.map { coin ->
+                newList.map { coin ->
                     NewCoin(
                         name = coin.name,
                         image = coin.image,
-                        price = coin.price,
-                        price_percentage_change_24h = coin.pricePercentageChange24h,
+                        price = coin.currentPrice,
+                        price_percentage_change_24h = coin.priceChangePercentage24h,
                         priceChange24h = coin.priceChange24h,
                         marketCap = coin.marketCap,
                         marketCapRank = coin.marketCapRank,
-                        totalVolume = coin.totalVolume,
+                        totalVolume = coin.totalVolume
                     )
                 }
             )
         }
     }
 
-    fun getList(): Flow<List<Coin>> {
+    private fun getList(): Flow<List<Coin>> {
         return coinsLocalDataSource.consume().flowOn(coroutineDispatcher)
     }
 
@@ -97,7 +103,29 @@ class CommonRepositoryImpl(
         }
     }
 
-    suspend fun changeFavorite(coin: Coin) {
-        coinsLocalDataSource.addFavorite(coin)
+    override fun consumeCoins(): Flow<List<CoinEntity>> {
+        return getList()
+            .map { coins ->
+                coins.map(coinsDataMapper::toCoinEntity)
+            }
+    }
+
+    override fun filterCoins(query: String): Flow<List<CoinEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun changeFavoriteState(coin: CoinEntity) {
+        val value = coinsDataMapper.toCoin(coin)
+        coinsLocalDataSource.addFavorite(value)
+    }
+
+    override fun consumeFavoriteCoins(): Flow<List<FavoriteEntity>> {
+        return getList()
+            .map { coins ->
+                coins.filter { favorites ->
+                    favorites.isFavorite
+                }
+                    .map(coinsDataMapper::toFavorite)
+            }
     }
 }

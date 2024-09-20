@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.favorite.domain
 
+import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +10,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class ConsumeFavoritesUseCase(
-    private val favoriteRepository: FavoriteRepository,
+    private val coinsRepository: CommonRepositoryImpl
 ) {
 
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -17,7 +18,7 @@ class ConsumeFavoritesUseCase(
 
     suspend operator fun invoke() = suspendCoroutine {
         scope.launch {
-            coins = favoriteRepository.consumeFavoriteCoins().map { coin ->
+            coins = coinsRepository.consumeFavoriteCoins().map { coin ->
                 coin.filter { v ->
                     v.isFavorite
                 }
