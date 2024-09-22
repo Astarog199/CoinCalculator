@@ -17,14 +17,14 @@ import kotlinx.coroutines.flow.update
 
 class FavoriteViewModel(
     private val favoriteScreenStatesMapper: FavoriteScreenStatesMapper,
-    private val consumeFavorietesUseCase: ConsumeFavoritesUseCase,
+    private val consumeFavoritesUseCase: ConsumeFavoritesUseCase,
 ) : ViewModel() {
 
     private val _favoriteState = MutableStateFlow(FavoriteScreenStates())
     val favoriteState: StateFlow<FavoriteScreenStates> = _favoriteState.asStateFlow()
 
-    suspend fun loadCoins() {
-        consumeFavorietesUseCase()
+    fun loadCoins() {
+        consumeFavoritesUseCase()
             .map { favorite ->
                 favorite.map(favoriteScreenStatesMapper::toFavotiteStates)
             }

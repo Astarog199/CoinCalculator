@@ -24,8 +24,8 @@ class CommonRepositoryImpl(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : CoinsRepository, FavoriteRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
+    private var job: Job? = null
     private var newList: List<CoinsDto> = mutableListOf()
-    private var _coins : List<Coin> = mutableListOf()
     private lateinit var refreshTimer: Job
 
     init {
@@ -36,7 +36,6 @@ class CommonRepositoryImpl(
         refreshTimer = scope.launch(Dispatchers.Default) {
             while (true) {
                 requestListFromApiService()
-                updateValueForList(_coins)
                 fillRepository()
                 delay(60000L)// 60 seconds
             }
@@ -44,14 +43,14 @@ class CommonRepositoryImpl(
     }
 
     private fun fillRepository() {
-        scope.launch {
+        job = scope.launch {
             if (newList.isEmpty()) {
                 requestListFromApiService()
             }
             coinsLocalDataSource.consume().collect { coins ->
                 when {
                     coins.isEmpty() -> saveList()
-                    else -> _coins = coins
+                    else -> updateValueForList(coins)
                 }
             }
         }
@@ -116,7 +115,9 @@ class CommonRepositoryImpl(
 
     override suspend fun changeFavoriteState(coin: CoinEntity) {
         val value = coinsDataMapper.toCoin(coin)
+        job?.cancel()
         coinsLocalDataSource.addFavorite(value)
+
     }
 
     override fun consumeFavoriteCoins(): Flow<List<FavoriteEntity>> {

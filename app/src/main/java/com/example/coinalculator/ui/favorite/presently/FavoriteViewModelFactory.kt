@@ -13,7 +13,7 @@ class FavoriteViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return FavoriteViewModel(
             favoriteScreenStatesMapper = favoriteScreenStatesMapper,
-            consumeFavorietesUseCase = consumeFavorietesUseCase
+            consumeFavoritesUseCase = consumeFavorietesUseCase
         ) as T
     }
 }

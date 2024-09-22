@@ -1,6 +1,7 @@
 package com.example.coinalculator.ui.coins.presently.card.states
 
 import com.example.coinalculator.ui.coins.domain.CoinEntity
+import kotlinx.coroutines.flow.Flow
 
 class CoinDetailsStatesMapper() {
     fun toCoinCardStates(coin: CoinEntity): CoinCardStates {

@@ -23,8 +23,6 @@ class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
-
-    private val scope = CoroutineScope(Dispatchers.IO)
     private val adapter = FavoriteAdapter { }
 
     private val viewModel by viewModels<FavoriteViewModel> {
@@ -48,12 +46,9 @@ class FavoriteFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-        scope.launch {
-            viewModel.loadCoins()
-        }
+        viewModel.loadCoins()
 
         viewLifecycleOwner.lifecycleScope.launch {
-
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.favoriteState.collect { state ->
                     when {
