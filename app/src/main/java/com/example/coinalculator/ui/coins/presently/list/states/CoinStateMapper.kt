@@ -8,6 +8,8 @@ class CoinStateMapper () {
             name = coin.name,
             image = coin.image,
             price = coin.price,
+            priceChange24h = coin.priceChange24h,
+            pricePercentageChange24h = coin.pricePercentageChange24h,
             isFavorite = coin.isFavorite
         )
     }

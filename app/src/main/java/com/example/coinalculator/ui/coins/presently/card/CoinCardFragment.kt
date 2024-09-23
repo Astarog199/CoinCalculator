@@ -2,15 +2,19 @@ package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
+import com.example.coinalculator.R
+import com.example.coinalculator.ServiceLocator.applicationContext
 import com.example.coinalculator.databinding.FragmentCoinCardBinding
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import kotlinx.coroutines.CoroutineScope
@@ -102,9 +106,9 @@ class CoinCardFragment : Fragment() {
 
     private fun formatChange24h(value: Float, valuePercent: Float) : String {
         if (value < 0f){
-            binding.PriceChange.setTextColor(Color.RED)
+            binding.PriceChange.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
         }else{
-            binding.PriceChange.setTextColor(Color.GREEN)
+            binding.PriceChange.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
         }
 
         return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
