@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
-import com.example.coinalculator.databinding.FragmentHomeBinding
+import com.example.coinalculator.databinding.FragmentCalculatorBinding
 import com.example.coinalculator.ui.calculator.ServiceLocator
 import com.example.coinalculator.ui.calculator.presently.adapter.СalculatorAdapter
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
@@ -23,7 +23,7 @@ import java.lang.Exception
 
 class CalculatorFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentCalculatorBinding? = null
     private val binding get() = _binding!!
     private val scope = CoroutineScope(Dispatchers.Main)
     private val adapter = СalculatorAdapter(
@@ -41,7 +41,7 @@ class CalculatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentCalculatorBinding.inflate(inflater, container, false)
         return binding.root
     }
 

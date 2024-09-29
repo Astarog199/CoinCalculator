@@ -3,7 +3,7 @@ package com.example.coinalculator.ui.calculator.presently.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coinalculator.databinding.ListItemBinding
+import com.example.coinalculator.databinding.CalculatorItemBinding
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 
 class СalculatorAdapter(
@@ -20,7 +20,7 @@ class СalculatorAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): СalculatorHolder {
         return СalculatorHolder(
-            binding =  ListItemBinding.inflate(
+            binding =  CalculatorItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
