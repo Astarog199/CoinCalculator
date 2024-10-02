@@ -2,11 +2,11 @@ package com.example.coinalculator.ui.calculator.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
+import com.example.coinalculator.ui.calculator.domain.ConsumeCalculatorUseCase
 import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
 
 class ViewModelFactory(
-    private val consumeCoinsUseCase: ConsumeCoinsUseCase,
+    private val consumeCoinsUseCase: ConsumeCalculatorUseCase,
     private val calcStateMapper: CalcStateMapper
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

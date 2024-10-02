@@ -9,7 +9,7 @@ import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 class СalculatorAdapter(
     private val textChange:(Float, CoinCalState) -> Unit,
     private val showError: (Exception) -> Unit
-) : RecyclerView.Adapter<СalculatorHolder>() {
+) : RecyclerView.Adapter<CalculatorHolder>() {
 
     private var values: List<CoinCalState> = emptyList()
 
@@ -18,8 +18,8 @@ class СalculatorAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): СalculatorHolder {
-        return СalculatorHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalculatorHolder {
+        return CalculatorHolder(
             binding =  CalculatorItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -32,7 +32,7 @@ class СalculatorAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    override fun onBindViewHolder(holder: СalculatorHolder, position: Int) {
+    override fun onBindViewHolder(holder: CalculatorHolder, position: Int) {
         val item = values.getOrNull(position)
         holder.bind(item)
     }

@@ -11,7 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class СalculatorHolder(
+class CalculatorHolder(
     private val binding: CalculatorItemBinding,
     private val textChange: (Float, CoinCalState) -> Unit,
     private val showError: (Exception) -> Unit

@@ -1,6 +1,7 @@
 package com.example.coinalculator
 
 import android.content.Context
+import com.example.coinalculator.ui.calculator.domain.ConsumeCalculatorUseCase
 import com.example.coinalculator.ui.common.data.CommonDataMapper
 import com.example.coinalculator.ui.common.data.CommonLocalDataSource
 import com.example.coinalculator.ui.common.data.CommonRemoteDataSource
@@ -22,7 +23,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object ServiceLocator {
     private var retrofitSingleton: Retrofit? = null
     private var commonRepositorySingleton: CommonRepositoryImpl? = null
-
     lateinit var applicationContext: Context
 
     private fun provideOkHttpClient(): OkHttpClient {
@@ -59,7 +59,7 @@ object ServiceLocator {
                 coinsRemoteDataSource = provideCoinsListRemoteDataSource(),
                 coinsDataMapper = provideCoinDataMapper(),
                 coinsLocalDataSource = provideDashboardLocalDataSource(),
-                coroutineDispatcher = provideIOCoroutineDispatcher()
+                coroutineDispatcher = provideIOCoroutineDispatcher(),
             )
             commonRepositorySingleton = newCommonRepository
             newCommonRepository
@@ -87,19 +87,15 @@ object ServiceLocator {
         return FilterCoinsListUseCase(coinsRepository = provideCommonRepository())
     }
 
+    fun provideConsumeCalculatorUseCase () : ConsumeCalculatorUseCase {
+        return ConsumeCalculatorUseCase(provideCommonRepository())
+    }
+
     private fun provideDashboardLocalDataSource(): CommonLocalDataSource {
         return CommonLocalDataSource(coinDao = provideRoom())
     }
 
     private fun provideRoom(): CoinDao {
-//        val db = Room.inMemoryDatabaseBuilder(
-//            context = applicationContext,
-//            CoinsDB::class.java,
-//        )
-//            .fallbackToDestructiveMigration()
-//            .build()
-//        return db.coinDao()
-
         return (applicationContext as App).db.coinDao()
     }
 

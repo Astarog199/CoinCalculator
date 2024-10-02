@@ -1,6 +1,9 @@
 package com.example.coinalculator.ui.calculator.domain
 
-data class CalculatorModel (
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class DomainEntity (
     val name : String,
     val price: Float,
 )

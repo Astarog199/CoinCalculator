@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.common.data
 
+import com.example.coinalculator.ui.calculator.domain.DomainEntity
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.favorite.domain.FavoriteEntity
@@ -10,11 +11,11 @@ class CommonDataMapper {
             name = coin.name,
             image = coin.image,
             price = coin.price,
-            pricePercentageChange24h = coin.price_percentage_change_24h,
-            priceChange24h = coin.price_change_24h,
-            marketCap = coin.market_cap,
-            marketCapRank = coin.market_cap_rank,
-            totalVolume = coin.total_volume,
+            pricePercentageChange24h = coin.pricePercentageChange24h,
+            priceChange24h = coin.priceChange24h,
+            marketCap = coin.marketCap,
+            marketCapRank = coin.marketCapRank,
+            totalVolume = coin.totalVolume,
             isFavorite = coin.isFavorite
         )
     }
@@ -24,11 +25,11 @@ class CommonDataMapper {
             name = coinEntity.name,
             image = coinEntity.image,
             price = coinEntity.price,
-            price_percentage_change_24h = coinEntity.pricePercentageChange24h,
-            price_change_24h = coinEntity.priceChange24h,
-            market_cap = coinEntity.marketCap,
-            market_cap_rank = coinEntity.marketCapRank,
-            total_volume = coinEntity.totalVolume,
+            pricePercentageChange24h = coinEntity.pricePercentageChange24h,
+            priceChange24h = coinEntity.priceChange24h,
+            marketCap = coinEntity.marketCap,
+            marketCapRank = coinEntity.marketCapRank,
+            totalVolume = coinEntity.totalVolume,
             isFavorite = coinEntity.isFavorite
         )
     }
@@ -38,8 +39,22 @@ class CommonDataMapper {
             name = entity.name,
             image = entity.image,
             price = entity.price,
-            change24h = entity.price_percentage_change_24h,
+            change24h = entity.pricePercentageChange24h,
             isFavorite = entity.isFavorite
+        )
+    }
+
+    fun toCalculator (entity: Coin) : DomainEntity {
+            return DomainEntity(
+            name = entity.name,
+            price = entity.price
+        )
+    }
+
+    fun rubToEntity(coin: RubDTO, name: String) : DomainEntity {
+        return DomainEntity(
+            name = name,
+            price = coin.price.usd
         )
     }
 }

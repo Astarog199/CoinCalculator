@@ -2,7 +2,7 @@ package com.example.coinalculator.ui.calculator.presently
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coinalculator.ui.calculator.domain.ConsumeCoinsUseCase
+import com.example.coinalculator.ui.calculator.domain.ConsumeCalculatorUseCase
 import com.example.coinalculator.ui.calculator.presently.states.CalcStateMapper
 import com.example.coinalculator.ui.calculator.presently.states.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 
 class CalculatorViewModel(
-    private val consumeCoinsUseCase: ConsumeCoinsUseCase,
+    private val consumeCoinsUseCase: ConsumeCalculatorUseCase,
     private val calcStateMapper: CalcStateMapper
 ) : ViewModel() {
     private var amountOfFiatCurrency = 1000f

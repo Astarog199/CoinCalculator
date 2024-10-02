@@ -1,5 +1,7 @@
 package com.example.coinalculator.ui.common.data
 
+import com.example.coinalculator.ui.calculator.domain.CalculatorRepository
+import com.example.coinalculator.ui.calculator.domain.DomainEntity
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.room.Coin
@@ -21,12 +23,13 @@ class CommonRepositoryImpl(
     private val coinsRemoteDataSource: CommonRemoteDataSource,
     private val coinsDataMapper: CommonDataMapper,
     private val coinsLocalDataSource: CommonLocalDataSource,
-    private val coroutineDispatcher: CoroutineDispatcher
-) : CoinsRepository, FavoriteRepository {
+    private val coroutineDispatcher: CoroutineDispatcher,
+) : CalculatorRepository, CoinsRepository, FavoriteRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var job: Job? = null
     private var newList: List<CoinsDto> = mutableListOf()
     private lateinit var refreshTimer: Job
+    private var rub = DomainEntity(name = "rub", price = 0f)
 
     init {
         refresh()
@@ -34,6 +37,7 @@ class CommonRepositoryImpl(
 
     private fun refresh() {
         refreshTimer = scope.launch(Dispatchers.Default) {
+            rub = getRUB()
             while (true) {
                 requestListFromApiService()
                 fillRepository()
@@ -60,6 +64,10 @@ class CommonRepositoryImpl(
         newList = coinsRemoteDataSource.getList()
     }
 
+    private suspend fun getRUB(): DomainEntity {
+        return coinsDataMapper.rubToEntity(coinsRemoteDataSource.getRub(), "rub")
+    }
+
     private fun saveList() {
         scope.launch {
             coinsLocalDataSource.saveMany(
@@ -68,7 +76,7 @@ class CommonRepositoryImpl(
                         name = coin.name,
                         image = coin.image,
                         price = coin.currentPrice,
-                        price_percentage_change_24h = coin.priceChangePercentage24h,
+                        pricePercentageChange24h = coin.priceChangePercentage24h,
                         priceChange24h = coin.priceChange24h,
                         marketCap = coin.marketCap,
                         marketCapRank = coin.marketCapRank,
@@ -90,11 +98,11 @@ class CommonRepositoryImpl(
                     coinsLocalDataSource.updateCoin(
                         coin.copy(
                             price = i.currentPrice,
-                            price_percentage_change_24h = i.priceChangePercentage24h,
-                            price_change_24h = i.priceChange24h,
-                            market_cap = i.marketCap,
-                            market_cap_rank = i.marketCapRank,
-                            total_volume = i.totalVolume,
+                            pricePercentageChange24h = i.priceChangePercentage24h,
+                            priceChange24h = i.priceChange24h,
+                            marketCap = i.marketCap,
+                            marketCapRank = i.marketCapRank,
+                            totalVolume = i.totalVolume,
                         )
                     )
                 }
@@ -114,10 +122,9 @@ class CommonRepositoryImpl(
     }
 
     override suspend fun changeFavoriteState(coin: CoinEntity) {
-        val value = coinsDataMapper.toCoin(coin)
         job?.cancel()
+        val value = coinsDataMapper.toCoin(coin)
         coinsLocalDataSource.addFavorite(value)
-
     }
 
     override fun consumeFavoriteCoins(): Flow<List<FavoriteEntity>> {
@@ -128,5 +135,14 @@ class CommonRepositoryImpl(
                 }
                     .map(coinsDataMapper::toFavorite)
             }
+    }
+
+    override fun consumeCalculatorCoins(): Flow<List<DomainEntity>> {
+        return getList().map { coins ->
+
+            coins.filter { favorites ->
+                favorites.isFavorite
+            }.map(coinsDataMapper::toCalculator) + DomainEntity(name = "usd", price = 1f) + rub
+        }
     }
 }

@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import com.example.coinalculator.databinding.FragmentCalculatorBinding
-import com.example.coinalculator.ui.calculator.ServiceLocator
 import com.example.coinalculator.ui.calculator.presently.adapter.СalculatorAdapter
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +31,7 @@ class CalculatorFragment : Fragment() {
     )
 
     private val viewModel: CalculatorViewModel by viewModels(
-        factoryProducer = { ServiceLocator.provideViewModel() }
+        factoryProducer = { FeatureServiceLocator.provideViewModel() }
     )
 
     override fun onCreateView(

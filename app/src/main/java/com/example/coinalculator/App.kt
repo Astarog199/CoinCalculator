@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import com.example.coinalculator.ui.common.data.room.CoinsDB
 import com.example.coinalculator.ServiceLocator as coinServiceLocator
-import com.example.coinalculator.ui.calculator.ServiceLocator as calculatorRepository
 
 class App: Application() {
     lateinit var db: CoinsDB
@@ -12,7 +11,6 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         coinServiceLocator.applicationContext = this
-        calculatorRepository.applicationContext = this
 
         db = Room.databaseBuilder(
             applicationContext,
