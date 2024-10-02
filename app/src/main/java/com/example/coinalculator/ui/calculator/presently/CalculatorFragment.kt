@@ -74,6 +74,7 @@ class CalculatorFragment : Fragment() {
 
     private fun showLoading() {
         binding.recyclerView.visibility = View.GONE
+        binding.instruction.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -81,6 +82,12 @@ class CalculatorFragment : Fragment() {
         adapter.setData(coinsList)
         binding.recyclerView.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
+
+        if (viewModel.showInstructions()){
+            binding.instruction.visibility = View.VISIBLE
+        } else {
+            binding.instruction.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

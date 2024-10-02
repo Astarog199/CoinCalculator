@@ -2,7 +2,6 @@ package com.example.coinalculator.ui.coins.presently.card
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,6 @@ import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.jetbrains.skia.Color
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -70,7 +68,7 @@ class CoinCardFragment : Fragment() {
         }
 
 
-        binding.addToFavorite.setOnClickListener {
+        binding.addToAlculator.setOnClickListener {
             scope.launch {
                 viewModel.changeFavoriteState()
             }
@@ -98,9 +96,9 @@ class CoinCardFragment : Fragment() {
         binding.progress.visibility = View.GONE
 
         if (coin.isFavorite){
-            binding.addToFavorite.text =  "remove to favorite"
+            binding.addToAlculator.text = getString(R.string.remove_to_calculator)
         }else{
-            binding.addToFavorite.text =  "add to favorite"
+            binding.addToAlculator.text =  getString(R.string.add_to_calculator)
         }
     }
 

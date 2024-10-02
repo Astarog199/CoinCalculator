@@ -22,10 +22,13 @@ class CalculatorViewModel(
     private var amountOfFiatCurrency = 1000f
     private val _items = MutableStateFlow(ScreenState())
     val items: StateFlow<ScreenState> = _items.asStateFlow()
+    private var sizeValue = 0
 
-     fun loadItems() {
+    fun loadItems() {
         consumeCoinsUseCase()
             .map { coins ->
+                sizeValue = coins.size
+
                 coins.map { coin ->
                     if (coin.name == "btc") amountOfFiatCurrency = coin.price
 
@@ -58,7 +61,13 @@ class CalculatorViewModel(
         amountOfFiatCurrency = arg
 
         _items.update { state ->
-            state.copy( coinsList = state.coinsList.map { coin ->
-                coin.copy(value = amountOfFiatCurrency) } )}
+            state.copy(coinsList = state.coinsList.map { coin ->
+                coin.copy(value = amountOfFiatCurrency)
+            })
         }
     }
+
+    fun showInstructions() : Boolean {
+        return sizeValue < 4
+    }
+}

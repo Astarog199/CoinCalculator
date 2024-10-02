@@ -90,12 +90,12 @@
 
 
     <Button
-        android:id="@+id/addToFavorite"
+        android:id="@+id/addToСalculator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:padding="14dp"
-        android:text="Add to Favorite"
+        android:text="@string/add_to_calculator"
         android:textSize="18sp"
         android:layout_marginBottom="65dp"
         app:layout_constraintBottom_toBottomOf="parent"

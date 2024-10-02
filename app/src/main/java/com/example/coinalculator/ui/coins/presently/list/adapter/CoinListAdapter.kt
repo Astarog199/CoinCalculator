@@ -52,7 +52,7 @@ class CoinListAdapter(
         with(holder.binding){
             image.load(item?.image)
             title.text = item?.name
-            price.text = item?.price.toString()
+            price.text = "${item?.price} $"
                 priceChange24h.text = formatChange24h(item?.priceChange24h, item?.pricePercentageChange24h, holder)
 
         }
