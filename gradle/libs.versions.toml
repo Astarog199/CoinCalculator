@@ -1,6 +1,6 @@
 [versions]
 agp = "8.4.2"
-coil = "2.4.0"
+coil = "1.4.0"
 converterMoshi = "2.4.0"
 glide = "4.14.2"
 gson = "2.10.1"
@@ -9,12 +9,11 @@ kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.2.1"
-junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
+appcompat = "1.6.0"
 kotlinxCoroutinesCore = "1.8.0"
 legacySupportV4 = "1.0.0"
-material = "1.12.0"
+material = "1.9.0"
 constraintlayout = "2.1.4"
 lifecycleLivedataKtx = "2.8.4"
 lifecycleViewmodelKtx = "2.8.4"
@@ -23,13 +22,9 @@ moshiKotlinCodegen = "moshi"
 moshiKotlinCodegenVersion = "1.15.1"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
-retrofit = "2.9.0"
-rxandroid = "3.0.2"
-rxjava = "3.1.8"
-roomCommon = "2.6.1"
 uiDesktop = "1.6.8"
 datastorePreferencesCoreJvm = "1.1.1"
-fragmentKtx = "1.8.2"
+fragmentKtx = "1.6.2"
 activity = "1.9.1"
 mockitoCore = "5.1.1"
 mockitoKotlin = "4.0.0"
@@ -46,7 +41,6 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jacksonAnnotations" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -62,10 +56,6 @@ moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
 moshi-kotlin-codegen-v1151 = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegenVersion" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
-androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-ui-desktop = { group = "androidx.compose.ui", name = "ui-desktop", version.ref = "uiDesktop" }
 androidx-datastore-preferences-core-jvm = { group = "androidx.datastore", name = "datastore-preferences-core-jvm", version.ref = "datastorePreferencesCoreJvm" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }

@@ -11,8 +11,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.coinalculator"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 34
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
 
