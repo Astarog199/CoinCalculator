@@ -6,8 +6,6 @@ import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.coins.domain.CoinsRepository
 import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.common.data.room.NewCoin
-import com.example.coinalculator.ui.favorite.domain.FavoriteEntity
-import com.example.coinalculator.ui.favorite.domain.FavoriteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,37 +22,34 @@ class CommonRepositoryImpl(
     private val coinsDataMapper: CommonDataMapper,
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher,
-) : CalculatorRepository, CoinsRepository, FavoriteRepository {
+) : CalculatorRepository, CoinsRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
-    private var job: Job? = null
     private var newList: List<CoinsDto> = mutableListOf()
-    private lateinit var refreshTimer: Job
     private var rub = DomainEntity(name = "rub", price = 0f)
+    private var _coins : List<Coin> = mutableListOf()
 
     init {
         refresh()
     }
 
     private fun refresh() {
-        refreshTimer = scope.launch(Dispatchers.Default) {
+        scope.launch(Dispatchers.Default) {
             rub = getRUB()
             while (true) {
                 requestListFromApiService()
                 fillRepository()
+                updateValueForList(_coins)
                 delay(60000L)// 60 seconds
             }
         }
     }
 
     private fun fillRepository() {
-        job = scope.launch {
-            if (newList.isEmpty()) {
-                requestListFromApiService()
-            }
+        scope.launch {
             coinsLocalDataSource.consume().collect { coins ->
                 when {
                     coins.isEmpty() -> saveList()
-                    else -> updateValueForList(coins)
+                    else -> _coins = coins
                 }
             }
         }
@@ -122,19 +117,8 @@ class CommonRepositoryImpl(
     }
 
     override suspend fun changeFavoriteState(coin: CoinEntity) {
-        job?.cancel()
         val value = coinsDataMapper.toCoin(coin)
         coinsLocalDataSource.addFavorite(value)
-    }
-
-    override fun consumeFavoriteCoins(): Flow<List<FavoriteEntity>> {
-        return getList()
-            .map { coins ->
-                coins.filter { favorites ->
-                    favorites.isFavorite
-                }
-                    .map(coinsDataMapper::toFavorite)
-            }
     }
 
     override fun consumeCalculatorCoins(): Flow<List<DomainEntity>> {

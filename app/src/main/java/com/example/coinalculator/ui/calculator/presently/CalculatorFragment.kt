@@ -75,6 +75,7 @@ class CalculatorFragment : Fragment() {
     private fun showLoading() {
         binding.recyclerView.visibility = View.GONE
         binding.instruction.visibility = View.GONE
+        binding.icon.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -85,8 +86,10 @@ class CalculatorFragment : Fragment() {
 
         if (viewModel.showInstructions()){
             binding.instruction.visibility = View.VISIBLE
+            binding.icon.visibility = View.VISIBLE
         } else {
             binding.instruction.visibility = View.GONE
+            binding.icon.visibility = View.GONE
         }
     }
 

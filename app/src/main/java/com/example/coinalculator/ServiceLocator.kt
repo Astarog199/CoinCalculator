@@ -12,7 +12,6 @@ import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
-import com.example.coinalculator.ui.favorite.domain.ConsumeFavoritesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -109,9 +108,5 @@ object ServiceLocator {
         return ChangeFavoriteStateUseCase(
             coinsRepository = provideCommonRepository()
         )
-    }
-
-    fun provideConsumeFavoriteList(): ConsumeFavoritesUseCase {
-        return ConsumeFavoritesUseCase(coinsRepository = provideCommonRepository())
     }
 }

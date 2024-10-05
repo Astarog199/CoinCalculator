@@ -3,7 +3,6 @@ package com.example.coinalculator.ui.common.data
 import com.example.coinalculator.ui.calculator.domain.DomainEntity
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.common.data.room.Coin
-import com.example.coinalculator.ui.favorite.domain.FavoriteEntity
 
 class CommonDataMapper {
     fun toCoinEntity(coin: Coin) : CoinEntity {
@@ -31,16 +30,6 @@ class CommonDataMapper {
             marketCapRank = coinEntity.marketCapRank,
             totalVolume = coinEntity.totalVolume,
             isFavorite = coinEntity.isFavorite
-        )
-    }
-
-    fun toFavorite(entity: Coin) : FavoriteEntity {
-        return FavoriteEntity(
-            name = entity.name,
-            image = entity.image,
-            price = entity.price,
-            change24h = entity.pricePercentageChange24h,
-            isFavorite = entity.isFavorite
         )
     }
 
