@@ -1,11 +1,10 @@
 package com.example.coinalculator.ui.calculator.domain
 
-import com.example.coinalculator.ui.common.data.CommonRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 
 
 class ConsumeCalculatorUseCase(
-    private val commonRepositoryImpl: CommonRepositoryImpl
+    private val commonRepositoryImpl: CalculatorRepository
 ) {
      operator fun invoke(): Flow<List<DomainEntity>> {
         return commonRepositoryImpl.consumeCalculatorCoins()
