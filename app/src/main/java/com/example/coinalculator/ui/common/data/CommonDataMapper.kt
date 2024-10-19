@@ -5,8 +5,9 @@ import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.common.data.room.Coin
 
 class CommonDataMapper {
-    fun toCoinEntity(coin: Coin) : CoinEntity {
+    fun toCoinEntity(coin: Coin): CoinEntity {
         return CoinEntity(
+            symbol = coin.symbol,
             name = coin.name,
             image = coin.image,
             price = coin.price,
@@ -19,8 +20,9 @@ class CommonDataMapper {
         )
     }
 
-    fun toCoin(coinEntity: CoinEntity) : Coin {
+    fun toCoin(coinEntity: CoinEntity): Coin {
         return Coin(
+            symbol = coinEntity.symbol,
             name = coinEntity.name,
             image = coinEntity.image,
             price = coinEntity.price,
@@ -33,18 +35,17 @@ class CommonDataMapper {
         )
     }
 
-    fun toCalculator (entity: Coin) : DomainEntity {
-            return DomainEntity(
-            name = entity.name,
+    fun toCalculator(entity: Coin): DomainEntity {
+        return DomainEntity(
+            symbol = entity.symbol,
             price = entity.price
         )
     }
 
-    fun rubToEntity(coin: RubDTO, name: String) : DomainEntity {
+    fun rubToEntity(coin: RubDTO, name: String): DomainEntity {
         return DomainEntity(
-            name = name,
+            symbol = name,
             price = coin.price.usd
         )
     }
 }
-

@@ -83,7 +83,6 @@ class CoinCardFragment : Fragment() {
         binding.PriceChange.visibility = View.VISIBLE
 
         binding.price.text = coin.price.toString()
-        binding.priceText.visibility = View.VISIBLE
         binding.price.visibility = View.VISIBLE
 
         binding.image.load(coin.image)
@@ -135,7 +134,6 @@ class CoinCardFragment : Fragment() {
 
     private fun renderLoading() {
         binding.name.visibility = View.GONE
-        binding.priceText.visibility = View.GONE
         binding.price.visibility = View.GONE
         binding.PriceChange.visibility = View.GONE
         binding.image.visibility = View.GONE

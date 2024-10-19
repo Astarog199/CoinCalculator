@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import com.example.coinalculator.databinding.FragmentCalculatorBinding
-import com.example.coinalculator.ui.calculator.presently.adapter.СalculatorAdapter
+import com.example.coinalculator.ui.calculator.presently.adapter.CalculatorAdapter
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ class CalculatorFragment : Fragment() {
     private var _binding: FragmentCalculatorBinding? = null
     private val binding get() = _binding!!
     private val scope = CoroutineScope(Dispatchers.Main)
-    private val adapter = СalculatorAdapter(
+    private val adapter = CalculatorAdapter(
         textChange = { arg, item -> onTextChange(arg, item) },
         showError = { exception -> showErrorTextChange(exception) }
     )
@@ -75,7 +75,6 @@ class CalculatorFragment : Fragment() {
     private fun showLoading() {
         binding.recyclerView.visibility = View.GONE
         binding.instruction.visibility = View.GONE
-        binding.icon.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -86,10 +85,8 @@ class CalculatorFragment : Fragment() {
 
         if (viewModel.showInstructions()){
             binding.instruction.visibility = View.VISIBLE
-            binding.icon.visibility = View.VISIBLE
         } else {
             binding.instruction.visibility = View.GONE
-            binding.icon.visibility = View.GONE
         }
     }
 
@@ -101,7 +98,7 @@ class CalculatorFragment : Fragment() {
 
     private fun onTextChange(arg: Float, item: CoinCalState){
         when {
-            item.name == "rub" -> viewModel.changeVolume(arg / item.price)
+            item.symbol == "rub" -> viewModel.changeVolume(arg / item.price)
             else -> viewModel.changeVolume(arg * item.price)
         }
     }

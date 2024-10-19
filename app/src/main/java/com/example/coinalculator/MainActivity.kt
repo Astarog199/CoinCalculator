@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.coinalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -28,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val toolbar = findNavController(R.id.nav_host_fragment_activity_main)
 

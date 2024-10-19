@@ -24,7 +24,7 @@ class CommonRepositoryImpl(
 ) : CalculatorRepository, CoinsRepository {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
     private var newList: List<CoinsDto> = mutableListOf()
-    private var rub = DomainEntity(name = "rub", price = 0f)
+    private var rub = DomainEntity(symbol = "rub", price = 0f)
     private var _coins : List<Coin> = mutableListOf()
 
     init {
@@ -67,6 +67,7 @@ class CommonRepositoryImpl(
             coinsLocalDataSource.saveMany(
                 newList.map { coin ->
                     NewCoin(
+                        symbol = coin.symbol,
                         name = coin.name,
                         image = coin.image,
                         price = coin.currentPrice,
@@ -125,7 +126,7 @@ class CommonRepositoryImpl(
 
             coins.filter { favorites ->
                 favorites.isFavorite
-            }.map(coinsDataMapper::toCalculator) + DomainEntity(name = "usd", price = 1f) + rub
+            }.map(coinsDataMapper::toCalculator) + DomainEntity(symbol = "usd", price = 1f) + rub
         }
     }
 }

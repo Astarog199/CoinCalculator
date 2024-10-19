@@ -5,7 +5,7 @@ import com.example.coinalculator.ui.calculator.domain.DomainEntity
 class CalcStateMapper () {
     fun toCoinCalState(coinCalculator: DomainEntity) : CoinCalState {
         return CoinCalState(
-            name = coinCalculator.name,
+            symbol = coinCalculator.symbol,
             price = coinCalculator.price
         )
     }

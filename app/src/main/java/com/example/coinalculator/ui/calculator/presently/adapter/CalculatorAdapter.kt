@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coinalculator.databinding.CalculatorItemBinding
 import com.example.coinalculator.ui.calculator.presently.states.CoinCalState
 
-class СalculatorAdapter(
+class CalculatorAdapter(
     private val textChange:(Float, CoinCalState) -> Unit,
     private val showError: (Exception) -> Unit
 ) : RecyclerView.Adapter<CalculatorHolder>() {

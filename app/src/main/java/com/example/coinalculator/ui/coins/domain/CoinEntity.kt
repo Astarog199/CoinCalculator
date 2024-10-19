@@ -1,6 +1,7 @@
 package com.example.coinalculator.ui.coins.domain
 
 class CoinEntity(
+    val symbol: String,
     val name: String,
     val image: String,
     val price: Float,

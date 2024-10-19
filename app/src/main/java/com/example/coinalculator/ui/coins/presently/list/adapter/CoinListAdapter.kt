@@ -47,12 +47,23 @@ class CoinListAdapter(
         return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
     }
 
+    private fun getCost(item: Float?): String {
+        return when {
+            item!! < 0.01 -> String.format("%.4f", item).replace(',', '.')
+            item < 0.0001 -> "< 0.0001"
+            item > 9999 ->  String.format("%.0f", item).replace(',', '.') +" $"
+            else -> {
+                String.format("%.2f", item).replace(',', '.') +" $"
+            }
+        }
+    }
+
     override fun onBindViewHolder(holder: CoinListHolder, position: Int) {
         val item = values.getOrNull(position)
         with(holder.binding){
             image.load(item?.image)
             title.text = item?.name
-            price.text = "${item?.price} $"
+            price.text = getCost(item?.price)
                 priceChange24h.text = formatChange24h(item?.priceChange24h, item?.pricePercentageChange24h, holder)
 
         }

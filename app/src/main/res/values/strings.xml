@@ -4,7 +4,7 @@
     <string name="title_CoinsList">Coins</string>
     <string name="title_Portfolio">Cryptocurrency Portfolio</string>
     <string name="coin_card">Coin card</string>
-    <string name="instruction">To add a coin, click</string>
+    <string name="instruction">To add an asset, go to the coins section</string>
     <string name="add_to_calculator">Add to calculator</string>
     <string name="remove_to_calculator">Remove to calculator</string>
 </resources>

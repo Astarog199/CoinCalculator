@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DomainEntity (
-    val name : String,
+    val symbol : String,
     val price: Float,
 )

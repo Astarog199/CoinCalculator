@@ -17,16 +17,11 @@
         android:label="@string/title_CoinsList"
         tools:layout="@layout/fragment_dashboard" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.coinalculator.ui.favorite.presently.FavoriteFragment"
-        android:label="@string/title_Portfolio"
-        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_card"
         android:name="com.example.coinalculator.ui.coins.presently.card.CoinCardFragment"
-        android:label="@string/coin_card"
+        android:label=""
         tools:layout="@layout/fragment_coin_card"
         />
 

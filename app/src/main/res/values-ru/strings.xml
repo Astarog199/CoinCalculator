@@ -5,7 +5,7 @@
     <string name="title_CoinsList">Монеты</string>
     <string name="title_Portfolio">Кошелёк</string>
     <string name="coin_card">Подробная информация</string>
-    <string name="instruction">Чтобы добавить монету, нажмите</string>
+    <string name="instruction">чтобы добавить актив перейдите в раздел монеты</string>
     <string name="add_to_calculator">Добавить в калькулятор</string>
     <string name="remove_to_calculator">Убрать из калькулятора</string>
 </resources>

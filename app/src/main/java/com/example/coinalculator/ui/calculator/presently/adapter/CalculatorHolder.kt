@@ -22,7 +22,7 @@ class CalculatorHolder(
 
     fun bind(item: CoinCalState?) {
         with(binding) {
-            text.text = item?.name
+            text.text = item?.symbol
             editText.setText("")
             editText.setText(getCost(item))
             editText.hint = getCost(item)
@@ -67,10 +67,10 @@ class CalculatorHolder(
         stateTextTracking = false
 
         return when {
-            item?.name == "rub" -> String.format("%.2f", item.price * item.value).replace(',', '.')
-            item?.name == "usdt" -> String.format("%.2f", item?.getPriceValue()).replace(',', '.')
-            item?.getPriceValue()!! < 0.0001 -> "> 0.0001"
-
+            item?.getPriceValue()!! < 0.0001 -> "< 0.0001"
+            item.getPriceValue() > 9999999999 -> "> 9999999999"
+            item.getPriceValue() > 999999999 -> String.format("%.1f", item?.getPriceValue()).replace(',', '.')
+            item.symbol == "rub" || item.symbol == "usd" -> String.format("%.2f", item.price * item.value).replace(',', '.')
             else -> {
                 String.format("%.4f", item?.getPriceValue()).replace(',', '.')
             }

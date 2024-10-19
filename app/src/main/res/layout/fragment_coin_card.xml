@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.coins.presently.card.CoinCardFragment"
+    android:padding="16dp"
     android:id="@+id/CoinCardFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -14,90 +15,73 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="30dp"
+        android:layout_marginEnd="10dp"
         />
-
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="120dp"
         android:text="Coin Name"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toBottomOf="@+id/image"
         app:layout_constraintTop_toTopOf="@+id/image" />
 
     <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <TextView
         android:id="@+id/Price_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:text="Value"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@+id/image" />
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/price"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <TextView
         android:id="@+id/marketCapText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="14dp"
+        android:layout_marginTop="60dp"
         android:text="Market cap"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/priceText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
 
     <TextView
         android:id="@+id/marketCapValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="14dp"
         android:text="Value"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/Price_change"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        app:layout_constraintBottom_toBottomOf="@+id/marketCapText"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/marketCapText" />
 
 
-    <TextView
-        android:id="@+id/priceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="14dp"
-        android:text="Price"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/image" />
-
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="14dp"
-        android:text="Value"
-        android:textSize="18sp"
-
-        app:layout_constraintStart_toStartOf="@+id/Price_change"
-        app:layout_constraintTop_toTopOf="@+id/priceText" />
-
-
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addToСalculator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:padding="14dp"
+        app:cornerRadius="8dp"
         android:text="@string/add_to_calculator"
-        android:textSize="18sp"
-        android:layout_marginBottom="65dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
      />
@@ -111,5 +95,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

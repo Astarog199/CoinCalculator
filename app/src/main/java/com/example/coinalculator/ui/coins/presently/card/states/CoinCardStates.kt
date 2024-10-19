@@ -1,6 +1,7 @@
 package com.example.coinalculator.ui.coins.presently.card.states
 
 data class CoinCardStates (
+    val symbol: String = "",
     val name: String = "",
     val image: String = "",
     val price: Float = 0f,

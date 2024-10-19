@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 class CoinDetailsStatesMapper() {
     fun toCoinCardStates(coin: CoinEntity): CoinCardStates {
         return CoinCardStates(
+            symbol = coin.symbol,
             name = coin.name,
             image = coin.image,
             price = coin.price,
@@ -20,6 +21,7 @@ class CoinDetailsStatesMapper() {
 
     fun toCoinDetails(coin: CoinCardStates) : CoinEntity {
         return CoinEntity(
+            symbol = coin.symbol,
             name = coin.name,
             image = coin.image,
             price = coin.price,

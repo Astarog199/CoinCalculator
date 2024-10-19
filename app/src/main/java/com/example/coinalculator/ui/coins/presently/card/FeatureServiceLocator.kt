@@ -5,7 +5,6 @@ import com.example.coinalculator.ServiceLocator
 import com.example.coinalculator.ui.coins.presently.card.states.CoinDetailsStatesMapper
 
 object FeatureServiceLocator {
-
     fun provideCoinCardViewModelFactory(productId: String) : ViewModelProvider.Factory{
         return CoinCardViewModelFactory(
             consumeCoinCard = ServiceLocator.provideConsumeCoinCardUseCase(),
