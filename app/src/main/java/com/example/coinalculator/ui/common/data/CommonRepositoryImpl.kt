@@ -28,18 +28,11 @@ class CommonRepositoryImpl(
     private var _coins : List<Coin> = mutableListOf()
 
     init {
-        refresh()
-    }
-
-    private fun refresh() {
         scope.launch(Dispatchers.Default) {
             rub = getRUB()
-            while (true) {
-                requestListFromApiService()
-                fillRepository()
-                updateValueForList(_coins)
-                delay(60000L)// 60 seconds
-            }
+            requestListFromApiService()
+            fillRepository()
+            updateValueForList(_coins)
         }
     }
 
@@ -122,9 +115,8 @@ class CommonRepositoryImpl(
     }
 
     override fun consumeCalculatorCoins(): Flow<List<DomainEntity>> {
-        return getList().map { coins ->
-
-            coins.filter { favorites ->
+        return getList().map {
+            it.filter { favorites ->
                 favorites.isFavorite
             }.map(coinsDataMapper::toCalculator) + DomainEntity(symbol = "usd", price = 1f) + rub
         }

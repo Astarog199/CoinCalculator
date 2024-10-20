@@ -27,51 +27,15 @@ class CoinListAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onClick = onClick
         )
     }
 
     override fun getItemCount(): Int = values.size
 
-    private fun formatChange24h(value: Float?, valuePercent: Float?, holder: CoinListHolder) : String {
-
-        val green = ContextCompat.getColor(applicationContext, R.color.green)
-        val red = ContextCompat.getColor(applicationContext, R.color.red)
-
-        if (value != null && value < 0f){
-            holder.binding.priceChange24h.setTextColor(red)
-        }else{
-            holder.binding.priceChange24h.setTextColor(green)
-        }
-
-        return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
-    }
-
-    private fun getCost(item: Float?): String {
-        return when {
-            item!! < 0.01 -> String.format("%.4f", item).replace(',', '.')
-            item < 0.0001 -> "< 0.0001"
-            item > 9999 ->  String.format("%.0f", item).replace(',', '.') +" $"
-            else -> {
-                String.format("%.2f", item).replace(',', '.') +" $"
-            }
-        }
-    }
-
     override fun onBindViewHolder(holder: CoinListHolder, position: Int) {
         val item = values.getOrNull(position)
-        with(holder.binding){
-            image.load(item?.image)
-            title.text = item?.name
-            price.text = getCost(item?.price)
-                priceChange24h.text = formatChange24h(item?.priceChange24h, item?.pricePercentageChange24h, holder)
-
-        }
-
-        holder.binding.root.setOnClickListener{
-            item?.let {
-                onClick(item)
-            }
-        }
+        holder.bind(item)
     }
 }

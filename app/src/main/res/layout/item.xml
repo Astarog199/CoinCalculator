@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
     android:id="@+id/item_dashboard"
+    android:layout_marginTop="10dp"
     >
 
     <androidx.appcompat.widget.AppCompatImageView

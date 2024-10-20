@@ -67,7 +67,9 @@ class CalculatorHolder(
         stateTextTracking = false
 
         return when {
-            item?.getPriceValue()!! < 0.0001 -> "< 0.0001"
+            item?.price == null || item.price == 0f -> "0.0"
+            item.getPriceValue() == 0f -> "0.0"
+            item.getPriceValue() < 0.0001 -> "< 0.0001"
             item.getPriceValue() > 9999999999 -> "> 9999999999"
             item.getPriceValue() > 999999999 -> String.format("%.1f", item?.getPriceValue()).replace(',', '.')
             item.symbol == "rub" || item.symbol == "usd" -> String.format("%.2f", item.price * item.value).replace(',', '.')

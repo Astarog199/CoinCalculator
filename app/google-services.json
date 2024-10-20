@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "624052657423",
+    "project_id": "fb-coin-calculator",
+    "storage_bucket": "fb-coin-calculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624052657423:android:bf2317816207f75608727a",
+        "android_client_info": {
+          "package_name": "com.example.coinalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmWzSVR0srNxHSg-nLAL_YYReJ1JMpBJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
