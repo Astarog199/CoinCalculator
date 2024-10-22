@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.calculator.presently
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coinalculator.App
 import kotlinx.coroutines.launch
 import com.example.coinalculator.databinding.FragmentCalculatorBinding
 import com.example.coinalculator.ui.calculator.presently.adapter.CalculatorAdapter
@@ -19,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import java.lang.Exception
+import javax.inject.Inject
 
 class CalculatorFragment : Fragment() {
 
@@ -30,9 +33,18 @@ class CalculatorFragment : Fragment() {
         showError = { exception -> showErrorTextChange(exception) }
     )
 
-    private val viewModel: CalculatorViewModel by viewModels(
-        factoryProducer = { FeatureServiceLocator.provideViewModel() }
-    )
+    @Inject
+    lateinit var viewModelFactory: CalculatorViewModelFactory
+
+    private val viewModel: CalculatorViewModel by viewModels { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.applicationContext as App).appComponent
+            .calculatorFragmentFactory()
+            .create()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -63,7 +63,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.bundles.mockTesting)
     androidTestImplementation(libs.androidx.test.ext.junit)
-
+    implementation("androidx.paging:paging-runtime:3.3.2")
     implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
 
@@ -113,4 +113,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
+
+    //dagger
+    implementation("com.google.dagger:dagger:2.48")
+    kapt("com.google.dagger:dagger-compiler:2.48")
 }

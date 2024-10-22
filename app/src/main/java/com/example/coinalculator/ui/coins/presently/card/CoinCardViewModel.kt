@@ -22,13 +22,12 @@ class CoinCardViewModel(
     private val consumeCoinCardUseCase: ConsumeCoinCardUseCase,
     private val coinDetailsStatesMapper: CoinDetailsStatesMapper,
     private val addFavoriteUseCase: ChangeFavoriteStateUseCase,
-    private val coinName: String
 ) : ViewModel() {
     private val _state = MutableStateFlow(CoinCardScreenStates())
     val state: StateFlow<CoinCardScreenStates> = _state.asStateFlow()
 
 
-    fun loadCoinCard() {
+    fun loadCoinCard(coinName: String) {
         consumeCoinCardUseCase(coinName)
             .map { coin ->
                 coinDetailsStatesMapper.toCoinCardStates(coin)
@@ -45,7 +44,7 @@ class CoinCardViewModel(
                 }
             }
             .catch {
-                cheduleRefresh()
+                cheduleRefresh(coinName)
 
                 _state.update { coinCardScreenStates ->
                     coinCardScreenStates.copy(hasError = true)
@@ -54,11 +53,11 @@ class CoinCardViewModel(
             .launchIn(viewModelScope)
     }
 
-    private suspend fun cheduleRefresh() {
+    private suspend fun cheduleRefresh(coinName: String) {
         viewModelScope.launch {
             delay(5000)
             clearError()
-            loadCoinCard()
+            loadCoinCard(coinName)
         }
     }
 

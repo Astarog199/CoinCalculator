@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.coins.presently.list
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coinalculator.App
 import com.example.coinalculator.R
 import com.example.coinalculator.databinding.FragmentDashboardBinding
 import com.example.coinalculator.ui.coins.presently.list.adapter.CoinListAdapter
@@ -28,6 +30,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
 class CoinListFragment : Fragment() {
@@ -37,10 +40,22 @@ class CoinListFragment : Fragment() {
 
     private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
-    private val adapter = CoinListAdapter { coinState -> onItemClick(coinState) }
+    private val adapter = CoinListAdapter { coinState -> onItemClick(coinState)}
 
-    private val viewModel by viewModels<CoinListViewModel> {
-        FeatureServiceLocator.provideCoinsViewModelFactory()
+    @Inject
+    lateinit var viewModelFactory: CoinListViewModelFactory
+
+    private val viewModel: CoinListViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity?.applicationContext as App).appComponent
+            .coinListFragmentFactory()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(

@@ -1,18 +1,19 @@
 package com.example.coinalculator.ui.coins.presently.list.adapter
 
+import android.content.Context
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.coinalculator.R
-import com.example.coinalculator.ServiceLocator.applicationContext
 import com.example.coinalculator.databinding.ItemBinding
 import com.example.coinalculator.ui.coins.presently.list.states.CoinState
 
 class CoinListHolder(
-    private val binding:ItemBinding,
-    private val onClick: (CoinState) -> Unit
-    ): RecyclerView.ViewHolder(binding.root) {
+    private val binding: ItemBinding,
+    private val onClick: (CoinState) -> Unit,
+    private val context: Context
+): RecyclerView.ViewHolder(binding.root) {
     fun bind(item: CoinState?) {
         with(binding){
             image.load(item?.image)
@@ -43,8 +44,8 @@ class CoinListHolder(
 
     private fun formatChange24h(value: Float?, valuePercent: Float?,) : String {
 
-        val green = ContextCompat.getColor(applicationContext, R.color.green)
-        val red = ContextCompat.getColor(applicationContext, R.color.red)
+        val green = ContextCompat.getColor(context, R.color.green)
+        val red = ContextCompat.getColor(context, R.color.red)
 
         if (value != null && value < 0f){
             binding.priceChange24h.setTextColor(red)

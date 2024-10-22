@@ -1,5 +1,6 @@
 package com.example.coinalculator.ui.coins.presently.card
 
+import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
+import com.example.coinalculator.App
 import com.example.coinalculator.R
-import com.example.coinalculator.ServiceLocator.applicationContext
 import com.example.coinalculator.databinding.FragmentCoinCardBinding
 import com.example.coinalculator.ui.coins.presently.card.states.CoinCardStates
 import kotlinx.coroutines.CoroutineScope
@@ -21,16 +21,30 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
+import javax.inject.Inject
 
 class CoinCardFragment : Fragment() {
 
     private val scope = CoroutineScope(Dispatchers.IO)
     private var _binding: FragmentCoinCardBinding? = null
     private val binding get() = _binding!!
-    private var itemId = ""
+    private var coinName = ""
 
-    private val viewModel: CoinCardViewModel by viewModels<CoinCardViewModel>{
-        FeatureServiceLocator.provideCoinCardViewModelFactory(itemId)
+    @Inject
+    lateinit var viewModelFactory: CoinCardViewModelFactory
+
+    private val viewModel: CoinCardViewModel by viewModels{
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity?.applicationContext as App).appComponent
+            .coinCardFragmentFactory()
+            .create()
+            .inject(this)
+
     }
 
     override fun onCreateView(
@@ -44,10 +58,10 @@ class CoinCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments.let {
-            itemId = it?.getString("item").toString()
+            coinName = it?.getString("item").toString()
         }
 
-        viewModel.loadCoinCard()
+        viewModel.loadCoinCard(coinName)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.state.collect{ state ->
@@ -103,9 +117,9 @@ class CoinCardFragment : Fragment() {
 
     private fun formatChange24h(value: Float, valuePercent: Float) : String {
         if (value < 0f){
-            binding.PriceChange.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
+            binding.PriceChange.setTextColor(resources.getColor(R.color.red))
         }else{
-            binding.PriceChange.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
+            binding.PriceChange.setTextColor(resources.getColor(R.color.green))
         }
 
         return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"

@@ -3,8 +3,9 @@ package com.example.coinalculator.ui.common.data
 import com.example.coinalculator.ui.calculator.domain.DomainEntity
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.common.data.room.Coin
+import javax.inject.Inject
 
-class CommonDataMapper {
+class CommonDataMapper @Inject constructor() {
     fun toCoinEntity(coin: Coin): CoinEntity {
         return CoinEntity(
             symbol = coin.symbol,
@@ -39,13 +40,6 @@ class CommonDataMapper {
         return DomainEntity(
             symbol = entity.symbol,
             price = entity.price
-        )
-    }
-
-    fun rubToEntity(coin: RubDTO, name: String): DomainEntity {
-        return DomainEntity(
-            symbol = name,
-            price = coin.price.usd
         )
     }
 }

@@ -42,7 +42,6 @@ class CoinCardViewModelTest {
             consumeCoinCardUseCase = ConsumeCoinCardUseCase,
             coinDetailsStatesMapper = coinDetailsStatesMapper,
             addFavoriteUseCase = addFavoriteUseCase,
-            coinName = coinName
         )
     }
 
@@ -52,7 +51,7 @@ class CoinCardViewModelTest {
         whenever(ConsumeCoinCardUseCase.invoke("Bitcoin")).thenReturn(flowOf())
 
         //act
-        sut.loadCoinCard()
+        sut.loadCoinCard("Bitcoin")
 
         //assert
         Assert.assertTrue(sut.state.value.isLoading)
@@ -64,7 +63,7 @@ class CoinCardViewModelTest {
         whenever(ConsumeCoinCardUseCase.invoke("Bitcoin")).thenReturn(loadCoin())
 
         //act
-        sut.loadCoinCard()
+        sut.loadCoinCard("Bitcoin")
 
         //assert
         Assert.assertFalse(sut.state.value.isLoading)
@@ -77,7 +76,7 @@ class CoinCardViewModelTest {
         whenever(ConsumeCoinCardUseCase.invoke("Bitcoin")).thenReturn(flow { throw IllegalStateException() })
 
         // act
-        sut.loadCoinCard()
+        sut.loadCoinCard("Bitcoin")
 
         // assert
         Assert.assertTrue(sut.state.value.hasError)
@@ -86,6 +85,7 @@ class CoinCardViewModelTest {
 
     private fun loadCoin() : Flow<CoinEntity> {
         return flowOf( CoinEntity (
+            symbol = "btc",
             name = "Bitcoin",
             image  = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
             price  = 58888f,

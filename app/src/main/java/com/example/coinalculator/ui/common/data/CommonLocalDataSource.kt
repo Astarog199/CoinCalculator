@@ -4,8 +4,9 @@ import com.example.coinalculator.ui.common.data.room.CoinDao
 import com.example.coinalculator.ui.common.data.room.Coin
 import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class CommonLocalDataSource(private val coinDao: CoinDao) {
+class CommonLocalDataSource @Inject constructor(private val coinDao: CoinDao) {
 
     fun consume(): Flow<List<Coin>> {
         return coinDao.getALL()

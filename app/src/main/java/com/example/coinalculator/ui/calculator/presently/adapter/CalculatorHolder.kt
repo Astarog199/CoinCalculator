@@ -69,10 +69,10 @@ class CalculatorHolder(
         return when {
             item?.price == null || item.price == 0f -> "0.0"
             item.getPriceValue() == 0f -> "0.0"
-            item.getPriceValue() < 0.0001 -> "< 0.0001"
-            item.getPriceValue() > 9999999999 -> "> 9999999999"
-            item.getPriceValue() > 999999999 -> String.format("%.1f", item?.getPriceValue()).replace(',', '.')
+            item.getPriceValue() > 9999999999.0 -> "> 9999999999"
             item.symbol == "rub" || item.symbol == "usd" -> String.format("%.2f", item.price * item.value).replace(',', '.')
+            item.getPriceValue() < 0.0001 -> "< 0.0001"
+            item.getPriceValue() > 999999999.0 -> String.format("%.1f", item?.getPriceValue()).replace(',', '.')
             else -> {
                 String.format("%.4f", item?.getPriceValue()).replace(',', '.')
             }

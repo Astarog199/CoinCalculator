@@ -9,11 +9,4 @@ interface CommonApiService {
     @Headers("X-API_KEY: CG-MZ9cPh1mmN1AUaGQbURE1ZeH&vs_currency=usd")
     @GET("coins/markets?vs_currency=usd")
     fun getCoinList(): Call<List<CoinsDto>>
-
-    @Headers("X-API_KEY: CG-MZ9cPh1mmN1AUaGQbURE1ZeH&vs_currency=usd")
-    @GET("simple/price")
-    fun getRub(
-        @Query("ids") ids: String,
-        @Query("vs_currencies") vsCurrencies: String
-    ): Call<RubDTO>
 }

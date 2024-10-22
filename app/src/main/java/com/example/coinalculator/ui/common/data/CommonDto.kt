@@ -39,13 +39,3 @@ data class Roi(
     val currency: String,
     val percentage: Float
 )
-
-@JsonClass(generateAdapter = true)
-data class RubDTO (
-    @Json(name = "usd") val price: Rub
-)
-
-@JsonClass(generateAdapter = true)
-data class Rub (
-    @Json(name = "rub") val usd: Float
-)

@@ -1,8 +1,9 @@
 package com.example.coinalculator.ui.coins.presently.list.states
 
 import com.example.coinalculator.ui.coins.domain.CoinEntity
+import javax.inject.Inject
 
-class CoinStateMapper () {
+class CoinStateMapper @Inject constructor() {
     fun toCoinState(coin: CoinEntity) : CoinState {
         return CoinState(
             name = coin.name,

@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.coinalculator.ui.coins.domain.ConsumeCoinListUseCase
 import com.example.coinalculator.ui.coins.domain.FilterCoinsListUseCase
 import com.example.coinalculator.ui.coins.presently.list.states.CoinStateMapper
+import javax.inject.Inject
 
-class CoinListViewModelFactory(
+class CoinListViewModelFactory @Inject constructor(
     private val coinStateMapper: CoinStateMapper,
     private val consumeCoinsUseCase: ConsumeCoinListUseCase,
     private val filterCoinsListUseCase: FilterCoinsListUseCase
