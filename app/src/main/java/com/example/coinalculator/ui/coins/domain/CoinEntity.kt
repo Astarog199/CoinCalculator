@@ -10,5 +10,9 @@ class CoinEntity(
     val marketCap: Long,
     val marketCapRank: Int,
     val totalVolume: Long,
+    val high24h: Float,
+    val low24h: Float,
+    val totalSupply: Float,
+    val maxSupply: Float?,
     val isFavorite: Boolean
 )

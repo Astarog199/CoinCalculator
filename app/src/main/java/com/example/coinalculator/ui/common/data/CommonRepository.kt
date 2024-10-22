@@ -3,7 +3,6 @@ package com.example.coinalculator.ui.common.data
 import com.example.coinalculator.ui.calculator.domain.DomainEntity
 import com.example.coinalculator.ui.coins.domain.CoinEntity
 import com.example.coinalculator.ui.common.data.room.Coin
-import com.example.coinalculator.ui.common.data.room.NewCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 class CommonRepository @Inject constructor(
     private val coinsRemoteDataSource: CommonRemoteDataSource,
-    private val coinsDataMapper: CommonDataMapper,
+    private val mapper: CommonDataMapper,
     private val coinsLocalDataSource: CommonLocalDataSource,
     private val coroutineDispatcher: CoroutineDispatcher,
 ) {
@@ -50,19 +49,7 @@ class CommonRepository @Inject constructor(
     private fun saveList() {
         scope.launch {
             coinsLocalDataSource.saveMany(
-                newList.map { coin ->
-                    NewCoin(
-                        symbol = coin.symbol,
-                        name = coin.name,
-                        image = coin.image,
-                        price = coin.currentPrice,
-                        pricePercentageChange24h = coin.priceChangePercentage24h,
-                        priceChange24h = coin.priceChange24h,
-                        marketCap = coin.marketCap,
-                        marketCapRank = coin.marketCapRank,
-                        totalVolume = coin.totalVolume
-                    )
-                }
+                newList.map(mapper::toNewCoin)
             )
         }
     }
@@ -83,6 +70,10 @@ class CommonRepository @Inject constructor(
                             marketCap = i.marketCap,
                             marketCapRank = i.marketCapRank,
                             totalVolume = i.totalVolume,
+                            high24h = i.high24h,
+                            low24h = i.low24h,
+                            totalSupply = i.totalSupply,
+                            maxSupply = i.maxSupply,
                         )
                     )
                 }
@@ -93,12 +84,12 @@ class CommonRepository @Inject constructor(
     fun consumeCoins(): Flow<List<CoinEntity>> {
         return getList()
             .map { coins ->
-                coins.map(coinsDataMapper::toCoinEntity)
+                coins.map(mapper::toCoinEntity)
             }
     }
 
     suspend fun changeFavoriteState(coin: CoinEntity) {
-        val value = coinsDataMapper.toCoin(coin)
+        val value = mapper.toCoin(coin)
         coinsLocalDataSource.addFavorite(value)
     }
 
@@ -106,7 +97,7 @@ class CommonRepository @Inject constructor(
         return getList().map {
             it.filter { favorites ->
                 favorites.isFavorite
-            }.map(coinsDataMapper::toCalculator)
+            }.map(mapper::toCalculator)
         }
     }
 }

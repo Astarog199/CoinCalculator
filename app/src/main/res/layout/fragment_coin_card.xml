@@ -52,14 +52,74 @@
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <TextView
-        android:id="@+id/marketCapText"
+        android:id="@+id/marketCapRankText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Market cap"
+        android:text="Market cap rank"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/marketCapRankValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/marketCapRankText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/marketCapRankText" />
+
+    <TextView
+        android:id="@+id/TotalSupplyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="total supply"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marketCapRankText" />
+
+    <TextView
+        android:id="@+id/TotalSupplyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/TotalSupplyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TotalSupplyText" />
+
+    <TextView
+        android:id="@+id/maxSupply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="max supply"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TotalSupplyText" />
+
+    <TextView
+        android:id="@+id/maxSupplyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/maxSupply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/maxSupply" />
+
+    <TextView
+        android:id="@+id/marketCapText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Market cap"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxSupply" />
 
 
     <TextView
@@ -72,6 +132,66 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/marketCapText" />
+
+    <TextView
+        android:id="@+id/totalVolumeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Total volume"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marketCapText" />
+
+    <TextView
+        android:id="@+id/totalVolumeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalVolumeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalVolumeText" />
+
+    <TextView
+        android:id="@+id/high_24hText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="high 24h"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalVolumeText" />
+
+    <TextView
+        android:id="@+id/high_24hValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/high_24hText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/high_24hText" />
+
+    <TextView
+        android:id="@+id/low_24hText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="low 24h"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/high_24hText" />
+
+    <TextView
+        android:id="@+id/low_24hValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/low_24hText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/low_24hText" />
 
 
     <com.google.android.material.button.MaterialButton

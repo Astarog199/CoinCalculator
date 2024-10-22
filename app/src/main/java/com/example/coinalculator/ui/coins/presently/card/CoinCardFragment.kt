@@ -106,6 +106,10 @@ class CoinCardFragment : Fragment() {
         binding.marketCapValue.visibility = View.VISIBLE
         binding.marketCapText.visibility = View.VISIBLE
 
+        binding.marketCapRankValue.text = coin.marketCapRank.toString()
+        binding.marketCapRankValue.visibility = View.VISIBLE
+        binding.marketCapRankText.visibility = View.VISIBLE
+
         binding.progress.visibility = View.GONE
 
         if (coin.isFavorite){
@@ -151,6 +155,8 @@ class CoinCardFragment : Fragment() {
         binding.price.visibility = View.GONE
         binding.PriceChange.visibility = View.GONE
         binding.image.visibility = View.GONE
+        binding.marketCapRankValue.visibility = View.GONE
+        binding.marketCapRankText.visibility = View.GONE
 
         binding.progress.visibility = View.VISIBLE
     }
