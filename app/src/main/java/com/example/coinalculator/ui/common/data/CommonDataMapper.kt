@@ -20,6 +20,7 @@ class CommonDataMapper @Inject constructor() {
             totalVolume = coin.totalVolume,
             high24h = coin.high24h,
             low24h = coin.low24h,
+            circulatingSupply =coin.circulatingSupply,
             totalSupply = coin.totalSupply,
             maxSupply = coin.maxSupply,
         )
@@ -38,6 +39,7 @@ class CommonDataMapper @Inject constructor() {
             totalVolume = coin.totalVolume,
             high24h = coin.high24h,
             low24h = coin.low24h,
+            circulatingSupply = coin.circulatingSupply,
             totalSupply = coin.totalSupply,
             maxSupply = coin.maxSupply,
             isFavorite = coin.isFavorite
@@ -57,6 +59,7 @@ class CommonDataMapper @Inject constructor() {
             totalVolume = coinEntity.totalVolume,
             high24h = coinEntity.high24h,
             low24h = coinEntity.low24h,
+            circulatingSupply =coinEntity.circulatingSupply,
             totalSupply = coinEntity.totalSupply,
             maxSupply = coinEntity.maxSupply,
             isFavorite = coinEntity.isFavorite

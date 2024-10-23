@@ -15,9 +15,10 @@ data class NewCoin(
     @ColumnInfo(name = "marketCap") val marketCap: Long,
     @ColumnInfo(name = "marketCapRank") val marketCapRank: Int,
     @ColumnInfo(name = "totalVolume") val totalVolume: Long,
-    @ColumnInfo(name = "high_24h") val high24h: Float,
-    @ColumnInfo(name = "low_24h") val low24h: Float,
-    @ColumnInfo(name = "total_supply") val totalSupply: Float,
-    @ColumnInfo(name = "max_supply") val maxSupply: Float?,
+    @ColumnInfo(name = "high24h") val high24h: Float,
+    @ColumnInfo(name = "low24h") val low24h: Float,
+    @ColumnInfo(name = "circulatingSupply") val circulatingSupply: Float,
+    @ColumnInfo(name = "totalSupply") val totalSupply: Float,
+    @ColumnInfo(name = "maxSupply") val maxSupply: Float?,
     @ColumnInfo(name = "isFavorite")val isFavorite: Boolean = false
 )

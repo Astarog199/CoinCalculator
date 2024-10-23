@@ -93,22 +93,42 @@ class CoinCardFragment : Fragment() {
         binding.name.text = coin.name
         binding.name.visibility = View.VISIBLE
 
-        binding.PriceChange.text = formatChange24h(coin.priceChange24h, coin.pricePercentageChange24h)
-        binding.PriceChange.visibility = View.VISIBLE
+        binding.priceChange.text = formatChange24h(coin.priceChange24h, coin.pricePercentageChange24h)
+        binding.priceChange.visibility = View.VISIBLE
 
-        binding.price.text = coin.price.toString()
+        binding.price.text = formatNumber(coin.price)
         binding.price.visibility = View.VISIBLE
 
         binding.image.load(coin.image)
         binding.image.visibility = View.VISIBLE
 
-        binding.marketCapValue.text = formatMarketCap(coin.marketCap)
-        binding.marketCapValue.visibility = View.VISIBLE
-        binding.marketCapText.visibility = View.VISIBLE
-
         binding.marketCapRankValue.text = coin.marketCapRank.toString()
         binding.marketCapRankValue.visibility = View.VISIBLE
         binding.marketCapRankText.visibility = View.VISIBLE
+
+        binding.circulatingSupplyValue.text = formatSupplyValue(coin.circulatingSupply)
+        binding.circulatingSupplyText.visibility = View.VISIBLE
+        binding.circulatingSupplyText.visibility = View.VISIBLE
+
+        binding.totalSupplyValue.text = formatSupplyValue(coin.totalSupply)
+        binding.totalSupplyText.visibility = View.VISIBLE
+        binding.totalSupplyValue.visibility = View.VISIBLE
+
+        binding.maxSupplyValue.text = formatSupplyValue(coin.maxSupply)
+        binding.maxSupply.visibility = View.VISIBLE
+        binding.maxSupplyValue.visibility = View.VISIBLE
+
+        binding.marketCapValue.text = formatNumber(coin.marketCap)
+        binding.marketCapValue.visibility = View.VISIBLE
+        binding.marketCapText.visibility = View.VISIBLE
+
+        binding.totalVolumeValue.text = formatNumber(coin.totalVolume)
+        binding.totalVolumeText.visibility = View.VISIBLE
+        binding.totalVolumeValue.visibility = View.VISIBLE
+
+        binding.dailyRangeValue.text = stringDailyRange(coin.low24h, coin.high24h)
+        binding.dailyRangeValue.visibility = View.VISIBLE
+        binding.dailyRangeText.visibility = View.VISIBLE
 
         binding.progress.visibility = View.GONE
 
@@ -119,18 +139,34 @@ class CoinCardFragment : Fragment() {
         }
     }
 
+    private fun stringDailyRange(low24h: Float, high24h:Float): String {
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 0
+
+       return " ${formatter.format(low24h)} - ${formatter.format(high24h)} "
+    }
+
+    private fun formatSupplyValue(value: Float) : String {
+        return if (value != 0f) {
+            formatNumber(value).replace("$", "")
+        } else{
+            "∞"
+        }
+    }
+
     private fun formatChange24h(value: Float, valuePercent: Float) : String {
         if (value < 0f){
-            binding.PriceChange.setTextColor(resources.getColor(R.color.red))
+            binding.priceChange.setTextColor(resources.getColor(R.color.red))
         }else{
-            binding.PriceChange.setTextColor(resources.getColor(R.color.green))
+            binding.priceChange.setTextColor(resources.getColor(R.color.green))
         }
 
         return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
     }
 
-    private fun formatMarketCap(value: Long) : String {
-        var v = value
+    private fun formatNumber(value: Number) : String {
+        var v = value.toLong()
 
         var sizeOfNumber = 0
         while (v > 10000){
@@ -138,25 +174,34 @@ class CoinCardFragment : Fragment() {
             sizeOfNumber++
         }
         val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-        formatter.maximumFractionDigits = 0
-        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 1
 
         return when  {
-            sizeOfNumber >= 9 -> formatter.format(value/1000000000) + " T"
+            sizeOfNumber >= 9 -> formatter.format(value.toLong()/1000000000) + " T"
 
-            sizeOfNumber >= 6 -> formatter.format(value/1000000) + " B"
+            sizeOfNumber >= 6 -> formatter.format(value.toLong()/1000000) + " B"
 
-            else -> formatter.format(value) + " $"
+            else -> formatter.format(value)
         }
     }
 
     private fun renderLoading() {
+        binding.image.visibility = View.GONE
         binding.name.visibility = View.GONE
         binding.price.visibility = View.GONE
-        binding.PriceChange.visibility = View.GONE
-        binding.image.visibility = View.GONE
+        binding.priceChange.visibility = View.GONE
         binding.marketCapRankValue.visibility = View.GONE
         binding.marketCapRankText.visibility = View.GONE
+        binding.totalSupplyValue.visibility = View.GONE
+        binding.totalSupplyValue.visibility = View.GONE
+        binding.maxSupply.visibility = View.GONE
+        binding.maxSupplyValue.visibility = View.GONE
+        binding.marketCapText.visibility = View.GONE
+        binding.marketCapValue.visibility = View.GONE
+        binding.totalVolumeText.visibility = View.GONE
+        binding.totalVolumeValue.visibility = View.GONE
+        binding.dailyRangeText.visibility = View.GONE
 
         binding.progress.visibility = View.VISIBLE
     }

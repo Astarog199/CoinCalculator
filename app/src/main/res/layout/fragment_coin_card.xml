@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="120dp"
-        android:text="Coin Name"
+        android:text="@string/name"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/image"
@@ -36,17 +36,17 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name" />
 
     <TextView
-        android:id="@+id/Price_change"
+        android:id="@+id/price_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintTop_toBottomOf="@+id/price" />
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Market cap rank"
+        android:text="@string/market_cap_rank"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -65,47 +65,67 @@
         android:id="@+id/marketCapRankValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/marketCapRankText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/marketCapRankText" />
 
     <TextView
-        android:id="@+id/TotalSupplyText"
+        android:id="@+id/circulatingSupplyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="total supply"
+        android:text="@string/circulating_supply"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/marketCapRankText" />
 
     <TextView
-        android:id="@+id/TotalSupplyValue"
+        android:id="@+id/circulatingSupplyValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/TotalSupplyText"
+        app:layout_constraintBottom_toBottomOf="@+id/circulatingSupplyText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TotalSupplyText" />
+        app:layout_constraintTop_toTopOf="@+id/circulatingSupplyText" />
+
+    <TextView
+        android:id="@+id/totalSupplyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/total_supply"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circulatingSupplyText" />
+
+    <TextView
+        android:id="@+id/totalSupplyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalSupplyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalSupplyText" />
 
     <TextView
         android:id="@+id/maxSupply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="max supply"
+        android:text="@string/max_supply"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TotalSupplyText" />
+        app:layout_constraintTop_toBottomOf="@+id/totalSupplyText" />
 
     <TextView
         android:id="@+id/maxSupplyValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/maxSupply"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Market cap"
+        android:text="@string/market_cap"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/maxSupply" />
@@ -126,10 +146,9 @@
         android:id="@+id/marketCapValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/marketCapText"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/marketCapText" />
 
@@ -138,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Total volume"
+        android:text="@string/total_volume"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/marketCapText" />
@@ -147,52 +166,31 @@
         android:id="@+id/totalVolumeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/totalVolumeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/totalVolumeText" />
 
     <TextView
-        android:id="@+id/high_24hText"
+        android:id="@+id/dailyRangeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="high 24h"
+        android:text="@string/range_for_24_hours"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalVolumeText" />
 
     <TextView
-        android:id="@+id/high_24hValue"
+        android:id="@+id/dailyRangeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
+        android:text="@string/value"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/high_24hText"
+        app:layout_constraintBottom_toBottomOf="@+id/dailyRangeText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/high_24hText" />
-
-    <TextView
-        android:id="@+id/low_24hText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="low 24h"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/high_24hText" />
-
-    <TextView
-        android:id="@+id/low_24hValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Value"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/low_24hText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/low_24hText" />
-
+        app:layout_constraintTop_toTopOf="@+id/dailyRangeText" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addToСalculator"

@@ -18,6 +18,7 @@ class CoinDetailsStatesMapper @Inject constructor() {
             totalVolume = coin.totalVolume,
             high24h = coin.high24h,
             low24h = coin.low24h,
+            circulatingSupply = coin.circulatingSupply,
             totalSupply = coin.totalSupply,
             maxSupply = coin.maxSupply ?: 0f,
             isFavorite = coin.isFavorite
@@ -37,6 +38,7 @@ class CoinDetailsStatesMapper @Inject constructor() {
             totalVolume = coin.totalVolume,
             high24h = coin.high24h,
             low24h = coin.low24h,
+            circulatingSupply = coin.circulatingSupply,
             totalSupply = coin.totalSupply,
             maxSupply = coin.maxSupply,
             isFavorite = coin.isFavorite

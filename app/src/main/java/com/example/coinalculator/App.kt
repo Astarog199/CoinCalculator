@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.example.coinalculator.di.AppComponent
 import com.example.coinalculator.di.DaggerAppComponent
 import com.example.coinalculator.ui.common.data.room.CoinsDB
+import com.google.firebase.crashlytics.BuildConfig
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class App: Application() {
     lateinit var db: CoinsDB
@@ -19,5 +21,7 @@ class App: Application() {
             CoinsDB::class.java,
             "db"
         ).build()
+
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true// !BuildConfig.DEBUG
     }
 }

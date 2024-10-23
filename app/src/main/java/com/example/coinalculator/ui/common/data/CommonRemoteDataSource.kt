@@ -1,5 +1,7 @@
 package com.example.coinalculator.ui.common.data
 
+import android.util.Log
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import retrofit2.await
 import javax.inject.Inject
 
@@ -8,9 +10,10 @@ class CommonRemoteDataSource @Inject constructor(
 ) {
      suspend fun getList(): List<CoinsDto> {
          return try {
-             coinApi.getCoinList().await()
+                coinApi.getCoinList().await()
          } catch (e: Exception) {
-             println("Error while getting query result from server: $e")
+             FirebaseCrashlytics.getInstance().recordException(e)
+             Log.d("ERROR", "CommonRemoteDataSource: $e")
              emptyList()
          }
      }

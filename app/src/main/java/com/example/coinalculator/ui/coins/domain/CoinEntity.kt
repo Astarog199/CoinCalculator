@@ -12,6 +12,7 @@ class CoinEntity(
     val totalVolume: Long,
     val high24h: Float,
     val low24h: Float,
+    val circulatingSupply: Float,
     val totalSupply: Float,
     val maxSupply: Float?,
     val isFavorite: Boolean

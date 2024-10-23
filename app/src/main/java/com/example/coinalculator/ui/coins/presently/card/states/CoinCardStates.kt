@@ -12,6 +12,7 @@ data class CoinCardStates (
     val totalVolume: Long = 0,
     val high24h: Float = 0f,
     val low24h: Float = 0f,
+    val circulatingSupply: Float = 0f,
     val totalSupply: Float = 0f,
     val maxSupply: Float = 0f,
     val isFavorite: Boolean = false

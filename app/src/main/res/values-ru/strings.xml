@@ -8,4 +8,13 @@
     <string name="instruction">чтобы добавить актив перейдите в раздел монеты</string>
     <string name="add_to_calculator">Добавить в калькулятор</string>
     <string name="remove_to_calculator">Убрать из калькулятора</string>
+    <string name="total_supply">Предложение</string>
+    <string name="value">значение</string>
+    <string name="name">Название</string>
+    <string name="market_cap_rank">Рейтинг по кап-ции</string>
+    <string name="circulating_supply">В обращении</string>
+    <string name="max_supply">Макс объем</string>
+    <string name="market_cap">Капитализация</string>
+    <string name="total_volume">Объем торгов 24ч</string>
+    <string name="range_for_24_hours">Диапазон</string>
 </resources>
