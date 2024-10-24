@@ -36,10 +36,7 @@ class CalculatorViewModel(
             .filter { it.isNotEmpty() }
             .map { coins ->
                 sizeValue = coins.size
-
                 coins.map { coin ->
-                    if (coin.symbol == "btc") amountOfFiatCurrency = coin.price
-
                     calcStateMapper.toCoinCalState(coin)
                         .copy(value = amountOfFiatCurrency)
                 }

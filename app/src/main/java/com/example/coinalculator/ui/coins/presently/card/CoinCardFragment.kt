@@ -140,11 +140,7 @@ class CoinCardFragment : Fragment() {
     }
 
     private fun stringDailyRange(low24h: Float, high24h:Float): String {
-        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-        formatter.maximumFractionDigits = 1
-        formatter.minimumFractionDigits = 0
-
-       return " ${formatter.format(low24h)} - ${formatter.format(high24h)} "
+       return formatNumber(low24h) + " - " + formatNumber(high24h)
     }
 
     private fun formatSupplyValue(value: Float) : String {
@@ -162,7 +158,7 @@ class CoinCardFragment : Fragment() {
             binding.priceChange.setTextColor(resources.getColor(R.color.green))
         }
 
-        return String.format("%.2f",  value) +" $ · " + String.format("%.2f", valuePercent)+ " %"
+        return formatNumber(value) + " · " + String.format("%.2f", valuePercent)+ " %"
     }
 
     private fun formatNumber(value: Number) : String {
@@ -174,13 +170,33 @@ class CoinCardFragment : Fragment() {
             sizeOfNumber++
         }
         val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-        formatter.maximumFractionDigits = 1
-        formatter.minimumFractionDigits = 1
+
+        when{
+            value.toFloat() < 0.0001 -> {
+                formatter.maximumFractionDigits = 6
+                formatter.minimumFractionDigits = 4
+            }
+
+            value.toFloat() < 0.1 -> {
+                formatter.maximumFractionDigits = 4
+                formatter.minimumFractionDigits = 2
+            }
+
+            value.toFloat() < 10000f -> {
+                formatter.maximumFractionDigits = 2
+                formatter.minimumFractionDigits = 2
+            }
+
+            else -> {
+                formatter.maximumFractionDigits = 2
+                formatter.minimumFractionDigits = 0
+            }
+        }
+
 
         return when  {
-            sizeOfNumber >= 9 -> formatter.format(value.toLong()/1000000000) + " T"
-
-            sizeOfNumber >= 6 -> formatter.format(value.toLong()/1000000) + " B"
+            sizeOfNumber >= 9 -> formatter.format(value.toLong()/1000000000) + " " + getString(R.string.trillion)
+            sizeOfNumber >= 6 -> formatter.format(value.toLong()/1000000) + " " + getString(R.string.billion)
 
             else -> formatter.format(value)
         }

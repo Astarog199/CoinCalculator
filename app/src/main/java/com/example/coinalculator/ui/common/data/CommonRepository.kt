@@ -23,13 +23,6 @@ class CommonRepository @Inject constructor(
     private var newList: List<CoinsDto> = mutableListOf()
     private var _coins : List<Coin> = mutableListOf()
 
-    init {
-        scope.launch(Dispatchers.Default) {
-            requestListFromApiService()
-            fillRepository()
-            updateValueForList(_coins)
-        }
-    }
 
     private fun fillRepository() {
         scope.launch {
@@ -72,6 +65,7 @@ class CommonRepository @Inject constructor(
                             totalVolume = i.totalVolume,
                             high24h = i.high24h,
                             low24h = i.low24h,
+                            circulatingSupply = i.circulatingSupply,
                             totalSupply = i.totalSupply,
                             maxSupply = i.maxSupply,
                         )
@@ -82,10 +76,13 @@ class CommonRepository @Inject constructor(
     }
 
     fun consumeCoins(): Flow<List<CoinEntity>> {
-        return getList()
-            .map { coins ->
-                coins.map(mapper::toCoinEntity)
-            }
+        scope.launch(Dispatchers.Default) {
+            requestListFromApiService()
+            fillRepository()
+            updateValueForList(_coins)
+        }
+
+        return getList().map { it.map(mapper::toCoinEntity) }
     }
 
     suspend fun changeFavoriteState(coin: CoinEntity) {

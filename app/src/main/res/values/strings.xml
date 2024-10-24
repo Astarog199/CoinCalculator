@@ -10,10 +10,15 @@
     <string name="total_supply">Total supply</string>
     <string name="value">Value</string>
     <string name="name">Name</string>
+
+    <string name="million"> M</string>
+    <string name="billion"> B</string>
+    <string name="trillion"> T</string>
+
     <string name="market_cap_rank">Market cap rank</string>
     <string name="circulating_supply">Circulating supply</string>
     <string name="max_supply">Max supply</string>
     <string name="market_cap">Market cap</string>
     <string name="total_volume">Total volume</string>
-    <string name="range_for_24_hours">Range for 24 hours</string>
+    <string name="range_for_24_hours">min/max 24h</string>
 </resources>
